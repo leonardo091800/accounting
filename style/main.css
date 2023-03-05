@@ -1,0 +1,38 @@
+<style>
+.mainTable {
+	margin: 20px auto;
+	padding: 10px;
+	width: 80%;
+	max-width: 1000px;
+	border: 1px solid blue;
+}
+th {
+	border-bottom: 1px solid blue;
+}
+td {
+	text-align: center;
+}
+table tr:first-child {
+	background-color: rgba(255, 255, 255, 0.5) /* white */
+}
+table tr:nth-child(even) {
+	background-color: rgba(183, 226, 250, 0.5) /* light blue*/
+}
+table tr:nth-child(odd) {
+	background-color: rgba(173, 216, 250, 0.5) /* light blue*/
+}
+table tr.selected {
+	background-color: rgba(180, 250, 180, 0.5) /* light green*/
+}
+td.deleteButton {
+	width: 20%;
+	max-width: 100px;
+	border-right: 1px solid blue;
+}
+button.deleteButton {
+	width: 50%;
+	min-width: 50px;
+	background-color: rgba(255, 114, 118, 0.5) /* light red */
+}
+
+</style>
