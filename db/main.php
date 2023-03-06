@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 class db {
+
 	/* 
 	 * Connect
 	 */
@@ -37,22 +38,16 @@ class db {
 	public static function add($table, $parameters) {
 		if(empty($parameters)) {
 			echo "<br> in function db::add parameters need to be an array of [key->value] <br>";
+			exit;
 		}
 		if(empty($table) || $table=='') {
 			echo "<br> in function db::add table needs to be given <br>";
+			exit;
 		}
 
-		switch($table) {
-		case 'users':
-			if(db::checkIfUserExist($parameters) == 1) {
-				echo "<br> usr already exist! <br>";
-				exit;
-			}
-			break;
-		case 'accounts':
-			// ...
-		default:
-			echo "<br> smt wrong in function db::add <br>";
+		$maybe = new db();
+		if($maybe->checkIfExist($table, $parameters) == 1) {
+			echo "<br> id in $table already exist! <br>";
 			exit;
 		}
 
@@ -63,7 +58,7 @@ class db {
 		$firstKey=array_key_first($parameters);
 		$firstParameter=$parameters[$firstKey];
 
-		$sql_0 = "INSERT INTO $table ($firstKey";
+		$sql_0 = "INSERT INTO $table (`$firstKey`";
 		$sql_1 = " VALUES ('$firstParameter'";
 
 		// rm first parameter from array
@@ -72,7 +67,7 @@ class db {
 
 		// printing other possible parameters with "comma" in between
 		foreach($parameters as $key=>$value) {
-			$sql_0 = $sql_0.",$key";
+			$sql_0 = $sql_0.",`$key`";
 			$sql_1 = $sql_1.",'$value'";
 		}
 
@@ -103,17 +98,8 @@ class db {
 		}
 		$parameters = array('id'=>$id);
 
-		switch($table) {
-		case 'users':
-			if(db::checkIfUserExist($parameters) == 0) {
-				echo "<br> usr does NOT exist! <br>";
-				exit;
-			}
-			break;
-		case 'accounts':
-			// ...
-		default:
-			echo "<br> smt wrong in function db::rm <br>";
+		if(db::checkIfExist($table, $parameters) == 0) {
+			echo "<br> the id in $table does NOT exist! <br>";
 			exit;
 		}
 
@@ -137,32 +123,37 @@ class db {
 	 */
 	// parameters must be an array of [key -> value]
 	public static function checkIfExist($table, $parameters) {
+		$global_tables = array('users', 'accounts', 'account_types');
+
+
 		if(empty($parameters)) {
 			echo "<br> in function db::checkIfExist parameters need to be an array of [key->value] <br>";
+			exit;
 		}
 		if(empty($table) || $table=='') {
 			echo "<br> in function db::checkIfExist table needs to be given <br>";
+			exit;
 		}
 
-		if($table=='users') {
-			return db::checkIfUserExist($parameters);
+		if(!in_array($table, $global_tables)) {
+			echo "<br> in function db::checkIfExist table is not recognized <br>";
+			exit;
 		}
-	}
 
-	private static function checkIfUserExist($parameters) {
+		// if checks are ok...
 		$conn = db::connect();
 
 		// creating query with first parameter
 		$firstKey=array_key_first($parameters);
 		$firstParameter=$parameters[$firstKey];
-		$sql = "SELECT id FROM users WHERE $firstKey='$firstParameter'";
+		$sql = "SELECT id FROM $table WHERE `$firstKey`='$firstParameter'";
 
 		// rm first parameter from array
 		unset($parameters[$firstKey]);
 
 		// printing other possible parameters with "AND" in between
 		foreach($parameters as $key=>$value) {
-			$sql = $sql." AND $key='$value'";
+			$sql = $sql." AND `$key`='$value'";
 		}
 		$q=$conn->prepare($sql);
 		$rows = $q->execute();
@@ -177,6 +168,5 @@ class db {
 			return 1;
 		}
 	}
-
 }
 ?>

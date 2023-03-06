@@ -3,11 +3,24 @@ require_once $root_DB_main;
 require_once $root_Errors_main;
 
 $conn = db::connect();
-$sql = "SELECT id, name FROM accounts WHERE `users.id`={$_SESSION['usrSelected']}";
 
+// get accounts
+$sql = "SELECT id, name, `account_types.id` FROM accounts WHERE `users.id`={$_SESSION['usrSelected']}";
 $q=$conn->prepare($sql);
 $rows = $q->execute();
 $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+
+// get account_types...
+$sql = "SELECT id, name FROM account_types";
+$q=$conn->prepare($sql);
+$account_types_arr = $q->execute();
+$account_types_arr = $q->fetchAll(PDO::FETCH_ASSOC);
+print_r($account_types_arr);
+// .. into a single easy array
+$accountTypesArr = array();
+foreach($account_types_arr as $account_type_arr){
+	$accountTypesArr[$account_type_arr['id']] = $account_type_arr['name'];
+}
 
 // print results in table
 echo "
@@ -21,10 +34,17 @@ echo "
 // add row to create Account
 echo "
 <form id='addAccountForm' action='$root_DB_add_HTML' method='get'>
-<input form='addAccountForm' type='hidden' name='table' value='users'>
+<input form='addAccountForm' type='hidden' name='table' value='accounts'>
 <tr><td class='addButton'> 
 <button form='addAccountForm' type='submit' class='addButton'> ADD </button> 
 </td><td> <input form='addAccountForm' class='addInput' name='name' type='text' required> 
+</td><td> <select form='addAccountForm' class='addInput' name='account_types_id' required> 
+	<option disabled selected value> -- select an option -- </option>
+	";
+	foreach($accountTypesArr as $type_id=>$type_name) {
+		echo "<option value='$type_id'>$type_name</option>";
+	}
+echo "
 </td><td>
 </td></tr>
 </form>
@@ -32,15 +52,20 @@ echo "
 
 // print values in table Accounts
 foreach($rows as $row) {
-	if($_SESSION['usrSelected'] == $row['id']) {
-		echo "<tr class='selected'>";
+	if(isset($_SESSION['accountSelected'])) {
+		if($_SESSION['accountSelected'] == $row['id']) {
+			echo "<tr class='selected'>";
+		}
 	} else {
 		echo "<tr>";
 	}
+
+	$current_account_type_id = $row['account_types.id'];
 	echo "
 	<td class='selectButton'> 
 	<a onclick=\"window.location.search += '&SESSION_accountSelected={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
 	</td><td> {$row['name']} 
+	</td><td> {$accountTypesArr[$current_account_type_id]} 
 	</td><td class='rmButton'>
 	";
 

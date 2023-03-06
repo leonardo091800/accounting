@@ -35,8 +35,10 @@ echo "
 
 // print values in table users
 foreach($rows as $row) {
-	if($_SESSION['usrSelected'] == $row['id']) {
-		echo "<tr class='selected'>";
+	if(isset($_SESSION['usrSelected'])) {
+		if($_SESSION['usrSelected'] == $row['id']) {
+			echo "<tr class='selected'>";
+		}
 	} else {
 		echo "<tr>";
 	}
