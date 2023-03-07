@@ -27,6 +27,7 @@ echo "
 <table id='accountTable' class='mainTable'>
 <tr><th> 
 </th><th> Name 
+</th><th> Type
 </th><th> 
 </th></tr>
 ";
@@ -69,16 +70,14 @@ foreach($rows as $row) {
 	</td><td class='rmButton'>
 	";
 
-/*
 // add button to delete Account
 echo "
 <form id='rmAccountForm{$row['id']}' action='$root_DB_rm_HTML' method='get'>
-<input form='rmAccountForm{$row['id']}' type='hidden' name='table' value='users'>
+<input form='rmAccountForm{$row['id']}' type='hidden' name='table' value='accounts'>
 <input form='rmAccountForm{$row['id']}' type='hidden' name='id' value='{$row['id']}'>
 <button form='rmAccountForm{$row['id']}' type='submit' class='rmButton'> REMOVE </button> 
 </form>
 ";
- */
 	echo "
 	</td></tr>
 	";

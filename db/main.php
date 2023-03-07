@@ -106,9 +106,13 @@ class db {
 		// if checks are good
 		$conn = db::connect();
 
-		$sql = "DELETE FROM $table WHERE id='$id'";
-		$q=$conn->prepare($sql);
-		$rows = $q->execute();
+		try {
+			$sql = "DELETE FROM $table WHERE id='$id'";
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+		} catch (Exception $e) {
+			die("server error, report this to the admin: $e");
+		}
 
 		return 0;
 	}
