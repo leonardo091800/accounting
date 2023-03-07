@@ -44,7 +44,7 @@ foreach($rows as $row) {
 	}
 	echo "
 	<td class='selectButton'> 
-	<a onclick=\"window.location.search += '&SESSION_usrSelected={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
+	<a onclick=\"window.location.href = '$root_Pages_storeSessionVariables_HTML?SESSION_usrSelected={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
 	</td><td> {$row['name']} 
 	</td><td> {$row['surname']} 
 	</td><td class='rmButton'>

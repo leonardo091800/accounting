@@ -30,8 +30,12 @@ $root_Modals_main = $root_Modals."main.php";
 
 
 $root_HTML = "/accounting/";
+
 $root_Pages_HTML = $root_HTML."pages/";
+$root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
+
 $root_DB_HTML = $root_HTML."db_public/";
 $root_DB_add_HTML = $root_DB_HTML."add.php";
 $root_DB_rm_HTML = $root_DB_HTML."rm.php";
+
 ?>

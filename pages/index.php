@@ -15,15 +15,22 @@ require_once $root_Style_main;
 Ciao
 
 <?php
+// including the users pages
 require_once $root_Pages_users;
 
+// including the accounts pages
 if(isset($_SESSION['usrSelected'])) {
 	if($_SESSION['usrSelected'] != '') {
 		require_once $root_Pages_accounts;
 	}
 }
 
-// require_once $rootPages.'transactions.php';
+// including the transactions page
+if(isset($_SESSION['usrSelected']) && isset($_SESSION['accountSelected'])) {
+	if($_SESSION['accountSelected'] != '') {
+		require_once $root_Pages_accounts;
+	}
+}
 ?>
 
 </body>
