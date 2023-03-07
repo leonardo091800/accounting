@@ -7,8 +7,14 @@ $conn = db::connect();
 // get accounts
 $sql = "SELECT id, name, `account_types.id` FROM accounts WHERE `users.id`={$_SESSION['usrSelected']}";
 $q=$conn->prepare($sql);
-$rows = $q->execute();
-$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+$accounts = $q->execute();
+$accounts = $q->fetchAll(PDO::FETCH_ASSOC);
+
+// short array version of accounts:
+$accounts_id_name_arr = array();
+foreach($accounts as $account){
+	$accounts_id_name_arr[$account['id']] = $account['name'];
+}
 
 // get account_types...
 $sql = "SELECT id, name FROM account_types";
@@ -52,7 +58,7 @@ echo "
 ";
 
 // print values in table Accounts
-foreach($rows as $row) {
+foreach($accounts as $row) {
 	if(isset($_SESSION['accountSelected'])) {
 		if($_SESSION['accountSelected'] == $row['id']) {
 			echo "<tr class='selected'>";

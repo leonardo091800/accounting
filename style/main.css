@@ -6,6 +6,10 @@
 	max-width: 1000px;
 	border: 1px solid blue;
 }
+#transactionsTable {
+	width: 90%;
+	max-width: 90%;
+}
 th {
 	border-bottom: 1px solid blue;
 }

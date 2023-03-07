@@ -14,7 +14,8 @@ require_once $root_Scripts_showErrors;
 
 $root_Pages = $root."pages/";
 $root_Pages_users = $root_Pages."users.php";
-$root_Pages_accounts= $root_Pages."accounts.php";
+$root_Pages_accounts = $root_Pages."accounts.php";
+$root_Pages_transactions = $root_Pages."transactions.php";
 
 $root_DB = $root."db/";
 $root_DB_main = $root_DB."main.php";
