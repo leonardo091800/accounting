@@ -1,6 +1,7 @@
 <?php
 require_once '/var/www/html/accounting/z.scripts/root.php';
 require_once $root_Scripts_showErrors;
+require_once $root_Scripts_cleanInput;
 ?>
 
 <!DOCTYPE html PUBLIC>
@@ -9,21 +10,29 @@ require_once $root_Scripts_showErrors;
 </head>
 <body>
 <?php
-require_once $root_Scripts_checkSessionVariables;
+if(isset($_GET['SESSION_what']) && isset($_GET['SESSION_value'])) {
+	// cleaning the inputs...
+	$SESSION_what = cleanInput($_GET['SESSION_what']);
+	$SESSION_value = cleanInput($_GET['SESSION_value']);
 
-if(isset($_GET['SESSION_usrSelected'])) {
-	if(checkSessionVariable('usrSelected', $_GET['SESSION_usrSelected']) == 0) {
+	switch($SESSION_what) {
+	case 'usrSelected':
+		$_SESSION['usrSelected'] = $SESSION_value;
 		$_SESSION['accountSelected'] = "";
-		header("Location: $root_HTML");
-	} else {
-		die("something wrong in storeSessionVariables, call the admin");
-	}
-}
-if(isset($_GET['SESSION_accountSelected'])) {
-	if(checkSessionVariable('accountSelected', $_GET['SESSION_accountSelected']) == 0) {
-		header("Location: $root_HTML");
-	} else {
-		die("something wrong in storeSessionVariables, call the admin");
+		$_SESSION['transactionSelected'] = "";
+		header("Location: $root_Pages_HTML");
+		break;
+	case 'accountSelected':
+		$_SESSION['accountSelected'] = $SESSION_value;
+		$_SESSION['transactionSelected'] = "";
+		header("Location: $root_Pages_HTML");
+		break;
+	case 'transactionSelected':
+		$_SESSION['transactionSelected'] = $SESSION_value;
+		header("Location: $root_Pages_HTML");
+		break;
+	default:
+		die('requested value not accepted by storeSessionVariables');
 	}
 }
 ?>

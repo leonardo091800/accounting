@@ -64,7 +64,7 @@ foreach($rows as $row) {
 	$current_account_type_id = $row['account_types.id'];
 	echo "
 	<td class='selectButton'> 
-	<a onclick=\"window.location.href = '$root_Pages_storeSessionVariables_HTML?SESSION_accountSelected={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
+	<a onclick=\"window.location.href = '$root_Pages_storeSessionVariables_HTML?SESSION_what=accountSelected&SESSION_value={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
 	</td><td> {$row['name']} 
 	</td><td> {$accountTypesArr[$current_account_type_id]} 
 	</td><td class='rmButton'>

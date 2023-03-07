@@ -28,7 +28,7 @@ if(isset($_SESSION['usrSelected'])) {
 // including the transactions page
 if(isset($_SESSION['usrSelected']) && isset($_SESSION['accountSelected'])) {
 	if($_SESSION['accountSelected'] != '') {
-		require_once $root_Pages_accounts;
+		require_once $root_Pages_transactions;
 	}
 }
 ?>
