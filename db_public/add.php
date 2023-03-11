@@ -32,7 +32,7 @@ if(isset($_GET['table'])) {
 
 				// resetting the session parameters with new user:
 				$_SESSION['usrSelected'] = $idTMP;
-				unset($_SESSION['accountSelected']);
+				$_SESSION['accountSelected'] = '';
 				unset($_SESSION['transactionSelected']);
 
 				// redirecting to pages

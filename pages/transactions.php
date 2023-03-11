@@ -4,10 +4,18 @@ require_once $root_Errors_main;
 
 $tableTMP = "transactions";
 
-$sql = "SELECT id, `transaction_types.id`, `accounts.in.id`, `accounts.out.id`, timestamp, amount 
-	FROM $tableTMP
-	WHERE `accounts.in.id`={$_SESSION['accountSelected']} 
-		OR `accounts.out.id`={$_SESSION['accountSelected']}";
+if($_SESSION['accountSelected'] == '') {
+	$sql = "SELECT id, `transaction_types.id`, `accounts.in.id`, `accounts.out.id`, timestamp, amount 
+		FROM $tableTMP
+		";
+} else {
+	$sql = "SELECT id, `transaction_types.id`, `accounts.in.id`, `accounts.out.id`, timestamp, amount 
+		FROM $tableTMP
+		WHERE `accounts.in.id`={$_SESSION['accountSelected']} 
+		OR `accounts.out.id`={$_SESSION['accountSelected']}
+	";
+}
+
 echo $sql."<br>";
 
 $q=$conn->prepare($sql);
