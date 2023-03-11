@@ -18,7 +18,6 @@ class db {
 			$conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			echo "Connected successfully";
 
 			return $conn;
 		} 
@@ -37,18 +36,15 @@ class db {
 	// parameters must be an array of [key -> value]
 	public static function add($table, $parameters) {
 		if(empty($parameters)) {
-			echo "<br> in function db::add parameters need to be an array of [key->value] <br>";
-			exit;
+			die("<br> in function db::add parameters need to be an array of [key->value] <br>");
 		}
 		if(empty($table) || $table=='') {
-			echo "<br> in function db::add table needs to be given <br>";
-			exit;
+			die("<br> in function db::add table needs to be given <br>");
 		}
 
 		$maybe = new db();
 		if($maybe->checkIfExist($table, $parameters) == 1) {
-			echo "<br> id in $table already exist! <br>";
-			exit;
+			die("<br> id in $table already exist! <br>");
 		}
 
 		// if checks are good
@@ -91,16 +87,16 @@ class db {
 	 */
 	public static function rm($table, $id) {
 		if(empty($id) || $id=='') {
-			echo "<br> in function db::rm id needs to be given <br>";
+			die("<br> in function db::rm id needs to be given <br>");
 		}
 		if(empty($table) || $table=='') {
-			echo "<br> in function db::rm table needs to be given <br>";
+			die("<br> in function db::rm table needs to be given <br>");
 		}
+
 		$parameters = array('id'=>$id);
 
 		if(db::checkIfExist($table, $parameters) == 0) {
-			echo "<br> the id in $table does NOT exist! <br>";
-			exit;
+			die("<br> the id in $table does NOT exist! <br>");
 		}
 
 		// if checks are good
@@ -111,12 +107,70 @@ class db {
 			$q=$conn->prepare($sql);
 			$rows = $q->execute();
 		} catch (Exception $e) {
-			die("server error, report this to the admin: $e");
+//			echo "<br> <br>"; print_r($e);
+//			echo "<br> <br>"; var_dump($e->errorInfo);
+			if($e->errorInfo[1] == 1451) {
+				alerts::echo_alert('you need to remove everything this container has before removing');
+				return 1;
+			} else {
+				die(" in db::rm server error, report this to the admin: $e");
+			}
 		}
 
 		return 0;
 	}
 
+
+
+
+	/* 
+	 * getID
+	 */
+	public static function getID($table, $parameters) {
+		if(empty($parameters)) {
+			die("<br> in function db::add parameters need to be an array of [key->value] <br>");
+		}
+		if(empty($table) || $table=='') {
+			die("<br> in function db::add table needs to be given <br>");
+		}
+
+		$maybe = new db();
+		if($maybe->checkIfExist($table, $parameters) == 0) {
+			die("<br> id in $table does NOT exist! <br>");
+		}
+
+		// if checks are good
+		$conn = db::connect();
+
+		// creating query with first parameter
+		$firstKey=array_key_first($parameters);
+		$firstParameter=$parameters[$firstKey];
+
+		$sql = "SELECT `id` FROM $table WHERE `$firstKey` = '$firstParameter'";
+
+		// rm first parameter from array
+		unset($parameters[$firstKey]);
+
+		// uncomment for testing
+		// echo "<br> "; print_r($parameters);
+
+		// printing other possible parameters with "comma" in between
+		foreach($parameters as $key=>$value) {
+			$sql = $sql." AND `$key`='$value'";
+		}
+
+		try {
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die(" in db::getID server error, report this to the admin: $e");
+		}
+
+		echo "in db::selectID id = "; print_r($rows);
+		// returning ID as integer
+		return intval($rows[0]['id']);
+	}
 
 
 

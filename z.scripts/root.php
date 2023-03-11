@@ -19,6 +19,7 @@ $root_Pages_transactions = $root_Pages."transactions.php";
 
 $root_DB = $root."db/";
 $root_DB_main = $root_DB."main.php";
+$root_DB_defaults = $root_DB."defaults.php";
 
 $root_Errors = $root."errors/";
 $root_Errors_main = $root_Errors."main.php";

@@ -19,7 +19,6 @@ $sql = "SELECT id, name FROM transaction_types";
 $q=$conn->prepare($sql);
 $transaction_types_arr = $q->execute();
 $transaction_types_arr = $q->fetchAll(PDO::FETCH_ASSOC);
-print_r($transaction_types_arr);
 // .. into a single easy array
 $transactionTypesArr = array();
 foreach($transaction_types_arr as $transaction_type_arr){
@@ -29,6 +28,7 @@ foreach($transaction_types_arr as $transaction_type_arr){
 // print results in table
 echo "
 <table id='transactionsTable' class='mainTable'>
+<caption> Transactions </caption>
 <tr><th> 
 </th><th> amount 
 </th><th> datetime of transaction
@@ -45,8 +45,8 @@ echo "
 <input form='add{$tableTMP}Form' type='hidden' name='table' value='{$tableTMP}'>
 <tr><td class='addButton'> 
 <button form='add{$tableTMP}Form' type='submit' class='addButton'> ADD </button> 
-</td><td> <input form='add{$tableTMP}Form' type='number' class='addInput' required>
-</td><td> <input form='add{$tableTMP}Form' type='datetime-local' class='addInput' required>
+</td><td> <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput' required>
+</td><td> <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
 </td><td> <select form='add{$tableTMP}Form' class='addInput' name='accounts_in_id' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";

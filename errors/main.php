@@ -22,6 +22,9 @@ class errors {
 }
 
 class alerts {
+	public static function echo_alert($what) {
+		echo "<script> alert('$what'); </script>";
+	}
 	public static function echo_success() {
 		echo "<script> alert('success'); </script>";
 	}

@@ -12,6 +12,7 @@ $rows = $q->fetchAll(PDO::FETCH_ASSOC);
 // print results in table
 echo "
 <table id='usersTable' class='mainTable'>
+<caption> Users </caption>
 <tr><th> 
 </th><th> Name 
 </th><th> Surname 
