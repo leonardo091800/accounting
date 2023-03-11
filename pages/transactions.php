@@ -32,8 +32,9 @@ echo "
 <tr><th> 
 </th><th> amount 
 </th><th> datetime of transaction
-</th><th> money in (account)
-</th><th> came from (account)
+</th><th> From account
+</th><th> &rarr;
+</th><th> To account
 </th><th> type of transaction
 </th><th> 
 </th></tr>
@@ -54,6 +55,7 @@ echo "
 		echo "<option value='$account_id'>$account_name</option>";
 	}
 echo "
+</td><td> &rarr;
 </td><td> <select form='add{$tableTMP}Form' class='addInput' name='accounts_out_id' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
@@ -74,10 +76,10 @@ echo "
 ";
 
 
-// print values in table users
+// print values in table transactions 
 foreach($rows as $row) {
-	if(isset($_SESSION['tableSelected'])) {
-		if($_SESSION['tableSelected'] == $row['id']) {
+	if(isset($_SESSION['transactionSelected'])) {
+		if($_SESSION['transactionSelected'] == $row['id']) {
 			echo "<tr class='selected'>";
 		}
 	} else {

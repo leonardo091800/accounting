@@ -1,4 +1,7 @@
 <style>
+html {
+	font-family: "Times New Roman", Times, serif;
+}
 .mainTable {
 	margin: 20px auto;
 	padding: 10px;
@@ -10,6 +13,11 @@
 	width: 90%;
 	max-width: 90%;
 }
+table caption {
+	border: 1px solid blue;
+	font-weight: bold;
+}
+
 th {
 	border-bottom: 1px solid blue;
 }

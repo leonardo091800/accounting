@@ -31,7 +31,7 @@ foreach($account_types_arr as $account_type_arr){
 // print results in table
 echo "
 <table id='accountTable' class='mainTable'>
-<caption> Account </caption>
+<caption> Accounts </caption>
 <tr><th> 
 </th><th> Name 
 </th><th> Type
