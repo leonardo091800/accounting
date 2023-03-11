@@ -1,9 +1,57 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once '/var/www/html/accounting/z.scripts/root.php';
+
+// for debugging:
+require_once $root_Scripts_showErrors;
+// 
 
 class db {
+
+	/* 
+	 * Create DB
+	 */
+	public static function createDatabase($s, $u, $p, $db) {
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch(PDOException $e) {
+			echo "Connection failed: " . $e->getMessage();
+			exit;
+		}
+
+
+		try {
+			echo "initiliasing database...";
+			$conn->exec("CREATE DATABASE $db");
+		} 
+		catch(PDOException $e) {
+			echo "Cannot create DB: " . $e->getMessage();
+			exit;
+		}
+
+		try {
+			echo "initiliasing tables...";
+			$sql_users = "CREATE TABLE `accounting_db`.`users` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , `surname` VARCHAR(30) NOT NULL , `admin` BOOLEAN NOT NULL DEFAULT '0', `date_creation` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+			$sql_accountTypes = "CREATE TABLE `accounting_db`.`account_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+			$sql_accounts = "CREATE TABLE `accounting_db`.`accounts` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `account_types.id` INT(11) UNSIGNED NOT NULL , `users.id` INT(11) UNISGNED NOT NULL , `name` VARCHAR(30) NOT NULL , `date_open` DATE NULL , `date_close` DATE NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+			$sql_accounts_users_constraint = "ALTER TABLE `accounts` ADD CONSTRAINT `accounts-users` FOREIGN KEY (`users.id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;"
+			$sql_accounts_accountTypes_constraint = "ALTER TABLE `accounts` ADD CONSTRAINT `accounts-account_types` FOREIGN KEY (`account_types.id`) REFERENCES `account_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;"
+
+			$conn->exec($sql_users);
+			$conn->exec($sql_accountTypes);
+			$conn->exec($sql_accounts);
+			$conn->exec($sql_accounts_users_constraint);
+			$conn->exec($sql_accounts_accountTypes_contraint);
+		} 
+		catch(PDOException $e) {
+			echo "Cannot create tables: " . $e->getMessage();
+			exit;
+		}
+	}
+
+
 
 	/* 
 	 * Connect
@@ -23,6 +71,9 @@ class db {
 		} 
 		catch(PDOException $e) {
 			echo "Connection failed: " . $e->getMessage();
+
+			// if connection failed because no database name:
+			db::createDatabase($servername, $username, $password, $db);
 		}
 	}
 
