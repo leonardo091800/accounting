@@ -25,13 +25,18 @@ foreach($transaction_types_arr as $transaction_type_arr){
 	$transactionTypesArr[$transaction_type_arr['id']] = $transaction_type_arr['name'];
 }
 
+// debugging
+echo "<br> transactions: <br>"; print_r($rows);
+echo "<br> transaction_types: <br>"; print_r($transactionTypesArr);
+//
+
 // print results in table
 echo "
 <table id='transactionsTable' class='mainTable'>
 <caption> Transactions </caption>
 <tr><th> 
 </th><th> amount 
-</th><th> datetime of transaction
+</th><th> date & time
 </th><th> From account
 </th><th> &rarr;
 </th><th> To account
@@ -46,7 +51,7 @@ echo "
 <input form='add{$tableTMP}Form' type='hidden' name='table' value='{$tableTMP}'>
 <tr><td class='addButton'> 
 <button form='add{$tableTMP}Form' type='submit' class='addButton'> ADD </button> 
-</td><td> <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput' required>
+</td><td> <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
 </td><td> <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
 </td><td> <select form='add{$tableTMP}Form' class='addInput' name='accounts_in_id' required> 
 	<option disabled selected value> -- select an option -- </option>
@@ -85,13 +90,37 @@ foreach($rows as $row) {
 	} else {
 		echo "<tr>";
 	}
+
+	$current_transaction_types_id = $row['transaction_types.id'];
+	$current_account_out_id = $row['accounts.out.id'];
+	$current_account_in_id = $row['accounts.in.id'];
+	
 	echo "
 	<td class='selectButton'> 
-	<a onclick=\"window.location.href = '$root_Pages_storeSessionVariables_HTML?SESSION_what=tableSelected&SESSION_value={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
-	</td><td> {$row['name']} 
-	</td><td> {$row['surname']} 
+	<a onclick=\"window.location.href = '$root_Pages_storeSessionVariables_HTML?SESSION_what=transactionSelected&SESSION_value={$row['id']}'; \"> <button class='selectButton'> SELECT </button> </a>
+	</td><td> ";
+	
+	// echoing amount with italian format:	
+	// number_format(num, decimals, decimal_separator, thousands_separator)
+	echo number_format($row['amount'], 2, '.', ' ');
+
+	echo "
+	 &euro;
+	</td><td> ";
+
+	// echoing date with italian format:
+	// echo date('d/m/Y H:m:s', strtotime($row['timestamp']));
+	echo date('d/m/Y', strtotime($row['timestamp']));
+
+	echo "
+	</td><td> {$accounts_id_name_arr[$current_account_out_id]}
+	</td><td> &rarr;
+	</td><td> {$accounts_id_name_arr[$current_account_in_id]}
+	</td><td> {$transactionTypesArr[$current_transaction_types_id]}
 	</td><td class='rmButton'>
 	";
+
+
 /*
 // add button to delete USER
 echo "

@@ -47,4 +47,8 @@ button.deleteButton {
 	background-color: rgba(255, 114, 118, 0.5) /* light red */
 }
 
+input.amount {
+	text-align: right;
+}
+
 </style>
