@@ -44,6 +44,7 @@ echo "
 </th><th> From Account
 </th><th> &rarr;
 </th><th> To Account
+</th><th> Note
 
 </tr><tr>
 
@@ -64,6 +65,7 @@ echo "
 		echo "<option value='".$acc['id']."'>".$acc['name']."</option>";
 	}
 echo "
+</td><td> <input form='add{$tableTMP}Form' type='text' name='note' class='addInput'>
 </tr>
 <tr><td colspan='100%'>
 <button form='add{$tableTMP}Form' type='submit' class='addButton'> ADD Transaction </button> 
@@ -78,21 +80,24 @@ echo "
 // possibility to create account first
 echo "
 <table>
-<form id='createAccount' action='$root_DB_add_HTML' method='GET'>
-<input form='createAccount' type='hidden' name='table' value='accounts'>
 <tr><th rowspan='2'>
+<form id='createAccount' action='$root_DB_add_HTML' method='GET'>
+  <input form='createAccount' type='hidden' name='table' value='accounts'>
   <input form='createAccount' type='text' name='name' required>
   <br>
   <input form='createAccount' type='submit' value='create Account'>
 </form>
+</th>
 ";
 
 // then echo all accounts
 foreach($_SESSION['accounts'] as $acc) {
-	echo "</th><th colspan='2'>".$acc['name'];
+	echo "<th colspan='2'>".$acc['name']."</th>";
 }
 
-echo "</th></tr>";
+echo "
+<th rowspan='2'> Note </th>
+</tr>";
 
 
 
@@ -143,10 +148,12 @@ foreach($_SESSION['transactions'] as $tr) {
 			$_SESSION['sums'][$accID] -= $tr['amount'];
 		} 
 		else {
-			echo "<td class='entrate'> acc id: {$acc['id']} <br> tr.acc.in.id = {$tr['accounts.in.id']} </td> <td class='uscite'> </td>";
+			echo "<td class='entrate'> </td> <td class='uscite'> </td>";
 		}
 	}
-	echo "</tr>";
+	echo "
+<td class='note'> ".$tr['note']."</td>
+</tr>";
 }
 
 
@@ -164,7 +171,10 @@ foreach($_SESSION['accounts'] as $acc) {
 	echo "<th colspan='2'> ".style::toMoney($_SESSION['sums'][$accID])."</th>";
 }
 
-echo "</tr>";
+echo "
+<td class='void'></td>
+</tr>
+";
 
 
 // ------------------------------------------------------

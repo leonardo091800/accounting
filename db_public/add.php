@@ -35,13 +35,15 @@ if(isset($_GET['table'])) {
 
 	// - - Transactions - -
 	case 'transactions':
-		if(isset($_GET['amount']) && isset($_GET['timestamp']) && isset($_GET['accounts_in_id']) && isset($_GET['accounts_out_id'])) {
+		if(isset($_GET['amount']) && isset($_GET['timestamp']) && isset($_GET['accounts_in_id']) && isset($_GET['accounts_out_id']) && isset($_GET['note'])) {
 			$amount = number_format(cleanInput($_GET['amount']), 2);
 			$timestamp = cleanInput($_GET['timestamp']);
 			$accounts_in_id = cleanInput($_GET['accounts_in_id']);
 			$accounts_out_id = cleanInput($_GET['accounts_out_id']);
+			$note = cleanInput($_GET['note']);
 
-			$parameters = array('amount'=>$amount, 'timestamp'=>$timestamp, 'accounts.in.id'=>$accounts_in_id, 'accounts.out.id'=>$accounts_out_id);
+			$parameters = array('amount'=>$amount, 'timestamp'=>$timestamp, 'accounts.in.id'=>$accounts_in_id, 'accounts.out.id'=>$accounts_out_id, 
+			'note' => $note);
 
 			if(db::add('transactions', $parameters) == 0) {
 //				alerts::echo_success();
