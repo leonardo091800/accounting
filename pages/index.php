@@ -10,7 +10,6 @@ require_once $root_Scripts_style;
 <head>
 <?php 
 require_once $root_Style_main;
-setlocale(LC_MONETARY,"it_IT");
 ?>
 </head>
 <body>
@@ -26,9 +25,10 @@ $_SESSION['sums'] = array();
 	}
 
 
-
-echo "<br> accounts: "; print_r($_SESSION['accounts']);
-echo "<br> transactions: "; print_r($_SESSION['transactions']);
+// - - - DEBUGGING - - -
+// echo "<br> accounts: "; print_r($_SESSION['accounts']);
+// echo "<br> transactions: "; print_r($_SESSION['transactions']);
+// - - - DEBUGGING - - -
 
 
 // ------------------------------------------------------
@@ -48,7 +48,7 @@ echo "
 </tr><tr>
 
 </td><td> <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
-</td><td> <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
+</td><td> <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d H:i:s')."' class='addInput' required>
 </td><td> <select form='add{$tableTMP}Form' class='addInput' name='accounts_out_id' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
@@ -80,7 +80,10 @@ echo "
 <table>
 <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
 <input form='createAccount' type='hidden' name='table' value='accounts'>
-<tr><th> <input form='createAccount' type='text' name='name' required>
+<tr><th rowspan='2'>
+  <input form='createAccount' type='text' name='name' required>
+  <br>
+  <input form='createAccount' type='submit' value='create Account'>
 </form>
 ";
 
@@ -96,15 +99,17 @@ echo "</th></tr>";
 // ------------------------------------------------------
 // 2nd Line of Table
 echo "
-<tr><th> <input form='createAccount' type='submit' value='create Account'>
+<tr>
 ";
 
 // writing the headers of the second line of table:
 foreach($_SESSION['accounts'] as $acc) {
-	echo "</th><th> Entrate </th><th> Uscite ";
+	echo "<th> Entrate </th><th> Uscite </th>";
 }
 
-echo "</th></tr>";
+echo "
+</tr>
+";
 
 
 // ------------------------------------------------------
@@ -120,7 +125,7 @@ foreach($_SESSION['transactions'] as $tr) {
 <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
-<button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> REMOVE </button> 
+<button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
 </form>
 </td>
 	";

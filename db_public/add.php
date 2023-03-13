@@ -19,7 +19,7 @@ if(isset($_GET['table'])) {
 			$parameters = array('name'=>$name);
 
 			if(db::add('accounts', $parameters) == 0) {
-				alerts::echo_success();
+//				alerts::echo_success();
 
 				// resetting the session parameters:
 
@@ -44,7 +44,7 @@ if(isset($_GET['table'])) {
 			$parameters = array('amount'=>$amount, 'timestamp'=>$timestamp, 'accounts.in.id'=>$accounts_in_id, 'accounts.out.id'=>$accounts_out_id);
 
 			if(db::add('transactions', $parameters) == 0) {
-				alerts::echo_success();
+//				alerts::echo_success();
 				redirect::to_page($root_Pages_HTML);
 			}
 		} else {
