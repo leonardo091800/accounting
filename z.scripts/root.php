@@ -8,6 +8,7 @@ $root_Scripts = $root."z.scripts/";
 $root_Scripts_showErrors = $root_Scripts."show_errors.php";
 $root_Scripts_cleanInput = $root_Scripts."cleanInput.php";
 $root_Scripts_checkSessionVariables = $root_Scripts."checkSessionVariables.php";
+$root_Scripts_style = $root_Scripts."style.php";
 
 // since we're still developing:
 require_once $root_Scripts_showErrors;
@@ -22,10 +23,15 @@ $root_DB_setup = $root_DB."setup.php";
 $root_DB_main = $root_DB."main.php";
 $root_DB_defaults = $root_DB."defaults.php";
 
+$root_DB_Public = $root."db_public/";
+$root_getAccounts = $root_DB_Public."getAccounts.php";
+$root_getTransactions = $root_DB_Public."getTransactions.php";
+
 $root_Errors = $root."errors/";
 $root_Errors_main = $root_Errors."main.php";
 
 $root_Style = $root."style/";
+$root_Style_main1 = $root_Style."main1.css";
 $root_Style_main = $root_Style."main.css";
 
 $root_Modals= $root."modals/";

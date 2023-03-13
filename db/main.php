@@ -15,7 +15,7 @@ class db {
 
 		$servername = "localhost";
 		$username = "accountingAdmin";
-		$password = "Lgzt%*q%NU[/]!,UEvCn4-";
+		$password = "mT_13TKviGF9pYSn4#fve9";
 		$db = "accounting_db";
 
 		try {
@@ -82,10 +82,15 @@ class db {
 		// putting together the query
 		$sql = $sql_0.")".$sql_1.");";
 
-		$q=$conn->prepare($sql);
-		$rows = $q->execute();
+		try {
+			echo "<br> sql = $sql";
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+			return 0;
+		} catch (Exception $e) {
+			die('error in db::add error: '.$e);
+		}
 
-		return 0;
 	}
 
 
