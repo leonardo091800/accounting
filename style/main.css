@@ -2,11 +2,14 @@
 html {
 	font-family: "Times New Roman", Times, serif;
 }
+.tableDiv {
+	text-overflow: ellipsis;
+	margin: 20px auto;
+	overflow-x: scroll;
+	width: 80%;
+}
 table {
 	margin: 20px auto;
-	padding: 10px;
-	width: 80%;
-	max-width: 1000px;
 	border: 1px solid blue;
 }
 #transactionsTable {
@@ -18,12 +21,6 @@ table caption {
 	font-weight: bold;
 }
 
-th {
-	border-bottom: 1px solid blue;
-}
-td {
-	text-align: center;
-}
 table tr:first-child {
 	background-color: rgba(255, 255, 255, 0.5) /* white */
 }
@@ -36,6 +33,34 @@ table tr:nth-child(odd) {
 table tr.selected {
 	background-color: rgba(180, 250, 180, 0.5) /* light green*/
 }
+
+th {
+	border-bottom: 1px solid blue;
+}
+td {
+	min-width: 100px;
+	text-align: center;
+}
+/* 
+ * https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b
+ */
+/*
+.stickLeft {
+	min-width: 100px;
+	border: 1px solid blue;
+	position: absolute;
+	left: 0;
+	top: auto;
+	border-top-width: 1px;
+	margin-top: -1px;
+}
+.fake, td
+{
+    position:relative;
+    left: -120px;
+}
+*/
+
 td.deleteButton {
 	width: 20%;
 	max-width: 100px;

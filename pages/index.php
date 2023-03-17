@@ -79,8 +79,10 @@ echo "
 // 1st Line of Table
 // possibility to create account first
 echo "
+<div class='tableDiv'>
 <table>
-<tr><th rowspan='2'>
+<caption> General Ledger </caption>
+<tr><th rowspan='2' class='stickLeft'>
 <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
   <input form='createAccount' type='hidden' name='table' value='accounts'>
   <input form='createAccount' type='text' name='name' required>
@@ -96,7 +98,7 @@ foreach($_SESSION['accounts'] as $acc) {
 }
 
 echo "
-<th rowspan='2'> Note </th>
+<th rowspan='2' class='stickRigth'> Note </th>
 </tr>";
 
 
@@ -126,7 +128,7 @@ foreach($_SESSION['transactions'] as $tr) {
 	// Remove Button
 	echo "
 <tr>
-<td class='delete'> 
+<td class='delete stickLeft'> 
 <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
@@ -152,7 +154,7 @@ foreach($_SESSION['transactions'] as $tr) {
 		}
 	}
 	echo "
-<td class='note'> ".$tr['note']."</td>
+<td class='note stickRight'> ".$tr['note']."</td>
 </tr>";
 }
 
@@ -163,7 +165,7 @@ foreach($_SESSION['transactions'] as $tr) {
 // echo totals of each account
 
 echo "
-<tr><th> SUM: </th>
+<tr><th class='stickLeft'> SUM: </th>
 ";
 
 foreach($_SESSION['accounts'] as $acc) {
@@ -172,7 +174,7 @@ foreach($_SESSION['accounts'] as $acc) {
 }
 
 echo "
-<td class='void'></td>
+<td class='void stickRigth'></td>
 </tr>
 ";
 
@@ -180,6 +182,7 @@ echo "
 // ------------------------------------------------------
 echo "
 </table>
+</div> <!-- /tableDiv -->
 ";
 // ------------------------------------------------------
 
