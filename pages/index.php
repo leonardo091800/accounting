@@ -138,10 +138,16 @@ echo "
 // (I'll also do the sum of each account, in order to not do the same for loop later)
 foreach($_SESSION['transactions'] as $tr) {
 
-	// Remove Button
+	// Date &
+	// & Remove Button
 	echo "
 <tr>
-<td class='delete stickLeft'> 
+<td class='stickLeft'> 
+<br>
+	";
+	echo date('d/m/Y H:i', strtotime($tr['timestamp']));
+	echo "
+<br>
 <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
