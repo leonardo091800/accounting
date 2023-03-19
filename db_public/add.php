@@ -36,7 +36,7 @@ if(isset($_GET['table'])) {
 	// - - Transactions - -
 	case 'transactions':
 		if(isset($_GET['amount']) && isset($_GET['timestamp']) && isset($_GET['accounts_in_id']) && isset($_GET['accounts_out_id']) && isset($_GET['note'])) {
-			$amount = number_format(cleanInput($_GET['amount']), 2);
+			$amount = number_format(cleanInput($_GET['amount']), 2, ".", "");
 			$timestamp = cleanInput($_GET['timestamp']);
 			$accounts_in_id = cleanInput($_GET['accounts_in_id']);
 			$accounts_out_id = cleanInput($_GET['accounts_out_id']);
