@@ -42,9 +42,12 @@ $root_HTML = "/accounting/";
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
+$root_resoconto_HTML = $root_Pages_HTML."resoconto.php";
 
 $root_DB_HTML = $root_HTML."db_public/";
 $root_DB_add_HTML = $root_DB_HTML."add.php";
 $root_DB_rm_HTML = $root_DB_HTML."rm.php";
 
+$root_Scripts_HTML = $root_HTML."z.scripts/";
+$root_Scripts_html2pdf_HTML = $root_Scripts_HTML."html2pdf/dist/html2pdf.bundle.min.js";
 ?>

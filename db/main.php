@@ -184,7 +184,8 @@ class db {
 			die(" in db::getID server error, report this to the admin: $e");
 		}
 
-		echo "in db::selectID id = "; print_r($rows);
+//		echo "in db::selectID id = "; print_r($rows);
+
 		// returning ID as integer
 		return intval($rows[0]['id']);
 	}
@@ -233,7 +234,6 @@ class db {
 		$q=$conn->prepare($sql);
 		$rows = $q->execute();
 		$rows = $q->fetchAll(PDO::FETCH_ASSOC);
-		print_r($rows);
 
 		if(empty($rows)) {
 //			echo "<br> array empty <BR>";
@@ -243,5 +243,70 @@ class db {
 			return 1;
 		}
 	}
+
+
+
+
+	/*
+	 * getSum (of account)
+	 * it will search all transactions of that account and add them together
+	 */
+	public static function getSum($accID, $date) {
+		if(empty($accID)) {
+			echo "<br> in function db::getSum accID is empty <br>";
+			exit;
+		}
+		if(empty($date)) {
+			echo "<br> in function db::getSum date is empty <br>";
+			exit;
+		}
+
+		// if checks are ok...
+		$conn = db::connect();
+
+		$sqlEntrate = "SELECT amount FROM transactions WHERE `accounts.in.id`='$accID' AND DATE(timestamp) <= '$date'";
+		$sqlUscite = "SELECT amount FROM transactions WHERE `accounts.out.id`='$accID' AND DATE(timestamp) <= '$date'";
+
+		try {
+			$q=$conn->prepare($sqlEntrate);
+			$entrate = $q->execute();
+			$entrate = $q->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die(" in db::getSum server error in entrate, report this to the admin: $e");
+		}
+		try {
+			$q=$conn->prepare($sqlUscite);
+			$uscite= $q->execute();
+			$uscite= $q->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die(" in db::getSum server error in uscite, report this to the admin: $e");
+		}
+
+		/*
+		echo "<br><br> entrate:"; print_r($entrate);
+		echo "<br><br> uscite:"; print_r($uscite);
+		 */
+
+		$sum = 0.0000;
+		foreach($entrate as $e) {
+			$sum += (float)$e['amount'];
+		}
+		foreach($uscite as $u) {
+			$sum -= (float)$u['amount'];
+		}
+		return $sum;
+
+			/*
+		if(empty($rows)) {
+//			echo "<br> array empty <BR>";
+			return 0;
+		} else {
+//			echo "<br> array NOT empty <BR>";
+			return 1;
+		}
+			 */
+	}
+
+
 }
 ?>

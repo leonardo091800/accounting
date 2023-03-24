@@ -205,6 +205,51 @@ echo "
 ";
 // ------------------------------------------------------
 
+echo "
+<form class='formDiv' id='createResoconto' method='get' action='$root_resoconto_HTML'>
+<div class='center'>
+<label for='beginDate'> Data inizio:
+<input type='date' name='beginDate'>
+<label for='endDate'> Data fine:
+<input type='date' name='endDate'>
+</div>
+
+<div class='table'>
+";
+
+//now for each account let's decide if it's an in, out, or must not be considered:
+// entrate
+	echo "<div class='table'> <div class='caption'> Quali account mettere nelle entrate?</div> <div class='tr'>";
+foreach($_SESSION['accounts'] as $acc) {
+	$accName = $acc['name'];
+	echo "<div class='td'> <input type='checkbox' name='entrate[]' value='$accName'>$accName</input> </div>";
+}
+echo "</div> <!-- /tr -->";
+echo "</div> <!-- /table -->";
+
+// Uscite
+	echo "<div class='table'> <div class='caption'> Quali account mettere nelle uscite?</div> <div class='tr'>";
+foreach($_SESSION['accounts'] as $acc) {
+	$accName = $acc['name'];
+	echo "<div class='td'> <input type='checkbox' name='uscite[]' value='$accName'>$accName</input> </div>";
+}
+echo "</div> <!-- /tr -->";
+echo "</div> <!-- /table -->";
+
+// Conti Correnti
+	echo "<div class='table'> <div class='caption'>Di quali account vuoi mostrare la balance di inizio e fine periodo? </div> <div class='tr'>";
+foreach($_SESSION['accounts'] as $acc) {
+	$accName = $acc['name'];
+	echo "<div class='td'> <input type='checkbox' name='conti[]' value='$accName'>$accName</input></div>";
+}
+echo "</div> <!-- /tr -->";
+echo "</div> <!-- /table -->";
+
+
+echo "
+<div class='center'> <input type='submit' value='Crea resoconto'> </div>
+</form>
+";
 
 ?>
 </body>

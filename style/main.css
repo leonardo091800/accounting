@@ -2,6 +2,27 @@
 html {
 	font-family: "Times New Roman", Times, serif;
 }
+
+
+
+
+.formDiv {
+	margin: 20px auto;
+	border: 1px solid blue;
+	padding: 5px
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .tableDiv {
 	text-overflow: ellipsis;
 	margin: 20px auto;
@@ -76,4 +97,26 @@ input.amount {
 	text-align: right;
 }
 
+.table {
+	box-sizing: border-box;
+}
+.caption {
+	width: 100%;
+}
+.tr {
+	display: flex;
+	justify-content: space-between;
+	margin: 5px auto;
+	border: 1px solid black;
+	width: 90%;
+}
+.td {
+	width: 50%;
+	padding: 5px;
+}
+
+
+.center {
+	text-align: center;
+}
 </style>
