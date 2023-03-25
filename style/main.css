@@ -11,13 +11,24 @@ html {
 	border: 1px solid blue;
 	padding: 5px
 }
+#createReport input[name="name"] {
+	width: 500px;
+}
+#createReport textarea {
+	width: 500px;
+	height: 100px;
+}
 
 
 
 
 
-
-
+.button {
+	border: 1px solid blue;
+	margin: 5px auto;
+	width: 100px;
+	padding: 2px;
+}
 
 
 

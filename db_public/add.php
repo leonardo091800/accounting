@@ -53,8 +53,28 @@ if(isset($_GET['table'])) {
 			errors::echo_error('fieldNotGiven', 'some fields in db_public/add transactions');
 		}
 		break;
+
+
+	// - - Reports - -
+	case 'reports':
+		if(isset($_GET['name']) && isset($_GET['description'])) {
+			$name = cleanInput($_GET['name']);
+			$description = cleanInput($_GET['description']);
+
+			$parameters = array('name'=>$name, 'description'=>$description);
+
+			if(db::add('reports', $parameters) == 0) {
+//				alerts::echo_success();
+				redirect::to_page($root_Pages_HTML);
+			}
+		} else {
+			errors::echo_error('fieldNotGiven', 'some fields in db_public/add report');
+		}
+		break;
+
+	// - - Default - -
 	default:
-      		errors::echo_error('tableNotExist', "$table");
+      		errors::echo_error('tableNotExist', "$table in db_public/add");
 	} 
 }
 else {

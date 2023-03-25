@@ -139,16 +139,50 @@ class db {
 
 
 
+	/* 
+	 * get from Table given ID
+	 */
+	public static function get($table, $id) {
+		if(empty($id)) {
+			die("<br> in function db::get id must be given <br>");
+		}
+		if(empty($table) || $table=='') {
+			die("<br> in function db::get table needs to be given <br>");
+		}
+
+		$maybe = new db();
+		if($maybe->checkIfExist($table, array('id'=>$id)) == 0) {
+			die("<br> id in $table does NOT exist! <br>");
+		}
+
+		// if checks are good
+		$conn = db::connect();
+		$sql = "SELECT * FROM $table WHERE `id` = '$id'";
+		try {
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die(" in db::get server error, report this to the admin: $e");
+		}
+
+//		echo "in db::selectID id = "; print_r($rows);
+
+		// returning array of values
+		return $rows;
+	}
+
+
 
 	/* 
 	 * getID
 	 */
 	public static function getID($table, $parameters) {
 		if(empty($parameters)) {
-			die("<br> in function db::add parameters need to be an array of [key->value] <br>");
+			die("<br> in function db::getID parameters need to be an array of [key->value] <br>");
 		}
 		if(empty($table) || $table=='') {
-			die("<br> in function db::add table needs to be given <br>");
+			die("<br> in function db::getID table needs to be given <br>");
 		}
 
 		$maybe = new db();
@@ -199,7 +233,8 @@ class db {
 	 */
 	// parameters must be an array of [key -> value]
 	public static function checkIfExist($table, $parameters) {
-		$global_tables = array('users', 'accounts', 'account_types', 'transactions');
+		$global_tables = array('users', 'accounts', 'account_types', 'transactions',
+		'reports', 'report_captions', 'report_caption_trs', 'report_caption_tr_tds', 'report_caption_tr_td_values');
 
 
 		if(empty($parameters)) {

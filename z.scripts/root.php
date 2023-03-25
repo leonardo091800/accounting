@@ -26,6 +26,7 @@ $root_DB_defaults = $root_DB."defaults.php";
 $root_DB_Public = $root."db_public/";
 $root_getAccounts = $root_DB_Public."getAccounts.php";
 $root_getTransactions = $root_DB_Public."getTransactions.php";
+$root_getReports = $root_DB_Public."getReports.php";
 
 $root_Errors = $root."errors/";
 $root_Errors_main = $root_Errors."main.php";
@@ -42,7 +43,7 @@ $root_HTML = "/accounting/";
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
-$root_resoconto_HTML = $root_Pages_HTML."resoconto.php";
+$root_report_HTML = $root_Pages_HTML."report.php";
 
 $root_DB_HTML = $root_HTML."db_public/";
 $root_DB_add_HTML = $root_DB_HTML."add.php";

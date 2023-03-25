@@ -14,8 +14,11 @@ require_once $root_Style_main;
 </head>
 <body>
 <?php
+// I know I should do it properly with a function etc. but dont have time and for now it works:
 require_once $root_getAccounts;
 require_once $root_getTransactions;
+require_once $root_getReports;
+
 $_SESSION['sums'] = array();
 
 	// if I don't do this, it warns me that 'undefined offset'
@@ -205,51 +208,33 @@ echo "
 ";
 // ------------------------------------------------------
 
-echo "
-<form class='formDiv' id='createResoconto' method='get' action='$root_resoconto_HTML'>
-<div class='center'>
-<label for='beginDate'> Data inizio:
-<input type='date' name='beginDate'>
-<label for='endDate'> Data fine:
-<input type='date' name='endDate'>
-</div>
 
-<div class='table'>
+/* ------------------------------------------------------
+ * Report
+ * ------------------------------------------------------
+ */
+echo "
+<div id='reports' class='center'>
+<div class='caption'> Create Personalized Report: </div>
 ";
-
-//now for each account let's decide if it's an in, out, or must not be considered:
-// entrate
-	echo "<div class='table'> <div class='caption'> Quali account mettere nelle entrate?</div> <div class='tr'>";
-foreach($_SESSION['accounts'] as $acc) {
-	$accName = $acc['name'];
-	echo "<div class='td'> <input type='checkbox' name='entrate[]' value='$accName'>$accName</input> </div>";
+// show each Report (with just name in a button)
+foreach($_SESSION['reports'] as $report) {
+	$reportName = $report['name'];
+	$reportID = $report['id'];
+	echo "<div class='button'> <a href='$root_report_HTML?reportID=$reportID' target='_blank'> $reportName </a> </div>";
 }
-echo "</div> <!-- /tr -->";
-echo "</div> <!-- /table -->";
 
-// Uscite
-	echo "<div class='table'> <div class='caption'> Quali account mettere nelle uscite?</div> <div class='tr'>";
-foreach($_SESSION['accounts'] as $acc) {
-	$accName = $acc['name'];
-	echo "<div class='td'> <input type='checkbox' name='uscite[]' value='$accName'>$accName</input> </div>";
-}
-echo "</div> <!-- /tr -->";
-echo "</div> <!-- /table -->";
-
-// Conti Correnti
-	echo "<div class='table'> <div class='caption'>Di quali account vuoi mostrare la balance di inizio e fine periodo? </div> <div class='tr'>";
-foreach($_SESSION['accounts'] as $acc) {
-	$accName = $acc['name'];
-	echo "<div class='td'> <input type='checkbox' name='conti[]' value='$accName'>$accName</input></div>";
-}
-echo "</div> <!-- /tr -->";
-echo "</div> <!-- /table -->";
-
-
+// create new Report form (with name, description and submit button)
 echo "
-<div class='center'> <input type='submit' value='Crea resoconto'> </div>
+<form id='createReport' action='$root_DB_add_HTML' method='GET'>
+     <input form='createReport' type='hidden' name='table' value='reports'>
+     <input form='createReport' type='text' name='name' placeholder='name of New Report (maximum 30 characters)'>
+<br> <textarea form='createReport' name='description' placeholder='description of New Report (maximum 100 characters)'></textarea>
+<br> <input form='createReport' type='submit' value='create New Report'>
 </form>
 ";
+
+echo "</div> <!-- /reports  -->";
 
 ?>
 </body>
