@@ -17,7 +17,7 @@ require_once $root_Style_main;
 // I know I should do it properly with a function etc. but dont have time and for now it works:
 require_once $root_getAccounts;
 require_once $root_getTransactions;
-require_once $root_getReports;
+require_once $root_getReportsPersonalized;
 
 $_SESSION['sums'] = array();
 
@@ -210,31 +210,31 @@ echo "
 
 
 /* ------------------------------------------------------
- * Report
+ * Personalized Reports
  * ------------------------------------------------------
  */
 echo "
-<div id='reports' class='center'>
+<div id='personalizedReports' class='center'>
 <div class='caption'> Create Personalized Report: </div>
 ";
 // show each Report (with just name in a button)
-foreach($_SESSION['reports'] as $report) {
+foreach($_SESSION['reportsPersonalized'] as $report) {
 	$reportName = $report['name'];
 	$reportID = $report['id'];
-	echo "<div class='button'> <a href='$root_report_HTML?reportID=$reportID' target='_blank'> $reportName </a> </div>";
+	echo "<div class='button'> <a href='$root_reportPersonalized_HTML?reportID=$reportID' target='_blank'> $reportName </a> </div>";
 }
 
 // create new Report form (with name, description and submit button)
 echo "
-<form id='createReport' action='$root_DB_add_HTML' method='GET'>
-     <input form='createReport' type='hidden' name='table' value='reports'>
-     <input form='createReport' type='text' name='name' placeholder='name of New Report (maximum 30 characters)'>
-<br> <textarea form='createReport' name='description' placeholder='description of New Report (maximum 100 characters)'></textarea>
-<br> <input form='createReport' type='submit' value='create New Report'>
+<form id='createReportPersonalized' action='$root_DB_add_HTML' method='GET'>
+     <input form='createReportPersonalized' type='hidden' name='table' value='reports'>
+     <input form='createReportPersonalized' class='reportGeneric' type='text' name='parameters[name]' placeholder='name of New Report (maximum 30 characters)'>
+<br> <textarea form='createReportPersonalized' class='reportGeneric' name='parameters[description]' placeholder='description of New Report (maximum 100 characters)'></textarea>
+<br> <input form='createReportPersonalized' type='submit' value='create New Personalized Report'>
 </form>
 ";
 
-echo "</div> <!-- /reports  -->";
+echo "</div> <!-- / personalized reports  -->";
 
 ?>
 </body>

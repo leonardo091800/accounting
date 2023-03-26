@@ -26,7 +26,7 @@ $root_DB_defaults = $root_DB."defaults.php";
 $root_DB_Public = $root."db_public/";
 $root_getAccounts = $root_DB_Public."getAccounts.php";
 $root_getTransactions = $root_DB_Public."getTransactions.php";
-$root_getReports = $root_DB_Public."getReports.php";
+$root_getReportsPersonalized = $root_DB_Public."getReportsPersonalized.php";
 
 $root_Errors = $root."errors/";
 $root_Errors_main = $root_Errors."main.php";
@@ -34,6 +34,8 @@ $root_Errors_main = $root_Errors."main.php";
 $root_Style = $root."style/";
 $root_Style_main1 = $root_Style."main1.css";
 $root_Style_main = $root_Style."main.css";
+$root_Style_report = $root_Style."report.css";
+$root_Style_reportDownload = $root_Style."reportDownload.css";
 
 $root_Modals= $root."modals/";
 $root_Modals_main = $root_Modals."main.php";
@@ -43,7 +45,8 @@ $root_HTML = "/accounting/";
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
-$root_report_HTML = $root_Pages_HTML."report.php";
+$root_reportPersonalized_HTML = $root_Pages_HTML."reportPersonalized.php";
+$root_reportPersonalizedDownload_HTML = $root_Pages_HTML."reportPersonalizedDownload.php";
 
 $root_DB_HTML = $root_HTML."db_public/";
 $root_DB_add_HTML = $root_DB_HTML."add.php";

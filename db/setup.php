@@ -106,16 +106,16 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 		$reportTablesSQL = array(
 'sql_reports' => "CREATE TABLE `accounting_db`.`reports` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL ,`description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
 
-'sql_report_captions' => "CREATE TABLE `accounting_db`.`report_captions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `reports.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
+'sql_report_captions' => "CREATE TABLE `accounting_db`.`report_captions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `table` VARCHAR(30) DEFAULT 'report_captions' , `tableFrom` VARCHAR(30) DEFAULT 'reports' , `reports.id` INT(11) UNSIGNED , `name` VARCHAR(30) , `description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
 'sql_reportCaptions_reports_constraint' => "ALTER TABLE `accounting_db`.`report_captions` ADD CONSTRAINT `reports.id-reports` FOREIGN KEY (`reports.id`) REFERENCES `reports`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;",
 
-'sql_report_caption_trs' => "CREATE TABLE `accounting_db`.`report_caption_trs` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `report_captions.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
+'sql_report_caption_trs' => "CREATE TABLE `accounting_db`.`report_caption_trs` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `table` VARCHAR(30) DEFAULT 'report_caption_trs' , `tableFrom` VARCHAR(30) DEFAULT 'report_captions' , `report_captions.id` INT(11) UNSIGNED , `name` VARCHAR(30) , `description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
 'sql_reportCaptionTrs_reports_constraint' => "ALTER TABLE `accounting_db`.`report_caption_trs` ADD CONSTRAINT `report_captions.id-report_captions` FOREIGN KEY (`report_captions.id`) REFERENCES `report_captions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;",
 
-'sql_report_caption_tr_tds' => "CREATE TABLE `accounting_db`.`report_caption_tr_tds` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `report_caption_trs.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `description` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
+'sql_report_caption_tr_tds' => "CREATE TABLE `accounting_db`.`report_caption_tr_tds` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `table` VARCHAR(30) DEFAULT 'report_caption_tr_tds' , `tableFrom` VARCHAR(30) DEFAULT 'report_caption_trs' , `report_caption_trs.id` INT(11) UNSIGNED , `name` VARCHAR(30) , `description` VARCHAR(100) , `class` VARCHAR(30) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
 'sql_reportCaptionTrTds_reportTrs_constraint' => "ALTER TABLE `accounting_db`.`report_caption_tr_tds` ADD CONSTRAINT `report_caption_trs.id-report_caption_trs` FOREIGN KEY (`report_caption_trs.id`) REFERENCES `report_caption_trs`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;",
 
-'sql_report_caption_tr_td_values' => "CREATE TABLE `accounting_db`.`report_caption_tr_td_values` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `report_caption_tr_tds.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `tableName` VARCHAR(30) NOT NULL  , `columnName` VARCHAR(30) NOT NULL , `rowID` INT(11) UNSIGNED NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
+'sql_report_caption_tr_td_values' => "CREATE TABLE `accounting_db`.`report_caption_tr_td_values` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `table` VARCHAR(30) DEFAULT 'report_caption_tr_td_values' , `tableFrom` VARCHAR(30) DEFAULT 'report_caption_tr_tds' , `report_caption_tr_tds.id` INT(11) UNSIGNED , `name` VARCHAR(100) , PRIMARY KEY (`id`)) ENGINE = InnoDB;",
 'sql_reportCaptionTrTdValues_reportCaptionTrTds_constraint' => "ALTER TABLE `accounting_db`.`report_caption_tr_td_values` ADD CONSTRAINT `report_caption_tr_td_values.id-report_tr_tds` FOREIGN KEY (`report_caption_tr_tds.id`) REFERENCES `report_caption_tr_tds`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;"
 		);
 

@@ -11,10 +11,10 @@ html {
 	border: 1px solid blue;
 	padding: 5px
 }
-#createReport input[name="name"] {
+input[name="name"].reportGeneric {
 	width: 500px;
 }
-#createReport textarea {
+textarea.reportGeneric {
 	width: 500px;
 	height: 100px;
 }
@@ -109,10 +109,73 @@ input.amount {
 }
 
 .table {
+	background-color: lightblue;
 	box-sizing: border-box;
+	margin: 10px 10px 0px 10px;
+	padding: 10px;
+}
+.reportRmButton {
+	background-color: red;
+	position: relative;
+	width: 20px;
+	height: 20px;
+}
+.report_captions {
+	background-color: orange;
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0px auto 20px auto;
+	padding: 10px 10px 10px 50px;
+
+	display: flex;
+	flex-direction: column;
+
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.report_caption_trs {
+	background-color: yellow;
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0px auto 20px auto;
+	padding: 10px 10px 10px 50px;
+
+	display: flex;
+	align-items: stretch;
+	align-content: stretch;
+	border: 1px solid black;
+}
+.report_caption_tr_tds {
+	background-color: green;
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0px auto 20px auto;
+	padding: 10px 10px 10px 50px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	align-content: stretch;
+	border: 1px solid black;
+}
+.report_caption_tr_td_values {
+	background-color: lightgreen;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 1rem;
+	font-weight: normal;
+	align-content: stretch;
+	gap: 0px;
+	border: 1px solid black;
+	padding: 10px 10px 10px 50px;
 }
 .caption {
 	width: 100%;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 .tr {
 	display: flex;

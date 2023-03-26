@@ -12,9 +12,27 @@ if(isset($_GET['table'])) {
 		$table = cleanInput($_GET['table']);
 		$id = cleanInput($_GET['id']);
 
+		// extra for redirecting
+		if(isset($_GET['redirectTO'])) {
+			$redirectTO = cleanInput($_GET['redirectTO']);
+		} else {
+			$redirectTO = $root_Pages_HTML;
+		}
+		// extra param for redirecting
+		/*
+		if(isset($_GET['redirectTO'])) {
+			$redirectTOparameters = cleanInputArr($_GET['redirectTOparameters']);
+			$redirectTO = $redirectTO."?";
+			foreach($redirectTOparameters as $p) {
+				$redirectTO = $redirectTO."?";
+		} else {
+			$redirectTOparameters = array();
+		}
+		 */
+
 		if(db::rm($table, $id) == '0') {
 			alerts::echo_success();
-			redirect::to_page($root_Pages_HTML);
+			redirect::to_page($redirectTO);
 		}
  	} 
 	else {

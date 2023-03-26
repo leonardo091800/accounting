@@ -140,54 +140,31 @@ class db {
 
 
 	/* 
-	 * get from Table given ID
+	 * getID
 	 */
-	public static function get($table, $id) {
-		if(empty($id)) {
-			die("<br> in function db::get id must be given <br>");
+	public static function getID($table, $parameters) {
+		$rows = db::get($table, $parameters);
+		// returning ID as integer
+		return intval($rows[0]['id']);
+	}
+
+
+
+	/* 
+	 * get from Table given parameters 
+	 */
+	public static function get($table, $parameters) {
+		if(empty($parameters)) {
+			die("<br> in function db::get parameters need to be an array of [key->value] <br>");
 		}
 		if(empty($table) || $table=='') {
 			die("<br> in function db::get table needs to be given <br>");
 		}
 
 		$maybe = new db();
-		if($maybe->checkIfExist($table, array('id'=>$id)) == 0) {
-			die("<br> id in $table does NOT exist! <br>");
-		}
-
-		// if checks are good
-		$conn = db::connect();
-		$sql = "SELECT * FROM $table WHERE `id` = '$id'";
-		try {
-			$q=$conn->prepare($sql);
-			$rows = $q->execute();
-			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
-		} catch (Exception $e) {
-			die(" in db::get server error, report this to the admin: $e");
-		}
-
-//		echo "in db::selectID id = "; print_r($rows);
-
-		// returning array of values
-		return $rows;
-	}
-
-
-
-	/* 
-	 * getID
-	 */
-	public static function getID($table, $parameters) {
-		if(empty($parameters)) {
-			die("<br> in function db::getID parameters need to be an array of [key->value] <br>");
-		}
-		if(empty($table) || $table=='') {
-			die("<br> in function db::getID table needs to be given <br>");
-		}
-
-		$maybe = new db();
 		if($maybe->checkIfExist($table, $parameters) == 0) {
-			die("<br> id in $table does NOT exist! <br>");
+			return(array('error' => 1, 'type' => 'isset'));
+//			die("<br> id in $table does NOT exist! <br>");
 		}
 
 		// if checks are good
@@ -197,7 +174,7 @@ class db {
 		$firstKey=array_key_first($parameters);
 		$firstParameter=$parameters[$firstKey];
 
-		$sql = "SELECT `id` FROM $table WHERE `$firstKey` = '$firstParameter'";
+		$sql = "SELECT * FROM $table WHERE `$firstKey` = '$firstParameter'";
 
 		// rm first parameter from array
 		unset($parameters[$firstKey]);
@@ -215,13 +192,13 @@ class db {
 			$rows = $q->execute();
 			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
 		} catch (Exception $e) {
-			die(" in db::getID server error, report this to the admin: $e");
+			die(" in db::get server error, report this to the admin: $e");
 		}
 
 //		echo "in db::selectID id = "; print_r($rows);
 
-		// returning ID as integer
-		return intval($rows[0]['id']);
+		return $rows;
+
 	}
 
 
