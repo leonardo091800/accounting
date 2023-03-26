@@ -54,10 +54,14 @@ class db {
 			die("<br> in function db::add table needs to be given <br>");
 		}
 
-		$maybe = new db();
-		if($maybe->checkIfExist($table, $parameters) == 1) {
-			die("<br> id in $table already exist! <br>");
-		}
+		// SUPER UGLYYY, need to change this, usually is good to not have doublel things
+		// but in reports is quite common so..
+		if($table!='report_caption_tr_td_values') {
+			$maybe = new db();
+			if($maybe->checkIfExist($table, $parameters) == 1) {
+				die("<br> id in $table already exist! <br>");
+			}
+		} 
 
 		// if checks are good
 		$conn = db::connect();
