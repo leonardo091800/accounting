@@ -1,0 +1,61 @@
+<style>
+html {
+	font-family: "Times New Roman", Times, serif;
+}
+
+
+input[name="name"].reportGeneric {
+	width: 500px;
+}
+textarea.reportGeneric {
+	width: 500px;
+	height: 100px;
+}
+.reportRmButton {
+	position: relative;
+	width: 20px;
+	height: 20px;
+}
+.report_captions {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0px auto 20px auto;
+	padding: 10px 10px 10px 50px;
+
+	display: flex;
+	flex-direction: column;
+
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.report_caption_trs {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0px auto 20px auto;
+
+	display: flex;
+	align-items: stretch;
+	align-content: stretch;
+}
+.report_caption_tr_tds {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	align-content: stretch;
+	border: 1px solid black;
+}
+.report_caption_tr_td_values {
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 1rem;
+	font-weight: normal;
+	align-content: stretch;
+	gap: 0px;
+}
+</style>
