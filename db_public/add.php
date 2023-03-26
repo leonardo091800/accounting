@@ -58,7 +58,8 @@ if(isset($_GET['table'])) {
 	// - - Reports - -
 	case 'reports':
 		if(isset($_GET['parameters'])) {
-			$parameters = cleanInputArr($_GET['parameters'])['parameters'];
+			$a = filter_input_arraY(INPUT_GET);
+			$parameters = cleanInputArr($a['parameters']);
 			print_r($parameters);
 			if(!isset($parameters['realTable'])) {
 				$tableTMP = 'reports';
