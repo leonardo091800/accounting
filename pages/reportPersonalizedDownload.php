@@ -130,8 +130,6 @@ $conn = db::connect();
 $reportRaw = db::get('reports', array('id' => $reportID));
 $report_captionsRaw = db::get('report_captions', array('reports.id' => $reportID));
 echo "
-<div class='table center'> Editing report {$reportRaw[0]['name']} </div>
-
 <!-- needed for the creation of the report with js --> 
 <div id='report' class='table'>
 ";

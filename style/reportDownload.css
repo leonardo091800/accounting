@@ -33,7 +33,6 @@ textarea.reportGeneric {
 	position: relative;
 	width: 100%;
 	box-sizing: border-box;
-	margin: 0px auto 20px auto;
 
 	display: flex;
 	align-items: stretch;
