@@ -42,6 +42,7 @@ textarea.reportGeneric {
 	position: relative;
 	width: 100%;
 	box-sizing: border-box;
+	padding: 5px;
 
 	display: flex;
 	flex-direction: column;
