@@ -1,4 +1,6 @@
 <?php
+require_once $root_getReportsPersonalized;
+
 echo "<div id='reports'>";
 
 /* ------------------------------------------------------
