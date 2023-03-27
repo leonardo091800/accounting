@@ -5,6 +5,26 @@ html {
 
 
 
+#menu {
+	display: flex;
+	justify-content: space-around;
+}
+.menu {
+	padding: 5px;
+	background-color: rgba(173, 216, 250, 0.5);
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px rgba(173, 216, 250, 0.7);
+}
+.menu:hover {
+	/* not working --> */
+	background-color: rgba(173, 216, 250, 0.5)!important;
+	box-shadow: 5px 5px 5px rgba(173, 216, 250, 0.7)!important;
+	/* <-- not working */
+
+	cursor: pointer;
+}
+
+
 
 .formDiv {
 	margin: 20px auto;
