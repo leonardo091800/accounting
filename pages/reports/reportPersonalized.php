@@ -14,58 +14,6 @@ require_once $root_Style_report;
 <body id='body'>
 <?php
 class report {
-
-	/* 
-	 * Create Report with indented parameters
-	 * common usage is
-	 * report::show($captionsRaw, array($trsRaw, tdsRaw, tdValuesRaw));
-	 */
-	/*
-	public static function show($parameters, $indented=array()) {
-		foreach($parameters as $p) {
-			$tableFrom = $p['tableFrom'];
-			$table = $p['table'];
-			$id = $p['id'];
-			echo "<div class='table'> {$p['name']} </div>";
-			report::echoRmButton($table, $id);
-			report::echoAddButton($table, $p);
-
-			if(!empty($indented)) {
-				$parameters = array_shift($indented);
-				report:show($parameters, $indented);
-			}
-		}
-	}
-	 */
-
-
-	/*
-	public static function echoCaptions($parameters) {
-		foreach($parameters as $p) {
-			$tableFrom = $p['tableFrom'];
-			$table = $p['table'];
-			$id = $p['id'];
-		}
-	}
-	 */
-
-/*
-	public static function echoAddCaptionButton() {
-		global $root_DB_add_HTML, $root_report_HTML, $reportID;
-		$table = 'report_captions';
-echo "
-<form id='create{$table}' class='table' action='$root_DB_add_HTML' method='GET'>
-     <input form='create{$table}' type='hidden' name='table' value='{$table}'>
-     <input form='create{$table}' type='hidden' name='reports_id' value='$reportID'>
-     <input form='create{$table}' class='reportGeneric' type='text' name='name' placeholder='* name of New Caption (maximum 30 characters)'>
-<br> <textarea form='create{$table}' class='reportGeneric' name='description' placeholder='description of New Caption (maximum 100 characters) (this is not shown in the report)'></textarea>
-<br> <input form='createCaption' type='submit' value='create New Caption'>
-</form>
-";
-	}
-*/
-
-
 	public static function echoAddButton($table, $parentTable, $parentID, $nameHidden=false) {
 		global $root_DB_add_HTML, $root_report_HTML, $reportID;
 echo "
@@ -162,7 +110,7 @@ if(!isset($report_captionsRaw['error'])) {
 		report::echoRmButton($caption['table'], $caption['id']);
 		echo "<div id='caption{$caption['id']}' class='report_captions'>";
 //		echo "<div class='caption'> {$caption['name']} </div>";
-		echo "<div> {$caption['name']} </div>";
+		report::echoUpdateNameButton('report_capions', $caption['id'], $caption['name']);
 
 
 // - - - TRs - - - 
