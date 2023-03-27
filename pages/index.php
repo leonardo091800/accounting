@@ -3,7 +3,6 @@ require_once '/var/www/html/accounting/z.scripts/root.php';
 require_once $root_Scripts_showErrors;
 require_once $root_Scripts_checkSessionVariables;
 require_once $root_Scripts_style;
-require_once $root_Scripts_js;
 ?>
 
 <!DOCTYPE html PUBLIC>
