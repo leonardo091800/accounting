@@ -49,6 +49,7 @@ $root_reportPersonalized_HTML = $root_Pages_HTML."reportPersonalized.php";
 $root_reportPersonalizedDownload_HTML = $root_Pages_HTML."reportPersonalizedDownload.php";
 
 $root_DB_HTML = $root_HTML."db_public/";
+$root_DB_main_HTML = $root_DB_HTML."main.php";
 $root_DB_add_HTML = $root_DB_HTML."add.php";
 $root_DB_rm_HTML = $root_DB_HTML."rm.php";
 

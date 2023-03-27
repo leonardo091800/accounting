@@ -142,6 +142,48 @@ class db {
 	}
 
 
+	/* 
+	 * Alter
+	 */
+	public static function update($table, $id, $column, $newValue) {
+		if(empty($id) || $id=='') {
+			die("<br> in function db::alter id needs to be given <br>");
+		}
+		if(empty($table) || $table=='') {
+			die("<br> in function db::alter table needs to be given <br>");
+		}
+		if(empty($column) || $column=='') {
+			die("<br> in function db::alter column needs to be given <br>");
+		}
+		if(empty($newValue) || $newValue=='') {
+			die("<br> in function db::alter newValue needs to be given <br>");
+		}
+
+		$parameters = array('id'=>$id);
+		if(db::checkIfExist($table, $parameters) == 0) {
+			die("<br> the id in $table does NOT exist! <br>");
+		}
+
+		// if checks are good
+		$conn = db::connect();
+
+		try {
+			$sql = "UPDATE $table SET `$column` = '$newValue' WHERE `id`='$id';";
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+		} catch (Exception $e) {
+//			echo "<br> <br>"; print_r($e);
+//			echo "<br> <br>"; var_dump($e->errorInfo);
+			die(" in db::rm server error, report this to the admin: $e");
+		}
+
+		return 0;
+	}
+
+
+
+
+
 
 	/* 
 	 * getID
