@@ -19,7 +19,11 @@ echo "
 <script>
 $(document).ready(function(){
 ";
-$menuSelected = $_SESSION['menuSelected'];
+if(isset($_SESSION['menuSelected'])) {
+	$menuSelected = $_SESSION['menuSelected'];
+} else {
+	$menuSelected = '';
+}
 switch($menuSelected) {
 case 'generalLedger':
 	echo "
@@ -54,9 +58,13 @@ echo "
 // - - - Session variables - - -
 $_SESSION['sums'] = array();
 // if I don't do this, it warns me that 'undefined offset'
-foreach($_SESSION['accounts'] as $acc) {
-	$accID = $acc['id'];
-	$_SESSION['sums'][$accID] = 0;
+if(isset($_SESSION['accounts'])) {
+	foreach($_SESSION['accounts'] as $acc) {
+		$accID = $acc['id'];
+		$_SESSION['sums'][$accID] = 0;
+	}
+} else {
+	header($root_Pages_HTML);
 }
 // - - - /session variables - - -
 
