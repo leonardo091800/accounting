@@ -14,14 +14,38 @@ require_once $root_js_toggleDisplay;
 require_once $root_js_setStyle;
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<?php
+echo "
 <script>
 $(document).ready(function(){
-//	setStyle('id', 'generalLedger', 'display', 'none');
+";
+$menuSelected = $_SESSION['menuSelected'];
+switch($menuSelected) {
+case 'generalLedger':
+	echo "
+	setStyle('id', 'generalLedger', 'display', '');
 	setStyle('id', 'reports', 'display', 'none');
-
-//	$("#menuGeneralLedger").click(toggleDisplay($("#generalLedger")));
+	";
+	break;
+case 'reports':
+	echo "
+	setStyle('id', 'generalLedger', 'display', 'none');
+	setStyle('id', 'reports', 'display', '');
+	";
+	break;
+default:
+	echo "
+	setStyle('id', 'generalLedger', 'display', 'none');
+	setStyle('id', 'reports', 'display', 'none');
+	";
+	break;
+}
+echo "
 });
 </script>
+";
+?>
+
 </head>
 <body>
 <?php

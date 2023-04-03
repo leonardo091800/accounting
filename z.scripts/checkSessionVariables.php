@@ -3,6 +3,10 @@ require_once $root_Scripts_cleanInput;
 
 function checkSessionVariable($what, $var) {
 	switch($what) {
+	case 'menuSelected':
+		$_SESSION['menuSelected'] = cleanInput($var);
+		return 0;
+		break;
 	case 'usrSelected':
 		$_SESSION['usrSelected'] = cleanInput($var);
 		return 0;

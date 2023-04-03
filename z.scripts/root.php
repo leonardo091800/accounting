@@ -8,6 +8,7 @@ $root_Scripts = $root."z.scripts/";
 $root_Scripts_showErrors = $root_Scripts."show_errors.php";
 $root_Scripts_cleanInput = $root_Scripts."cleanInput.php";
 $root_Scripts_checkSessionVariables = $root_Scripts."checkSessionVariables.php";
+$root_Scripts_redirect = $root_Scripts."redirect.php";
 $root_Scripts_style = $root_Scripts."style.php";
 $root_Scripts_js = $root_Scripts."js.php";
 
