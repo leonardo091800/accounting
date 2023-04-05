@@ -85,6 +85,7 @@ require_once $root_Pages_menu;
 
 // - - - generalLedger - - - 
 if($menuSelected == 'generalLedger') {
+	require_once $root_transactionAdd;
 	require_once $root_generalLedger;
 }
 // - - - /menu - - - 

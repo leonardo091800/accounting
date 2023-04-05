@@ -19,7 +19,7 @@ $root_Pages = $root."pages/";
 $root_Pages_menu = $root_Pages."menu.php";
 $root_Pages_users = $root_Pages."users.php";
 $root_Pages_accounts = $root_Pages."accounts.php";
-$root_Pages_transactions = $root_Pages."transactions.php";
+$root_transactionAdd = $root_Pages."transaction-add.php";
 $root_generalLedger = $root_Pages."generalLedger.php";
 $root_reports = $root_Pages."reports.php";
 
