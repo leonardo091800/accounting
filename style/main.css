@@ -128,12 +128,6 @@ input.amount {
 	text-align: right;
 }
 
-.table {
-	background-color: lightblue;
-	box-sizing: border-box;
-	margin: 10px 10px 0px 10px;
-	padding: 10px;
-}
 .reportRmButton {
 	background-color: red;
 	position: relative;
@@ -192,22 +186,82 @@ input.amount {
 	border: 1px solid black;
 	padding: 10px 10px 10px 50px;
 }
+
+
+
+
+
+/*
+ * - - - - - - - - - - - Style for Main Tables made with DIVS - - - - - - - - - - - 
+ */
+.table {
+	background-color: lightblue;
+	box-sizing: border-box;
+	margin: 10px auto 0px auto;
+	padding: 10px;
+
+	display: inline-flex;
+	flex-direction: column;
+/*
+	overflow-x: auto;
+*/
+}
 .caption {
 	width: 100%;
 	font-weight: bold;
 	font-size: 1.2em;
 }
 .tr {
-	display: flex;
+/*
+	display: inline-flex;
 	justify-content: space-between;
-	margin: 5px auto;
+	align-content: stretch;
+	flex-grow: 1;
+	flex-shrink: 0;
 	border: 1px solid black;
+*/
+	box-sizing: border-box;
+	display: inline-flex;
+	margin: 5px auto 5px auto;
 	width: 90%;
+
+}
+.tr > * {
+/*
+	flex:1;
+	display: inline-block;
+	flex-shrink: 0;
+	flex-basis: 0px;
+*/
+	border: 1px solid blue;
+	box-sizing: border-box;
+}
+.th2 {
+	width: 200px;
+	padding: 5px;
+	text-align: center;
+/*
+	flex-grow: 1;
+*/
+}
+.th3 {
+	width: 100px;
+	padding: 5px;
+/*
+	flex-grow: 1;
+*/
 }
 .td {
-	width: 50%;
+	width: 100px;
 	padding: 5px;
+	font-size: 0.9rem;
+/*
+	flex-grow: 1;
+*/
 }
+/*
+ * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
+ */
 
 
 .center {

@@ -31,6 +31,11 @@ if(isset($_GET['SESSION_what']) && isset($_GET['SESSION_value'])) {
 		$_SESSION['transactionSelected'] = $SESSION_value;
 		header("Location: $root_Pages_HTML");
 		break;
+
+	case 'menuSelected':
+		$_SESSION['menuSelected'] = $SESSION_value;
+		header("Location: $root_Pages_HTML");
+		break;
 	default:
 		die('requested value not accepted by storeSessionVariables');
 	}

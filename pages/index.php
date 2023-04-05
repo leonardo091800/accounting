@@ -24,6 +24,8 @@ if(isset($_SESSION['menuSelected'])) {
 } else {
 	$menuSelected = '';
 }
+/*
+ * what if I just require what I want, instead of requiring everything and then hiding?
 switch($menuSelected) {
 case 'generalLedger':
 	echo "
@@ -44,6 +46,8 @@ default:
 	";
 	break;
 }
+*/
+
 echo "
 });
 </script>
@@ -56,6 +60,10 @@ echo "
 
 
 // - - - Session variables - - -
+// I know I should do it properly with a function etc. but dont have time and for now it works:
+require_once $root_getAccounts;
+require_once $root_getTransactions;
+
 $_SESSION['sums'] = array();
 // if I don't do this, it warns me that 'undefined offset'
 if(isset($_SESSION['accounts'])) {
@@ -76,12 +84,16 @@ require_once $root_Pages_menu;
 
 
 // - - - generalLedger - - - 
-require_once $root_generalLedger;
+if($menuSelected == 'generalLedger') {
+	require_once $root_generalLedger;
+}
 // - - - /menu - - - 
 
 
 // - - - reports - - - 
-require_once $root_reports;
+if($menuSelected == 'reports') {
+	require_once $root_reports;
+}
 // - - - /reports - - - 
 
 

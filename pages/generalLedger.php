@@ -1,8 +1,4 @@
 <?php
-// I know I should do it properly with a function etc. but dont have time and for now it works:
-require_once $root_getAccounts;
-require_once $root_getTransactions;
-
 echo "<div id='generalLedger'>";
 
 // - - - DEBUGGING - - -
@@ -59,56 +55,58 @@ echo "
 // 1st Line of Table
 // possibility to create account first
 echo "
-<div class='tableDiv'>
-<table>
-<caption> General Ledger </caption>
-<tr><th rowspan='2' class='stickLeft'>
-<form id='createAccount' action='$root_DB_add_HTML' method='GET'>
-  <input form='createAccount' type='hidden' name='table' value='accounts'>
-  <input form='createAccount' type='text' name='name' required>
-  <br>
-  <input form='createAccount' type='submit' value='create Account'>
-</form>
-</th>
+<div class='table'>
+  <div class='tr'>
+    <div class='th2'>
+    <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
+      <input form='createAccount' type='hidden' name='table' value='accounts'>
+      <input form='createAccount' type='text' name='name' required>
+      <br>
+      <input form='createAccount' type='submit' value='create Account'>
+    </form>
+    </div> <!-- /th2 createAccount -->
 ";
 
 // then echo all accounts
 foreach($_SESSION['accounts'] as $acc) {
-	echo "<th colspan='2'>".$acc['name'];
+	echo "
+    <div class='th2 accName'>".$acc['name']
+	;
 
 
 	// Remove Button
 	echo "
-</td>
-<form id='rmAccount{$acc['id']}' action='$root_DB_rm_HTML' method='get'>
-<input form='rmAccount{$acc['id']}' type='hidden' name='table' value='accounts'>
-<input form='rmAccount{$acc['id']}' type='hidden' name='id' value='{$acc['id']}'>
-<button form='rmAccount{$acc['id']}' type='submit' class='rmButton'> remove Account</button> 
-</form>
+    <form id='rmAccount{$acc['id']}' action='$root_DB_rm_HTML' method='get'>
+      <input form='rmAccount{$acc['id']}' type='hidden' name='table' value='accounts'>
+      <input form='rmAccount{$acc['id']}' type='hidden' name='id' value='{$acc['id']}'>
+      <button form='rmAccount{$acc['id']}' type='submit' class='rmButton'> remove Account</button> 
+    </form>
+    </div> <!-- /th2 {$acc['name']} -->
 	";
 
-		echo "</th>";
 }
 
 echo "
-<th rowspan='2' class='stickRigth'> Note </th>
-</tr>";
+    <div class='th2'> Note </div>
+  </div> <!-- /tr -->
+";
 
 
 
 // ------------------------------------------------------
 // 2nd Line of Table
-echo "
-<tr>
-";
-
 // writing the headers of the second line of table:
+echo "
+  <div class='tr'>
+    <div class='th2'></div> <!-- new account -->
+";
 foreach($_SESSION['accounts'] as $acc) {
-	echo "<th> Entrate </th><th> Uscite </th>";
+	echo "<div class='th3'> Entrate </div><div class='th3'> Uscite </div>";
 }
 
 echo "
-</tr>
+    <div class='th2'></div> <!-- note -->
+  </div> <!-- /tr -->
 ";
 
 
@@ -121,19 +119,17 @@ foreach($_SESSION['transactions'] as $tr) {
 	// Date &
 	// & Remove Button
 	echo "
-<tr>
-<td class='stickLeft'> 
-<br>
+  <div class='tr'>
+    <div class='th2'>
 	";
 	echo date('d/m/Y H:i', strtotime($tr['timestamp']));
 	echo "
-<br>
 <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
 <input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
 <button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
 </form>
-</td>
+    </div> <!-- /th2 timestamp -->
 	";
 
 
@@ -141,20 +137,20 @@ foreach($_SESSION['transactions'] as $tr) {
 	foreach($_SESSION['accounts'] as $acc) {
 		$accID = $acc['id'];
 		if ($tr['accounts.in.id'] == $acc['id']) {
-			echo "<td class='entrate'> ".style::toMoney($tr['amount'])."</td> <td class='uscite'></td>";
+			echo "<div class='td entrate'> ".style::toMoney($tr['amount'])."</div> <div class='td uscite'></div>";
 			$_SESSION['sums'][$accID] += $tr['amount'];
 		} 
 		elseif ($tr['accounts.out.id'] == $acc['id']) {
-			echo "<td class='entrate'></td> <td class='uscite'> ".style::toMoney($tr['amount'])."</td>";
+			echo "<div class='td entrate'></div> <div class='td uscite'> ".style::toMoney($tr['amount'])."</div>";
 			$_SESSION['sums'][$accID] -= $tr['amount'];
 		} 
 		else {
-			echo "<td class='entrate'> </td> <td class='uscite'> </td>";
+			echo "<div class='td entrate'> </div> <div class='td uscite'> </div>";
 		}
 	}
 	echo "
-<td class='note stickRight'> ".$tr['note']."</td>
-</tr>";
+    <div class='th2 stickRight'> ".$tr['note']."</div>
+  </div> <!-- /tr -->";
 }
 
 
@@ -164,19 +160,19 @@ foreach($_SESSION['transactions'] as $tr) {
 // echo totals of each account
 
 echo "
-<tr><th class='stickLeft'> SUM: </th>
+  <div class='tr'>
+    <div class='th2 stickLeft'> SUM: </div>
 ";
 
 foreach($_SESSION['accounts'] as $acc) {
 	$accID = $acc['id'];
-	echo "<th colspan='2'> ".style::toMoney($_SESSION['sums'][$accID])."</th>";
+	echo "<div class='th2 sum'> ".style::toMoney($_SESSION['sums'][$accID])."</div>";
 }
 
 echo "
-<td class='void stickRigth'></td>
-</tr>
-</table>
-</div> <!-- /tableDiv -->
+    <div class='th2 void stickRigth'></div>
+  </div> <!-- /tr -->
+</div> <!-- /table -->
 ";
 
 echo "</div> <!-- /generalLedger -->";
