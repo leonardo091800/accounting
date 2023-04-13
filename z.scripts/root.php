@@ -2,7 +2,7 @@
 session_start();
 
 
-$root = "/var/www/html/accounting/";
+$root='/var/www/html/accounting/';
 
 $root_Scripts = $root."z.scripts/";
 $root_Scripts_showErrors = $root_Scripts."show_errors.php";
@@ -22,6 +22,7 @@ $root_Pages_accounts = $root_Pages."accounts.php";
 $root_transactionAdd = $root_Pages."transaction-add.php";
 $root_generalLedger = $root_Pages."generalLedger.php";
 $root_reports = $root_Pages."reports.php";
+$root_login = $root_Pages."login.php";
 
 $root_DB = $root."db/";
 $root_DB_setup = $root_DB."setup.php";
@@ -47,7 +48,7 @@ $root_js_toggleDisplay = $root_js."toggleDisplay.js";
 $root_js_setStyle = $root_js."setStyle.js";
 
 
-$root_HTML = "/accounting/";
+$root_HTML='/accounting/';
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";

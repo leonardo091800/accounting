@@ -27,11 +27,16 @@ mysql -e "CREATE USER $user@localhost IDENTIFIED BY '$psw';"
 #update psw for mysql user in db::main
 sed -i "s/username=''/username='$user'/" db/main.php
 sed -i "s/password=''/password='$psw'/" db/main.php
+#change the root and Root_HTML to production:
+sed -i "s/root='/var/www/html/accounting/;'/root='/var/www/html/';/" z.scripts/root.php
+sed -i "s/root_HTML='/accounting';/root_HTML='/';/" z.scripts/root.php
 
 #copying files to /var/www/html and removing the default index
 rm /var/www/html/index.html
 rsync -r ./* /var/www/html/
 chown -R www-data:www-data /var/www/html
+
+sudo systemctl apache2 restart
 
 echo "finished installation, please visit: http://localhost"
 
