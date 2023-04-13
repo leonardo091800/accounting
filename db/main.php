@@ -13,10 +13,10 @@ class db {
 	public static function connect() {
 		global $root_DB_setup;
 
-		$servername = "localhost";
-		$username = "accountingAdmin";
-		$password = "mT_13TKviGF9pYSn4#fve9";
-		$db = "accounting_db";
+		$servername="localhost";
+		$username='';
+		$password='';
+		$db="accounting_db";
 
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
@@ -289,9 +289,23 @@ class db {
 		foreach($parameters as $key=>$value) {
 			$sql = $sql." AND `$key`='$value'";
 		}
-		$q=$conn->prepare($sql);
-		$rows = $q->execute();
-		$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+		try {
+			$q=$conn->prepare($sql);
+			$rows = $q->execute();
+			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			echo "<br> <br>"; print_r($e->errorInfo);
+
+			// patch 20230604: need to create mail and psw
+			// array(3) { [0]=> string(5) "42S22" [1]=> int(1054) [2]=> string(39) "Unknown column 'mail' in 'where clause'" }
+			if($e->errorInfo[1] == '1054') {
+				echo "<br> need to add mail and psw in users table, starting the patch... <br>";
+				echo "<br> but first I need to change the add accounts to include the user ID";
+				// setup::patch20230604($conn);
+				// redirect::rediretTo($pages);
+				exit;
+			}
+		}
 
 		if(empty($rows)) {
 //			echo "<br> array empty <BR>";
