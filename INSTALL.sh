@@ -7,6 +7,7 @@ apt install openssl unzip -y
 apt install php php-cli php-mbstring php-curl php-xml php-zip -y
 apt install libapache2-mod-php php-mysql -y
 
+
 # secure mysql installation
   # Kill the anonymous users
   mysql -e "DROP USER ''@'localhost'"
@@ -27,6 +28,10 @@ mysql -e "CREATE USER $user@localhost IDENTIFIED BY '$psw';"
 sed -i "s/username=''/username='$user'/" db/main.php
 sed -i "s/password=''/password='$psw'/" db/main.php
 
+#copying files to /var/www/html and removing the default index
+rm /var/www/html/index.html
+rsync -r ./* /var/www/html/
+chown -R www-data:www-data /var/www/html
+
 echo "finished installation, please visit: http://localhost"
-echo "mysql psw: $psw"
 
