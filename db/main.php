@@ -14,8 +14,8 @@ class db {
 		global $root_DB_setup;
 
 		$servername="localhost";
-		$username='';
-		$password='';
+		$username='accountingAdmin';
+		$password='f6oBVHmyuzGzHpyd';
 		$db="accounting_db";
 
 		try {
