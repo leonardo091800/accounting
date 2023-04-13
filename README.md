@@ -28,3 +28,15 @@ $ sudo chmod +x INSTALL.sh
 $ sudo ./INSTALL.sh
 
 and it's done
+
+
+
+to uninstall:
+$ sudo rm -rf /var/www/html/*
+
+
+to update:
+$ sudo rm -rf /var/www/html/*
+$ cd /tmp/accounting
+$ sudo git pull
+$ sudo ./INSTALL.sh
