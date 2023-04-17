@@ -47,6 +47,7 @@ $ sudo git clone https://github.com/leonardo091800/accounting.git
 $ cd accounting
 $ sudo chmod +x INSTALL.sh
 $ sudo ./INSTALL.sh
+$ sudo chown -R www-data:www-data /var/www/html/accounting
 ```
 
 and it's done
