@@ -44,7 +44,7 @@ class db_setup {
 
 		// creating database
 		try {
-			echo "initiliasing database...";
+//			echo "initiliasing database...";
 			$conn->exec("CREATE DATABASE $db");
 
 			return 0;
@@ -57,7 +57,7 @@ class db_setup {
 
 		// giving privileges to user over db
 		try {
-			echo "giving privileges to user over db...";
+//			echo "giving privileges to user over db...";
 			$conn->exec("GRANT ALL PRIVILEGES ON $db.* TO '$u'@'localhost';");
 			$conn->exec("FLUSH PRIVILEGES;");
 
@@ -75,8 +75,8 @@ class db_setup {
 	 * Create Tables
 	 */
 	public static function createTables($conn) {
-		echo "initiliasing tables...";
-$sql_users = "CREATE TABLE `accounting_db`.`users` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `mail` VARCAHR (50) NOT NULL , `psw` CHAR (128) NOT NULL , `name` VARCHAR(30) NOT NULL , `surname` VARCHAR(30) NOT NULL , `admin` BOOLEAN NOT NULL DEFAULT '0', `date_creation` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+//		echo "initiliasing tables...";
+$sql_users = "CREATE TABLE `accounting_db`.`users` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `mail` VARCHAR (50) NOT NULL , `psw` CHAR (128) NOT NULL , `name` VARCHAR(30) NOT NULL , `surname` VARCHAR(30) NOT NULL , `admin` BOOLEAN NOT NULL DEFAULT '0', `date_creation` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_accountTypes = "CREATE TABLE `accounting_db`.`account_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_accounts = "CREATE TABLE `accounting_db`.`accounts` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `account_types.id` INT(11) UNSIGNED , `users.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `date_open` DATE , `date_close` DATE , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_accounts_users_constraint = "ALTER TABLE `accounting_db`.`accounts` ADD CONSTRAINT `accounts-users` FOREIGN KEY (`users.id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
@@ -103,7 +103,7 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 
 		foreach($tablesSQL as $tableSQL) {
 			if(db_setup::doSQL($conn, $tableSQL, "createTables") == 0) {
-				echo "tables created successfully";
+//				echo "tables created successfully";
 			}
 			else {
 				die('error in db_setup::createTables, sql = '.$tableSQL);
@@ -135,7 +135,7 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 
 		foreach($reportTablesSQL as $i=>$sql) {
 			if(db_setup::doSQL($conn, $sql, $i) == 0) {
-				echo "sql $i sent successfully";
+//				echo "sql $i sent successfully";
 			}
 			else {
 				die("error in db_setup::createReportTables, <br> $i <br> sql = $sql");
@@ -181,8 +181,8 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 	 * 2023-04-06: add mail and password to users
 	 */
 	public static function patch20230406($conn) {
-		$sql1 = "ALTER TABLE users ADD psw CHAR (128) AFTER id;"
-		$sql2 = "ALTER TABLE users ADD mail VARCHAR (50) AFTER id;"
+		$sql1 = "ALTER TABLE users ADD psw CHAR (128) AFTER id;";
+		$sql2 = "ALTER TABLE users ADD mail VARCHAR (50) AFTER id;";
 		try {
 			doSQL($conn, $sql1, "patch20230406");
 			doSQL($conn, $sql2, "patch20230406");

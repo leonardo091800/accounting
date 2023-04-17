@@ -57,7 +57,19 @@ echo "
 </head>
 <body>
 <?php
+// if there's no user, then user is not logged in
+if(!isset($_SESSION['u']) || !isset($_SESSION['authenticated'])) {
+	echo "<br> please login or signup <br>";
+	require_once $root_login;
+	require_once $root_signup;
+	exit;
 
+// even if there is user, it must be authenticated
+} elseif ($_SESSION['authenticated'] !== true) {
+	echo "<br> Wrong credentials, please try again <br>";
+	require_once $root_login;
+	exit;
+}
 
 // - - - Session variables - - -
 // I know I should do it properly with a function etc. but dont have time and for now it works:

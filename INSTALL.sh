@@ -21,12 +21,21 @@ apt install libapache2-mod-php php-mysql -y
 #create psw for mysql user
 user="accountingAdmin"
 psw="$(openssl rand -base64 12)"
-#db="accounting_db"
+db="accounting_db"
 mysql -e "CREATE USER $user@localhost IDENTIFIED BY '$psw';"
 
+# if it is an update then:
+mysql -e "ALTER USER $user@localhost IDENTIFIED BY '$psw';"
+
+# grants access to db for new user:
+mysql -e "GRANT ALL PRIVILEGES ON $db.* TO '$user'@'localhost';"
+
+mysql -e "FLUSH PRIVILEGES;"
+
 #update psw for mysql user in db::main
-sed -i "s/username=''/username='$user'/" db/main.php
-sed -i "s/password=''/password='$psw'/" db/main.php
+sed -i "s/username='.*'/username='$user'/" db/main.php
+sed -i "s/password='.*'/password='$psw'/" db/main.php
+
 #change the root and Root_HTML to production:
 sed -i "s/root='\/var\/www\/html\/accounting\/;'/root='\/var\/www\/html\/';/" z.scripts/root.php
 sed -i "s/root_HTML='\/accounting\/';/root_HTML='\/';/" z.scripts/root.php

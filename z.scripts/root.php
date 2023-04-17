@@ -23,6 +23,7 @@ $root_transactionAdd = $root_Pages."transaction-add.php";
 $root_generalLedger = $root_Pages."generalLedger.php";
 $root_reports = $root_Pages."reports.php";
 $root_login = $root_Pages."login.php";
+$root_signup = $root_Pages."signup.php";
 
 $root_DB = $root."db/";
 $root_DB_setup = $root_DB."setup.php";
@@ -52,6 +53,8 @@ $root_HTML='/accounting/';
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
+$root_login_HTML = $root_Pages_HTML."login.php";
+$root_signup_HTML= $root_Pages_HTML."signup.php";
 $root_reportPersonalized_HTML = $root_Pages_HTML."reports/reportPersonalized.php";
 $root_reportPersonalizedDownload_HTML = $root_Pages_HTML."reports/reportPersonalizedDownload.php";
 $root_reportSumInsOutsCCs_HTML = $root_Pages_HTML."reports/reportSumInsOutsCCs.php";

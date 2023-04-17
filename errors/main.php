@@ -31,8 +31,11 @@ class alerts {
 }
 
 class redirect {
-	public static function to_page($page) {
-		echo "<script> window.location.href = '$page' </script>";
+	public static function to_page($page, $time = 0) {
+		echo "<script> window.setTimeout(function() {
+			window.location.href = '$page';
+		}, $time);
+		</script>";
 	}
 }
 ?>

@@ -15,7 +15,7 @@ class db {
 
 		$servername="localhost";
 		$username='accountingAdmin';
-		$password='f6oBVHmyuzGzHpyd';
+		$password='JlM7SsQ1Tu3MFODq';
 		$db="accounting_db";
 
 		try {
@@ -26,15 +26,20 @@ class db {
 			return $conn;
 		} 
 		catch(PDOException $e) {
-			echo "Connection failed: " . $e->getMessage();
-
 			// if connection failed because no database name:
-
-			echo "<br> <br>"; var_dump($e->errorInfo);
 			if($e->errorInfo[1] == 1049) {
 				require_once $root_DB_setup;
 				db_setup::setup($servername, $username, $password, $db);
 			}
+
+#			// if connection failed because wrong username and psw:
+#			if($e->errorInfo[1] == 1044) {
+#			}
+
+			// if error is neither of those specified above:
+			echo "Connection failed, send this to the admin: " . $e->getMessage();
+			echo "<br> <br>"; var_dump($e->errorInfo);
+
 		}
 	}
 
@@ -87,7 +92,7 @@ class db {
 		$sql = $sql_0.")".$sql_1.");";
 
 		try {
-			echo "<br> sql = $sql";
+//			echo "<br> sql = $sql";
 			$q=$conn->prepare($sql);
 			$rows = $q->execute();
 			return 0;
