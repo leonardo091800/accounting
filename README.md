@@ -5,9 +5,21 @@ An easy program in PHP and MYSQL that can help my mum with her accounting stuff.
 
 In future maybe I'll add the possibility to have multiple users, but I need to figure out how to hide/obfuscate sensitive data
 
+You can check a testing webpage of this code here:
+* https://accountingformoms.com 
+
+
 ## How to install:
-It can work even locally in any pc, just install the XAMPP app and change the root path in the z.scripts/root.php file
-In linux:
+It can work even locally in any pc
+
+### How to install in Windows:
+(not too sure but should be:)
+- install the XAMPP app 
+- get the zip file of this project and extract it in C:\wherever\you\want
+- change the root path in the z.scripts/root.php file and replace $root=c:\wherever\you\want\
+- change the root path in the z.scripts/root.php file and replace $root_HTML=c:\wherever\you\want\ 
+
+### How to install In linux:
 Install minimum dependencies (curl, sudo, git)
 ```
 # apt install sudo curl
@@ -41,16 +53,21 @@ and it's done
 
 
 
-## to uninstall:
-```
-$ sudo rm -rf /var/www/html/*
-```
-
-
 ## to update:
 ```
 $ sudo rm -rf /var/www/html/*
 $ cd /tmp/accounting
 $ sudo git pull
 $ sudo ./INSTALL.sh
+```
+
+
+## to completely uninstall:
+Be careful it will erase all your data:
+```
+$ sudo rm -rf /var/www/html/*
+$ sudo rm -rf /tmp/accounting
+$ sudo mysql
+> drop database accounting_db;
+> exit
 ```
