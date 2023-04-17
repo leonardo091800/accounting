@@ -37,12 +37,13 @@ sed -i "s/username='.*'/username='$user'/" db/main.php
 sed -i "s/password='.*'/password='$psw'/" db/main.php
 
 #change the root and Root_HTML to production:
-sed -i "s/root='\/var\/www\/html\/accounting\/;'/root='\/var\/www\/html\/';/" z.scripts/root.php
-sed -i "s/root_HTML='\/accounting\/';/root_HTML='\/';/" z.scripts/root.php
+#sed -i "s/root='\/var\/www\/html\/accounting\/;'/root='\/var\/www\/html\/';/" z.scripts/root.php
+#sed -i "s/root_HTML='\/accounting\/';/root_HTML='\/';/" z.scripts/root.php
 
 #copying files to /var/www/html and removing the default index
 rm /var/www/html/index.html
-rsync -r ./* /var/www/html/
+mkdir /var/www/html/accounting
+rsync -r ./* /var/www/html/accounting
 chown -R www-data:www-data /var/www/html
 
 sudo systemctl restart apache2 
