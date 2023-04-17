@@ -2,13 +2,22 @@
 require_once $root_DB_main;
 $conn = db::connect();
 
-// get accounts
-$sql = "SELECT * FROM transactions ORDER BY timestamp";
+// get transactions
+$sql = "SELECT * FROM transactions t
+        INNER JOIN accounts a
+       	ON (a.id=t.`accounts.in.id` OR a.id=t.`accounts.out.id`)
+	WHERE a.`users.id`={$_SESSION['userID']} 
+	ORDER BY timestamp";
+
+//	echo "sql = $sql";
 
 try {
 	$q=$conn->prepare($sql);
-	$accounts = $q->execute();
+	$transactions = $q->execute();
 	$_SESSION['transactions'] = $q->fetchAll(PDO::FETCH_ASSOC);
+
+//	print_r($_SESSION['transactions']);
+
 } catch(Exception $e) {
 	die('error in getTransactions: '.$e);
 }

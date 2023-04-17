@@ -58,7 +58,7 @@ echo "
 <body>
 <?php
 // if there's no user, then user is not logged in
-if(!isset($_SESSION['u']) || !isset($_SESSION['authenticated'])) {
+if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated'])) {
 	echo "<br> please login or signup <br>";
 	require_once $root_login;
 	require_once $root_signup;
@@ -110,6 +110,11 @@ if($menuSelected == 'reports') {
 // - - - /reports - - - 
 
 
+// - - - reports - - - 
+if($menuSelected == 'profile') {
+	require_once $root_profile;
+}
+// - - - /reports - - - 
 
 
 

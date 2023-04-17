@@ -16,7 +16,7 @@ if(isset($_GET['table'])) {
 	case 'accounts':
 		if(isset($_GET['name'])) {
 			$name = cleanInput($_GET['name']);
-			$parameters = array('name'=>$name);
+			$parameters = array('name'=>$name, 'users.id'=>$_SESSION['userID']);
 
 			if(db::add('accounts', $parameters) == 0) {
 //				alerts::echo_success();

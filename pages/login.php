@@ -24,7 +24,7 @@ if(isset($_POST['mail']) && isset($_POST['psw'])) {
 	} else {
 		print_r($result);
 		echo "logged in successfully as {$result[0]['name']} {$result[0]['surname']} <br> redirecting in 2 seconds...";
-		$_SESSION['u'] = $result[0]['mail'];
+		$_SESSION['userID'] = $result[0]['id'];
 		$_SESSION['authenticated'] = true;
 		redirect::to_page($root_Pages_HTML, '2000');
 	}

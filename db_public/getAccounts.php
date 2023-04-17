@@ -3,7 +3,7 @@ require_once $root_DB_main;
 $conn = db::connect();
 
 // get accounts
-$sql = "SELECT id, name FROM accounts";
+$sql = "SELECT id, name FROM accounts WHERE `users.id` = {$_SESSION['userID']}";
 
 try {
 	$q=$conn->prepare($sql);
