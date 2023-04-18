@@ -41,12 +41,11 @@ $ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sud
 
 and download the software:
 ```
-$ cd /tmp/
+$ cd /opt/
 $ sudo git clone https://github.com/leonardo091800/accounting.git
 $ cd accounting
 $ sudo chmod +x INSTALL.sh
 $ sudo ./INSTALL.sh
-$ sudo chown -R www-data:www-data /var/www/html/accounting
 ```
 
 and it's done
@@ -55,7 +54,8 @@ and it's done
 
 ## to update:
 ```
-$ cd /tmp/accounting
+$ cd /opt/accounting/accounting
+$ sudo chmod +x INSTALL.sh
 $ sudo ./UPDATE.sh
 ```
 
@@ -64,7 +64,7 @@ $ sudo ./UPDATE.sh
 Be careful it will erase all your data:
 ```
 $ sudo rm -rf /var/www/html/*
-$ sudo rm -rf /tmp/accounting
+$ sudo rm -rf /opt/accounting
 $ sudo mysql
 > drop database accounting_db;
 > exit
