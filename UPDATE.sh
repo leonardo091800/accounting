@@ -1,6 +1,6 @@
 #! /bin/bash
 
-git --hard reset
+git reset --hard
 git pull
 
 #create psw for mysql user

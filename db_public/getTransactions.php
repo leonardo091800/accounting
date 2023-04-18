@@ -11,14 +11,14 @@ $sql = "SELECT DISTINCT t.id, t.`accounts.in.id`, t.`accounts.out.id`, t.timesta
 	WHERE a.`users.id`={$_SESSION['userID']} 
 	ORDER BY timestamp";
 
-	echo "sql = $sql <br>";
+//	echo "sql = $sql <br>";
 
 try {
 	$q=$conn->prepare($sql);
 	$transactions = $q->execute();
 	$_SESSION['transactions'] = $q->fetchAll(PDO::FETCH_ASSOC);
 
-	echo "<br><pre>"; print_r($_SESSION['transactions']); echo"</pre>";
+//	echo "<br><pre>"; print_r($_SESSION['transactions']); echo"</pre>";
 
 } catch(Exception $e) {
 	die('error in getTransactions: '.$e);
