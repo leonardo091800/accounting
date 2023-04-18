@@ -304,6 +304,7 @@ class db {
 			// patch 20230604: need to create mail and psw
 			// array(3) { [0]=> string(5) "42S22" [1]=> int(1054) [2]=> string(39) "Unknown column 'mail' in 'where clause'" }
 			if($e->errorInfo[1] == '1054') {
+				require_once $root_DB_setup;
 				echo "<br> need to add mail and psw in users table, starting the patch... <br>";
 				echo "<br> but first I need to change the add accounts to include the user ID";
 				setup::patch20230604($conn);
