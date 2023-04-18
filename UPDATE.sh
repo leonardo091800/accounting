@@ -18,7 +18,7 @@ sed -i "s/username='.*'/username='$user'/" db/main.php
 sed -i "s/password='.*'/password='$psw'/" db/main.php
 
 #replacing old files with new ones
-rm /var/www/html/accounting/*
+rm -r /var/www/html/accounting/*
 rsync -r ./* /var/www/html/accounting
 chown -R www-data:www-data /var/www/html
 
