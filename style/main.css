@@ -2,9 +2,25 @@
 html {
 	font-family: "Times New Roman", Times, serif;
 }
+.center {
+	text-align: center;
+}
+.button {
+	border: 1px solid blue;
+	margin: 5px auto;
+	width: 100px;
+	padding: 2px;
+}
+.error {
+	color: red;
+}
 
 
 
+
+/*
+ * - - - - - - - - - - - Style for Menu - - - - - - - - - - - 
+ */
 #menu {
 	display: flex;
 	justify-content: space-around;
@@ -24,37 +40,17 @@ html {
 
 	cursor: pointer;
 }
-
-
-
-.formDiv {
-	margin: 20px auto;
-	border: 1px solid blue;
-	padding: 5px
-}
-input[name="name"].reportGeneric {
-	width: 500px;
-}
-textarea.reportGeneric {
-	width: 500px;
-	height: 100px;
-}
+/*
+ * - - - - - - - - - - - / Style for Menu - - - - - - - - - - - 
+ */
 
 
 
 
-
-.button {
-	border: 1px solid blue;
-	margin: 5px auto;
-	width: 100px;
-	padding: 2px;
-}
-
-
-
-
-
+/*
+ * - - - - - - - - - - - Old Style for General Ledger - - - - - - - - - - - 
+ */
+/*
 .tableDiv {
 	text-overflow: ellipsis;
 	margin: 20px auto;
@@ -75,16 +71,16 @@ table caption {
 }
 
 table tr:first-child {
-	background-color: rgba(255, 255, 255, 0.5) /* white */
+	background-color: rgba(255, 255, 255, 0.5) /* white */      /*
 }
 table tr:nth-child(even) {
-	background-color: rgba(183, 226, 250, 0.5) /* light blue*/
+	background-color: rgba(183, 226, 250, 0.5) /* light blue*/  /*
 }
 table tr:nth-child(odd) {
-	background-color: rgba(173, 216, 250, 0.5) /* light blue*/
+	background-color: rgba(173, 216, 250, 0.5) /* light blue*/  /*
 }
 table tr.selected {
-	background-color: rgba(180, 250, 180, 0.5) /* light green*/
+	background-color: rgba(180, 250, 180, 0.5) /* light green*/ /*
 }
 
 th {
@@ -94,25 +90,6 @@ td {
 	min-width: 100px;
 	text-align: center;
 }
-/* 
- * https://stackoverflow.com/questions/1312236/how-do-i-create-an-html-table-with-a-fixed-frozen-left-column-and-a-scrollable-b
- */
-/*
-.stickLeft {
-	min-width: 100px;
-	border: 1px solid blue;
-	position: absolute;
-	left: 0;
-	top: auto;
-	border-top-width: 1px;
-	margin-top: -1px;
-}
-.fake, td
-{
-    position:relative;
-    left: -120px;
-}
-*/
 
 td.deleteButton {
 	width: 20%;
@@ -122,13 +99,140 @@ td.deleteButton {
 button.deleteButton {
 	width: 50%;
 	min-width: 50px;
-	background-color: rgba(255, 114, 118, 0.5) /* light red */
+	background-color: rgba(255, 114, 118, 0.5) /* light red */   /*
 }
 
 input.amount {
 	text-align: right;
 }
+*/
+/*
+ * - - - - - - - - - - - / Old Style for General Ledger - - - - - - - - - - - 
+ */
 
+
+
+
+
+/*
+ * - - - - - - - - - - - Style for Main Tables made with DIVS - - - - - - - - - - - 
+ */
+.table {
+	background-color: lightblue;
+	margin: 10px auto 0px auto;
+	padding: 10px;
+
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+/*
+	-webkit-box-flex: 1;
+	box-sizing: border-box;
+	display: inline-flex;
+	flex-direction: column;
+	overflow-x: auto;
+*/
+}
+/*
+.table > div {
+	box-sizing: border-box;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+}
+*/
+.caption {
+	width: 100%;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-align: center;
+}
+.tr {
+/*
+	justify-content: space-between;
+	align-content: stretch;
+	-webkit-flex: 1;
+	flex-grow: 1;
+	flex-shrink: 0;
+	border: 1px solid black;
+	display: inline-flex;
+*/
+	margin: 5px auto 5px auto;
+	width: 90%;
+	box-sizing: border-box;
+
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+
+}
+.tr > div {
+	border: 1px solid blue;
+	box-sizing: border-box;
+	flex-shrink: 1;
+/*
+	flex:1;
+	display: inline-block;
+	flex-shrink: 0;
+	flex-basis: 0px;
+	-webkit-flex: 1;
+	flex: 1;
+*/
+}
+.th2 {
+	width: 200px;
+	padding: 5px;
+	text-align: center;
+	flex-basis: 2;
+	flex-grow: 2;
+/*
+*/
+}
+.th3 {
+	width: 100px;
+	padding: 5px;
+	flex-basis: 1;
+	flex-grow: 1;
+/*
+*/
+}
+.td {
+	width: 100px;
+	padding: 5px;
+	font-size: 0.9rem;
+	flex-basis: 1;
+	flex-grow: 1;
+/*
+*/
+}
+.td input, .th2 input, .th3 input, .td select, .th2 select, .th3 select {
+	width: 0px;
+	min-width: 100%;
+}
+.arrow {
+	width: fit-content;
+}
+/*
+ * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
+ */
+
+
+
+
+/*
+ * - - - - - - - - - - - Style for Reports - - - - - - - - - - - 
+ */
+.formDiv {
+	margin: 20px auto;
+	border: 1px solid blue;
+	padding: 5px
+}
+input[name="name"].reportGeneric {
+	width: 500px;
+}
+textarea.reportGeneric {
+	width: 500px;
+	height: 100px;
+}
 .reportRmButton {
 	background-color: red;
 	position: relative;
@@ -187,85 +291,8 @@ input.amount {
 	border: 1px solid black;
 	padding: 10px 10px 10px 50px;
 }
-
-
-
-
-
 /*
- * - - - - - - - - - - - Style for Main Tables made with DIVS - - - - - - - - - - - 
- */
-.table {
-	background-color: lightblue;
-	box-sizing: border-box;
-	margin: 10px auto 0px auto;
-	padding: 10px;
-
-	display: inline-flex;
-	flex-direction: column;
-/*
-	overflow-x: auto;
-*/
-}
-.caption {
-	width: 100%;
-	font-weight: bold;
-	font-size: 1.2em;
-}
-.tr {
-/*
-	display: inline-flex;
-	justify-content: space-between;
-	align-content: stretch;
-	flex-grow: 1;
-	flex-shrink: 0;
-	border: 1px solid black;
-*/
-	box-sizing: border-box;
-	display: inline-flex;
-	margin: 5px auto 5px auto;
-	width: 90%;
-
-}
-.tr > * {
-/*
-	flex:1;
-	display: inline-block;
-	flex-shrink: 0;
-	flex-basis: 0px;
-*/
-	border: 1px solid blue;
-	box-sizing: border-box;
-}
-.th2 {
-	width: 200px;
-	padding: 5px;
-	text-align: center;
-/*
-	flex-grow: 1;
-*/
-}
-.th3 {
-	width: 100px;
-	padding: 5px;
-/*
-	flex-grow: 1;
-*/
-}
-.td {
-	width: 100px;
-	padding: 5px;
-	font-size: 0.9rem;
-/*
-	flex-grow: 1;
-*/
-}
-/*
- * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
+ * - - - - - - - - - - - / Style for Reports - - - - - - - - - - - 
  */
 
-
-.center {
-	text-align: center;
-}
 </style>

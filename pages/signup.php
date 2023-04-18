@@ -1,6 +1,10 @@
 <?php
 require_once '/var/www/html/accounting/z.scripts/root.php';
 require_once $root_Scripts_cleanInput;
+require_once $root_Scripts_style;
+
+// just a small variable that get set to false when user logs in
+$print_signup = true;
 
 if(isset($_POST['mail']) && isset($_POST['psw']) && isset($_POST['name']) && isset($_POST['surname'])) {
 	$mail = cleanInput($_POST['mail']);
@@ -14,34 +18,35 @@ if(isset($_POST['mail']) && isset($_POST['psw']) && isset($_POST['name']) && iss
 	// connect to db and check u & p
 	$parameters = array('mail' => $mail, 'psw' => $p);
 	$result = db::get('users', $parameters);
-
 //	echo "<br> Result:"; print_r($result);
- 	// if result is empty no user with that psw and email found
+
+ 	// if result is empty no user with that psw and email found, so continue with registration
 	if(isset($result['error'])) {
 		if($result['type'] == 'isset') {
 			$parameters = array('mail' => $mail, 'psw' => $p, 'name' => $name, 'surname' => $surname);
 			if(db::add('users', $parameters) == 0) {
-				echo "user $name $surname with email $mail added successfully, please log in to check credentials:";
+				echo "<br> user $name $surname with email $mail added successfully!";
 				require_once $root_login;
+				$print_signup = false;
 			}
 		}
 	} else {
-		echo "generic error found... maybe username already exists?";
-		require_once $root_login;
+		header("Location: $root_Pages_HTML?loginResponse=generic error found... maybe username already exists?");
 	}
 }
-
-echo "
-<div id='signup'>
-Sign up form:
-<form id='signupForm' action='$root_signup_HTML' method='POST'>
-<br> <input type='text' name='name' value='' placeholder='Mario'>
-<br> <input type='text' name='surname' value='' placeholder='Rossi'>
-<br> <input type='text' name='mail' value='' placeholder='mario.rossi@gmail.com'>
-<br> <input type='password' name='psw' value='' placeholder='yourVeryStrongP4ssw0rd#?'>
-<br> <input type='submit' value='submit'>
-</form>
-</div> <!-- /signup-->
-";
+if($print_signup != false) {
+	echo "
+	<div id='singup' class='table'>
+	<div class='caption'> Signup form: </div>
+	<form id='signupForm' action='$root_signup_HTML' method='POST'>
+	<div class='tr'><input type='text' name='name' value='' placeholder='Mario'> </div>
+	<div class='tr'><input type='text' name='surname' value='' placeholder='Rossi'> </div>
+	<div class='tr'><input type='text' name='mail' value='' placeholder='mario.rossi@gmail.com'> </div>
+	<div class='tr'><input type='password' name='psw' value='' placeholder='yourVeryStrongP4ssw0rd#?'> </div>
+	<div class='tr'><input type='submit' value='submit'> </div>
+	</form>
+	</div> <!-- /signup-->
+	";
+}
 ?>
 

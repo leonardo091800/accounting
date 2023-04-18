@@ -80,7 +80,7 @@ class db {
 
 		// rm first parameter from array
 		unset($parameters[$firstKey]);
-		echo "<br> "; print_r($parameters);
+//		echo "<br> "; print_r($parameters);
 
 		// printing other possible parameters with "comma" in between
 		foreach($parameters as $key=>$value) {

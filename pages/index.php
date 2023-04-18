@@ -58,18 +58,26 @@ echo "
 <body>
 <?php
 // if there's no user, then user is not logged in
-if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated'])) {
+if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+	if(isset($_GET['loginResponse'])) {
+		echo "<span class='error'> ".$_GET['loginResponse']." </span>";
+	}
 	echo "<br> please login or signup <br>";
+	echo "<div class='table'>";
 	require_once $root_login;
 	require_once $root_signup;
+	echo "</div>";
 	exit;
+}
 
 // even if there is user, it must be authenticated
-} elseif ($_SESSION['authenticated'] !== true) {
+/*
+} elseif () {
 	echo "<br> Wrong credentials, please try again <br>";
 	require_once $root_login;
 	exit;
 }
+ */
 
 // - - - Session variables - - -
 // I know I should do it properly with a function etc. but dont have time and for now it works:
@@ -110,11 +118,11 @@ if($menuSelected == 'reports') {
 // - - - /reports - - - 
 
 
-// - - - reports - - - 
+// - - - profile - - - 
 if($menuSelected == 'profile') {
 	require_once $root_profile;
 }
-// - - - /reports - - - 
+// - - - /profile - - - 
 
 
 

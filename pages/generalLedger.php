@@ -14,6 +14,7 @@ echo "<div id='generalLedger'>";
 // possibility to create account first
 echo "
 <div class='table'>
+  <div class='caption'> General Ledger </div>
   <div class='tr'>
     <div class='th2'>
     <form id='createAccount' action='$root_DB_add_HTML' method='GET'>

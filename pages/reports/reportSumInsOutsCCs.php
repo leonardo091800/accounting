@@ -12,6 +12,11 @@ require_once $root_Style_main;
 </head>
 <body id='body'>
 <?php
+
+// - - - menu - - - 
+require_once $root_Pages_menu;
+// - - - /menu - - - 
+
 if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate']) && isset($_GET['uscite']) && isset($_GET['conti'])) {
 	$beginDate = $_GET['beginDate'];
 	$endDate = $_GET['endDate'];
@@ -32,17 +37,19 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 
 	// inizio creazione rendiconto
 	// Titolo
-	echo "<div class='title'> RENDICONTO </div>";
+	echo "<div id='report' class='table'>
+	        <div class='caption'> RENDICONTO </div>";
 
 	// periodo riferimento
-	echo "<div class='subtitle'> PERIODO DI RIFERIMENTO DAL $beginDate AL $endDate </div>";
+	echo "
+		<div class='caption'> PERIODO DI RIFERIMENTO DAL $beginDate AL $endDate </div>";
 
 	// Entrate
 	echo "<div class='table'> 
-<div class='caption'> Entrate </div>  
+<div class='caption'> Somma Entrate </div>  
 	";
 	foreach($entrate as $accName) {
-		$accID = db::getID('accounts', array('name'=>$accName));
+		$accID = db::getID('accounts', array('name'=>$accName, 'users.id'=>$_SESSION['userID']));
 //		echo "<br> id = $accID";
 
 		// get initial sum of account
@@ -66,10 +73,10 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 
 	// Uscite 
 	echo "<div class='table'> 
-<div class='caption'> Uscite </div>  
+<div class='caption'> somma Uscite </div>  
 	";
 	foreach($uscite as $accName) {
-		$accID = db::getID('accounts', array('name'=>$accName));
+		$accID = db::getID('accounts', array('name'=>$accName, 'users.id'=>$_SESSION['userID']));
 //		echo "<br> id = $accID";
 
 		// get initial sum of account
@@ -92,11 +99,12 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 
 
 	// Conti 
-	echo "<div class='table'> 
-<div class='caption'> Conti / Banche </div>  
+		echo "
+<div class='table'> 
+  <div class='caption'> Conti / Banche </div>  
 	";
 	foreach($conti as $accName) {
-		$accID = db::getID('accounts', array('name'=>$accName));
+		$accID = db::getID('accounts', array('name'=>$accName, 'users.id'=>$_SESSION['userID']));
 //		echo "<br> id = $accID";
 
 		// get initial sum of account
@@ -106,30 +114,33 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 		$endSum = db::getSum($accID, $endDate);
 
 		echo "
-<div class='tr'>
-<div class='td'> $accName </div>
-<div class='td'>
+  <div class='tr'>
+    <div class='td'> $accName </div>
+    <div class='td'>
 	Initial Sum = $beginSum 
 <br>	Final Sum = $endSum
-</div>
-</div> <!-- /tr --> 
-</div> <!-- /table -->
+    </div>
+  </div> <!-- /tr --> 
 	";
 	}
+	echo " 
+</div> <!-- /table Conti / Banche -->
+	";
 
 
+	echo "</div> <!-- /table report -->";
 
 	// button to export as PDF
 	echo "
 <br><br><br>
-<button id='button' class='center'>Export in PDF!</button>
+<div id='exportButton' class='menu'> Export in PDF! </div>
 
 <script src='$root_Scripts_html2pdf_HTML'></script>
 <script>
-const btn = document.getElementById('button');
+const btn = document.getElementById('exportButton');
 
 btn.addEventListener('click', function(){
-var element = document.getElementById('body');
+var element = document.getElementById('report');
 html2pdf().from(element).save('filename.pdf');
 });
 </script>
@@ -140,4 +151,3 @@ html2pdf().from(element).save('filename.pdf');
 }
 ?>
 <body>
-<
