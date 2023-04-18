@@ -43,6 +43,7 @@ sed -i "s/password='.*'/password='$psw'/" db/main.php
 #copying files to /var/www/html and removing the default index
 rm /var/www/html/index.html
 echo "<?php header('Location: accounting/'); ?>" >> /var/www/html/index.php
+rm -rf /var/www/html/accounting
 mkdir /var/www/html/accounting
 rsync -r ./* /var/www/html/accounting
 chown -R www-data:www-data /var/www/html
