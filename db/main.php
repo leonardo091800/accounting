@@ -261,6 +261,8 @@ class db {
 	 */
 	// parameters must be an array of [key -> value]
 	public static function checkIfExist($table, $parameters) {
+		global $root_DB_setup;
+
 		$global_tables = array('users', 'accounts', 'account_types', 'transactions',
 		'reports', 'report_captions', 'report_caption_trs', 'report_caption_tr_tds', 'report_caption_tr_td_values');
 
