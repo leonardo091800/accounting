@@ -131,7 +131,6 @@ input.amount {
  */
 .table {
 	margin: 50px auto 10px auto;
-	background-color: var(--bgColor);
 	overflow: auto;	/* this is needed for the sticky elements */
 	max-height: 90%; 	/* this is needed for the sticky elements */
 
@@ -140,6 +139,7 @@ input.amount {
 	flex-direction: column;
 	-webkit-flex-direction: column;
 /*
+	background-color: var(--bgColor);
 	padding: 10px;
 	-webkit-box-flex: 1;
 	box-sizing: border-box;
