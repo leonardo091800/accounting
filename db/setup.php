@@ -1,4 +1,5 @@
 <?php
+require_once $root_Errors_main;
 class db_setup {
 
 	public static function setup($s, $u, $p, $db) {
