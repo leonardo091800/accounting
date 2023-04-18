@@ -309,7 +309,7 @@ class db {
 			if($e->errorInfo[1] == '1054') {
 				echo "<br> need to add mail and psw in users table, starting the patch... <br>";
 				echo "<br> but first I need to change the add accounts to include the user ID";
-				db_setup::patch20230604($conn);
+				db_setup::patch20230406($conn);
 				redirect::rediretTo($pages);
 				exit;
 			}

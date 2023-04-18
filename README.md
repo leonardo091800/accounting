@@ -55,7 +55,9 @@ and it's done
 ## to update:
 ```
 $ cd /opt/accounting/accounting
-$ sudo chmod +x INSTALL.sh
+$ git reset --hard
+$ git pull
+$ sudo chmod +x UPDATE.sh
 $ sudo ./UPDATE.sh
 ```
 
