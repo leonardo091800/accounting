@@ -184,8 +184,8 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 		$sql1 = "ALTER TABLE users ADD psw CHAR (128) AFTER id;";
 		$sql2 = "ALTER TABLE users ADD mail VARCHAR (50) AFTER id;";
 		try {
-			doSQL($conn, $sql1, "patch20230406");
-			doSQL($conn, $sql2, "patch20230406");
+			db_setup::doSQL($conn, $sql1, "patch20230406");
+			db_setup::doSQL($conn, $sql2, "patch20230406");
 			return 0;
 		} 
 		catch(PDOException $e) {
