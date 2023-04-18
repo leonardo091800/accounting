@@ -2,6 +2,8 @@
 :root {
 	--bgColor: rgba(220, 240, 250, 1);		/* lightblue */
 	--bgColorDarker: rgba(200, 230, 250, 1);	/* light blue but darker */
+	--tdColorLight: var(--bgColor);			/* light blue but darker */
+	--tdColorDark: rgba(210, 230, 250, 1);		/* light blue but darker */
 	--th2Height: 60px;
 }
 html {
@@ -207,6 +209,12 @@ input.amount {
 	flex-shrink: 1;
 /*
 */
+}
+.td:nth-child(4n+3), .td:nth-child(4n+2) {
+	background-color: var(--tdColorLight);
+}
+.td:nth-child(4n+4), .td:nth-child(4n+5) {
+	background-color: var(--tdColorDark);
 }
 .td {
 	min-width: 100px;
