@@ -1,6 +1,5 @@
-# accounting
-accounting made easy
-
+# accounting For Moms
+## Production website: *https://accountingformoms.com
 An easy program in PHP and MYSQL that can help my mum with her accounting stuff.
 
 In future maybe I'll add the possibility to have multiple users, but I need to figure out how to hide/obfuscate sensitive data
@@ -56,10 +55,8 @@ and it's done
 
 ## to update:
 ```
-$ sudo rm -rf /var/www/html/*
 $ cd /tmp/accounting
-$ sudo git pull
-$ sudo ./INSTALL.sh
+$ sudo ./UPDATE.sh
 ```
 
 

@@ -48,5 +48,5 @@ chown -R www-data:www-data /var/www/html
 
 sudo systemctl restart apache2 
 
-echo "finished installation, please visit: http://localhost"
+echo "finished installation, please visit: http://localhost/localhost"
 
