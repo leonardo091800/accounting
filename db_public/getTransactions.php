@@ -41,8 +41,8 @@ try {
 	if($e->errorInfo[1] == 1146 && $e->errorInfo[2] == "Table 'accounting_db.transaction_accounts_involved' doesn't exist") {
 		require_once $root_DB_setup;
 		if(db_setup::patchv110($conn) == 0) {
-			echo "successfully run patch v.1.1.0, redirecting in 5 seconds";
-			redirect::to_page($root_Pages_HTML, 5000);
+			echo "successfully run patch v.1.1.0, logging out in 3 seconds";
+			redirect::to_page($root_logout_HTML, 3000);
 			exit;
 		} else {
 			die('some errors in patch v.1.1.0, written from getTransactions');
