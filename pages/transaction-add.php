@@ -3,22 +3,37 @@
  * - - - - - - - - - - add transaction box - - - - - - - - - - -
  */
 $tableTMP = "transactions";
+
+/*
+ * from v.1.1.0 there can be multiple accountsi nvolved in 1 transaction so, number of accounts involved in Add Transaction is defined by 
+ * $_SESSION['transactionAdd']['accountsExitInvolved'] , set to default 1 at login
+ * $_SESSION['transactionAdd']['accountsEnterInvolved'] , set to default 1 at login
+ */ 
 echo "
 <form class='table' id='add{$tableTMP}Form' action='$root_DB_add_HTML' method='get'>
   <div class='caption'> Add Transaction </div>
   <input form='add{$tableTMP}Form' type='hidden' name='table' value='{$tableTMP}'>
   <div class='tr'>
-    <div class='th2'> Amount &euro; </div>
-    <div class='th2'> Date & Time </div>
-    <div class='th2'> From Account </div>
+    <div class='th2'> Amount &euro; From Account </div>
     <div class='th2 arrow'> &rarr; </div>
-    <div class='th2'> To Account </div>
+    <div class='th2'> Amount &euro; To Account </div>
+    <div class='th2'> Date & Time </div>
     <div class='th2'> Note </div>
   </div>
+
   <div class='tr'>
-    <div class='th2'> <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
-    </div><div class='th2'> <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
-    </div><div class='th2'> <select form='add{$tableTMP}Form' class='addInput' name='accounts_out_id' required> 
+    <div class='accountsInvolved'>
+";
+
+// echo input for amount and select possibile account (money exiting from it)
+for($i=0; $i<$_SESSION['transactionAdd']['accountsExitInvolved']; $i++) {
+	echo "
+  <div class='accountInvolved'>
+    <div id='amountExit{$i}' class='th3'> 
+      <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
+    </div>
+    <div class='th2'> 
+      <select form='add{$tableTMP}Form' class='addInput' name='accounts_out_id' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
 	foreach($_SESSION['accounts'] as $acc) {
@@ -26,8 +41,35 @@ echo "
 	}
 echo "
       </select>
-    </div><div class='th2 arrow'> &rarr;
-    </div><div class='th2'> <select form='add{$tableTMP}Form' class='addInput' name='accounts_in_id' required> 
+    </div> <!-- / accExit{$i} -->
+  </div> <!-- / accountInvolved -->
+";
+}
+
+// also echo a button to add an account where money is exiting from:
+echo "
+      <div class='accountInvolved'> 
+        <div id='addAccountExit' onclick=\"location.href='$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsExitInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsExitInvolved']+1)."'\" class='menu'>
+          Add Account
+        </div> 
+      </div>
+    </div> <!-- / accountsInvolved -->
+";
+
+echo "
+    <div class='th2 arrow'> &rarr; </div>
+      <div class='accountsInvolved'>
+";
+
+// echo input for amount and select possibile account (money entering it)
+for($i=0; $i<$_SESSION['transactionAdd']['accountsEnterInvolved']; $i++) {
+	echo "
+  <div class='accountInvolved'>
+    <div id='amountEnter{$i}' class='th3'> 
+      <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
+    </div>
+    <div class='th2'> 
+      <select form='add{$tableTMP}Form' class='addInput' name='accounts_in_id' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
 	foreach($_SESSION['accounts'] as $acc) {
@@ -35,7 +77,26 @@ echo "
 	}
 echo "
       </select>
-    </div><div class='th2'> <input form='add{$tableTMP}Form' type='text' name='note' class='addInput'>
+    </div> <!-- / accEnter{$i} -->
+  </div> <!-- / accountInvolved -->
+";
+}
+
+// also echo a button to add an account where money is exiting from:
+echo "
+      <div class='accountInvolved'> 
+        <div id='addAccountEnter' onclick=\"location.href='$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsEnterInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsEnterInvolved']+1)."'\" class='menu'>
+          Add Account
+        </div> 
+      </div>
+    </div> <!-- / accountsInvolved -->
+";
+
+echo "
+    <div class='th2'> 
+       <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
+    </div>
+    <div class='th2'> <input form='add{$tableTMP}Form' type='text' name='note' class='addInput'>
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
   <div class='tr'>

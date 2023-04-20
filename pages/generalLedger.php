@@ -60,7 +60,7 @@ echo "
     <div class='th2'></div> <!-- new account -->
 ";
 foreach($_SESSION['accounts'] as $acc) {
-	echo "<div class='th3'> Entrate </div><div class='th3'> Uscite </div>";
+	echo "<div class='th3'> Enter </div><div class='th3'> Exit </div>";
 }
 
 echo "
@@ -112,13 +112,17 @@ foreach($_SESSION['transactions'] as $tr) {
 	}
 
 	// now we need to populate the <td> we just created with the correct amounts
+	// AND
+	// create the SUM of all the accounts
 	$accID = $tr['accounts.id'];
 	if($tr['exit0orenter1'] == 0) {
 		// if the amount exited from the account:
-		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'exit").html("'.$tr['amount'].'"); }); </script>';
+		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'exit").html("'.style::toMoney($tr['amount']).'"); }); </script>';
+		$_SESSION['sums'][$accID] -= $tr['amount'];
 	} else {
 		// if the amount entered the account:
-		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'enter").html("'.$tr['amount'].'"); }); </script>';
+		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'enter").html("'.style::toMoney($tr['amount']).'"); }); </script>';
+		$_SESSION['sums'][$accID] += $tr['amount'];
 	}
 }
 

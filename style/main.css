@@ -119,11 +119,11 @@ form {
 	display: -webkit-flex;
 	flex-direction: row;
 	-webkit-flex-direction: row;
-
 }
 .tr > div {
 	border: 1px solid blue;
 	padding: 5px;
+	-webkit-align-items: stretch;
 /*
 	flex-shrink: 1;
 	flex:1;
@@ -238,6 +238,32 @@ form {
  * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
  */
 
+
+
+
+
+/*
+ * - - - - - - - - - - - Style for Transaction Add  - - - - - - - - - - - 
+ */
+.accountsInvolved {
+	-webkit-display: flex;
+	-webkit-flex-direction: column;
+}
+.accountsInvolved .accountInvolved {
+	margin: 10px;
+	/*
+	background-color: red;
+	margin-top: 0px;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+	*/
+}
+#addtransactionsForm .th2 {
+	max-height: 100%;
+}
+/*
+ * - - - - - - - - - - - END OF - Style for Accounts Management page - - - - - - - - - - - 
+ */
 
 
 

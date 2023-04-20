@@ -28,6 +28,11 @@ if(isset($_POST['mail']) && isset($_POST['psw'])) {
 		echo "<br> logged in successfully as {$result[0]['name']} {$result[0]['surname']} <br> redirecting in 2 seconds...";
 		$_SESSION['userID'] = $result[0]['id'];
 		$_SESSION['authenticated'] = true;
+
+		// since v.1.1.0 transactionAdd needs a variable to say default accounts involved:
+		$_SESSION['transactionAdd']['accountsExitInvolved'] = 1;
+		$_SESSION['transactionAdd']['accountsEnterInvolved'] = 1;
+
 		redirect::to_page($root_Pages_HTML, '2000');
 
 		// if succesfully logged in, there's no need to print the login page again

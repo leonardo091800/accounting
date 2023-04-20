@@ -54,7 +54,7 @@ $root_js_setStyle = $root_js."setStyle.js";
 $root_HTML='/accounting/';
 
 $root_Pages_HTML = $root_HTML."pages/";
-$root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
+$root_storeSessionVariable_HTML = $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";
 $root_login_HTML = $root_Pages_HTML."login.php";
 $root_logout_HTML = $root_Pages_HTML."logout.php";
 $root_signup_HTML= $root_Pages_HTML."signup.php";
