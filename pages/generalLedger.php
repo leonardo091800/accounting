@@ -73,46 +73,53 @@ echo "
 // 3rd->(end-1) Line of Table
 // then echo all transactions of each account
 // (I'll also do the sum of each account, in order to not do the same for loop later)
+
+// from v.1.1.0 every transaction can change multiple accounts, each transactions is defined by 'id'
 $currentTrID = 0;
 foreach($_SESSION['transactions'] as $tr) {
-	if($currentTrID == $tr['id']) {
-	} else {
-		$currentTrID = $tr['id']);
+	if($currentTrID != $tr['id']) {
+		// if trID is different then
+		// create new <tr>
+		// echo <th> with timestamp and rm button
+		$currentTrID = $tr['id'];
 		echo "
-	  <div class='tr'>
-	    <div class='th2'>
+<div class='tr'>
+  <div class='th2'>
 		";
 		echo date('d/m/Y H:i', strtotime($tr['timestamp']));
 		echo "
-	<form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
-	<input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
-	<input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
-	<button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
-	</form>
-	    </div> <!-- /th2 timestamp -->
+    <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
+    <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
+    <input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
+    <button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
+    </form>
+  </div> <!-- /th2 timestamp -->
 		";
 	
-	
-	//	echo "<tr><td class='createNewAccount'></td>";
+		// also echo all <td> for all the accounts
 		foreach($_SESSION['accounts'] as $acc) {
 			$accID = $acc['id'];
-			if ($tr['accounts.in.id'] == $acc['id']) {
-				echo "<div class='td entrate'> ".style::toMoney($tr['amount'])."</div> <div class='td uscite'></div>";
-				$_SESSION['sums'][$accID] += $tr['amount'];
-			} 
-			elseif ($tr['accounts.out.id'] == $acc['id']) {
-				echo "<div class='td entrate'></div> <div class='td uscite'> ".style::toMoney($tr['amount'])."</div>";
-				$_SESSION['sums'][$accID] -= $tr['amount'];
-			} 
-			else {
-				echo "<div class='td entrate'> </div> <div class='td uscite'> </div>";
-			}
+			echo "
+  <div class='td enter' id='t{$currentTrID}acc{$accID}enter'></div>
+  <div class='td exit' id='t{$currentTrID}acc{$accID}exit'></div>
+			";
 		}
+
+		// also echo the <th> note column
 		echo "
-	    <div class='th2 stickRight'> ".$tr['note']."</div>
-	  </div> <!-- /tr -->";
+  <div class='th2 stickRight'> ".$tr['note']."</div>
+</div> <!-- /tr -->";
 	}
 
+	// now we need to populate the <td> we just created with the correct amounts
+	$accID = $tr['accounts.id'];
+	if($tr['exit0orenter1'] == 0) {
+		// if the amount exited from the account:
+		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'exit").html("'.$tr['amount'].'"); }); </script>';
+	} else {
+		// if the amount entered the account:
+		echo '<script> $(document).ready(function() { $("#t'.$currentTrID.'acc'.$accID.'enter").html("'.$tr['amount'].'"); }); </script>';
+	}
 }
 
 
