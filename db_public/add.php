@@ -49,9 +49,52 @@ if(isset($_GET['table'])) {
 //				alerts::echo_success();
 				redirect::to_page($root_Pages_HTML);
 			}
+		} 
+		
+		/*
+		 * In v.1.1.0 1 transaction alters multiple accounts, parameters must be given as
+		 * transaction('timestamp'=>timestamp, 'note'=>"description of tr")
+		 * ta(
+		 *   acc1('accID' => accID, 'exit0orenter1' => 0/1, 'amount' => amount)
+		 *   accn(...)
+		 *   ...
+		 * )
+		 */
+		else if(isset($_GET['transaction']) && isset($_GET['ta'])) {
+			echo "<br> transaction: <br>"; print_r($_GET['transaction']);
+			echo "<br> ta : <br>"; print_r($_GET['ta']);
+
+			// first create transaction
+			$timestamp = cleanInput($_GET['transaction']['timestamp']);
+			$note = cleanInput($_GET['transaction']['note']);
+			$parameters = array('timestamp'=>$timestamp, 'note' => $note);
+			if(db::add('transactions', $parameters) != 0) {
+				die('error in creating transaction from db_public');
+			}
+
+			// get id of newly created transaction
+			$tID = db::getID('transactions', $parameters);
+
+			// then add tr_acc_involved for each involved account
+			foreach($_GET['ta'] as $ta){
+				$accID = cleanInput($ta['accID']);
+				$exit0orenter1 = cleanInput($ta['exit0orenter1']);
+				$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
+				$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
+				if(db::add('transaction_accounts_involved', $parameters) != 0) {
+					die('error in creating transaction_accounts_involved from db_public');
+				}
+			}
+
+			// if everything is ok:
+			alerts::echo_success();
+			$_SESSION['transactionAdd']['accountsExitInvolved'] = 1;
+			$_SESSION['transactionAdd']['accountsEnterInvolved'] = 1;
+			redirect::to_page($root_Pages_HTML);
 		} else {
 			errors::echo_error('fieldNotGiven', 'some fields in db_public/add transactions');
 		}
+
 		break;
 
 

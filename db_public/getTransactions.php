@@ -4,14 +4,16 @@ $conn = db::connect();
 
 // get transactions
 // $sql = "SELECT t.id, t.`accounts.in.id`, t.`accounts.out.id`, t.timestamp, t.amount, t.note,  a.id as accID, a.`users.id`
-$sqlOLD = "SELECT DISTINCT t.id, t.`accounts.in.id`, t.`accounts.out.id`, t.timestamp, t.amount, t.note
+/*
+$sqlOLD = "SELECT DISTINCT t.id , t.`accounts.in.id`, t.`accounts.out.id`, t.timestamp, t.amount, t.note
 	FROM transactions t
         INNER JOIN accounts a
        	ON a.id=t.`accounts.in.id` OR a.id=t.`accounts.out.id`
 	WHERE a.`users.id`={$_SESSION['userID']} 
 	ORDER BY timestamp";
+ */
 
-$sql = "SELECT DISTINCT ta.id as taID, t.id, t.timestamp, t.note, ta.`accounts.id`, ta.`exit0orenter1`, ta.`amount`
+$sql = "SELECT DISTINCT t.`id` , t.`timestamp`, t.`note`, ta.`id` as taID , ta.`accounts.id`, ta.`exit0orenter1`, ta.`amount`
 	FROM transaction_accounts_involved ta
 
 	INNER JOIN transactions t
@@ -39,7 +41,7 @@ try {
 	if($e->errorInfo[1] == 1146 && $e->errorInfo[2] == "Table 'accounting_db.transaction_accounts_involved' doesn't exist") {
 		require_once $root_DB_setup;
 		if(db_setup::patchv110($conn) == 0) {
-			echo "succesffully run patch v.1.1.0, redirecting in 5 seconds";
+			echo "successfully run patch v.1.1.0, redirecting in 5 seconds";
 			redirect::to_page($root_Pages_HTML, 5000);
 			exit;
 		} else {

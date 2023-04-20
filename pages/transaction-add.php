@@ -29,11 +29,12 @@ echo "
 for($i=0; $i<$_SESSION['transactionAdd']['accountsExitInvolved']; $i++) {
 	echo "
   <div class='accountInvolved'>
+    <input form='add{$tableTMP}Form' type='hidden' name='ta[exit{$i}][exit0orenter1]' value='0'>
     <div id='amountExit{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' name='ta[exit{$i}][amount]' class='addInput amount' step='0.01' required>
     </div>
     <div class='th2'> 
-      <select form='add{$tableTMP}Form' class='addInput' name='accounts_out_id' required> 
+      <select form='add{$tableTMP}Form' class='addInput' name='ta[exit{$i}][accID]' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
 	foreach($_SESSION['accounts'] as $acc) {
@@ -65,11 +66,12 @@ echo "
 for($i=0; $i<$_SESSION['transactionAdd']['accountsEnterInvolved']; $i++) {
 	echo "
   <div class='accountInvolved'>
+    <input form='add{$tableTMP}Form' type='hidden' name='ta[enter{$i}][exit0orenter1]' value='1'>
     <div id='amountEnter{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='amount' class='addInput amount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' name='ta[enter{$i}][amount]' class='addInput amount' step='0.01' required>
     </div>
     <div class='th2'> 
-      <select form='add{$tableTMP}Form' class='addInput' name='accounts_in_id' required> 
+      <select form='add{$tableTMP}Form' class='addInput' name='ta[enter{$i}][accID]' required> 
 	<option disabled selected value> -- select an option -- </option>
 	";
 	foreach($_SESSION['accounts'] as $acc) {
@@ -94,9 +96,9 @@ echo "
 
 echo "
     <div class='th2'> 
-       <input form='add{$tableTMP}Form' type='datetime-local' name='timestamp' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
+       <input form='add{$tableTMP}Form' type='datetime-local' name='transaction[timestamp]' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
     </div>
-    <div class='th2'> <input form='add{$tableTMP}Form' type='text' name='note' class='addInput'>
+    <div class='th2'> <input form='add{$tableTMP}Form' type='text' name='transaction[note]' class='addInput'>
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
   <div class='tr'>

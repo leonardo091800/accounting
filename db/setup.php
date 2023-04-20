@@ -86,7 +86,7 @@ $sql_accounts_accountTypes_constraint = "ALTER TABLE `accounting_db`.`accounts` 
 
 $sql_transactionTypes = "CREATE TABLE `accounting_db`.`transaction_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactionAccountsInvolved = "CREATE TABLE `accounting_db`.`transaction_accounts_involved` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transactions.id` INT(11) UNSIGNED NOT NULL , `accounts.id` INT(11) UNSIGNED NOT NULL ,`exit0orenter1` BOOLEAN NOT NULL , `amount` DECIMAL(10,4) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-$sql_transactions = "CREATE TABLE `accounting_db`.`transactions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transaction_types.id` INT(11) UNSIGNED , `accounts.in.id` INT(11) UNSIGNED NOT NULL , `accounts.out.id` INT(11) UNSIGNED NOT NULL , `timestamp` TIMESTAMP NOT NULL , `amount` DECIMAL(10,4) NOT NULL , `note` VARCHAR(50), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_transactions = "CREATE TABLE `accounting_db`.`transactions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transaction_types.id` INT(11) UNSIGNED , `accounts.in.id` INT(11) UNSIGNED , `accounts.out.id` INT(11) UNSIGNED , `timestamp` TIMESTAMP NOT NULL , `amount` DECIMAL(10,4) , `note` VARCHAR(50), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactions_transactionTypes_constraint = "ALTER TABLE `accounting_db`.`transactions` ADD CONSTRAINT `transactions-transaction_types` FOREIGN KEY (`transaction_types.id`) REFERENCES `transaction_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 $sql_transactionAccountsInvolved_transactions_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-transactions` FOREIGN KEY (`transactions.id`) REFERENCES `transactions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
@@ -236,12 +236,18 @@ $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_
 			}
 	
 			// remove constraints and columns in transactions
-			$sql_rm_contraint_accounts_in  = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.in`";
-			$sql_rm_contraint_accounts_out = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.out`";
-			$sql_rm_column_accounts_in  = "ALTER TABLE transactions DROP COLUMN `accounts.in.id";
-			$sql_rm_column_accounts_out = "ALTER TABLE transactions DROP COLUMN `accounts.out.id";
+			$sql_rm_constraint_accounts_in  = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.in`";
+			$sql_rm_constraint_accounts_out = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.out`";
+			$sql_alter_column_accounts_in  = "ALTER TABLE transactions MODIFY COLUMN `accounts.in.id` INT(11) UNSIGNED";
+			$sql_alter_column_accounts_out = "ALTER TABLE transactions MODIFY COLUMN `accounts.out.id` INT(11) UNSIGNED";
+			$sql_alter_column_amount = "ALTER TABLE transactions MODIFY COLUMN `amount` DECIMAL(10,4)";
+			$sql_rm_column_accounts_in  = "ALTER TABLE transactions DROP COLUMN `accounts.in.id`";
+			$sql_rm_column_accounts_out = "ALTER TABLE transactions DROP COLUMN `accounts.out.id`";
 //			db_setup::doSQL($conn, $sql_rm_constraint_accounts_in,  "patch-v.1.1.0 - rm constraint to accounts in of transactions table");
 //			db_setup::doSQL($conn, $sql_rm_constraint_accounts_out, "patch-v.1.1.0 - rm constraint to accounts out of transactions table");
+			db_setup::doSQL($conn, $sql_alter_column_accounts_in,  "patch-v.1.1.0 - alter accounts.in of transactions table");
+			db_setup::doSQL($conn, $sql_alter_column_accounts_out, "patch-v.1.1.0 - alter accounts.out of transactions table");
+			db_setup::doSQL($conn, $sql_alter_column_amount, "patch-v.1.1.0 - alter amount of transactions table");
 //			db_setup::doSQL($conn, $sql_rm_column_accounts_in,  "patch-v.1.1.0 - rm accounts.in.id of transactions table");
 //			db_setup::doSQL($conn, $sql_rm_column_accounts_out, "patch-v.1.1.0 - rm accounts.out.id of transactions table");
 		
