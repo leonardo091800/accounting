@@ -32,7 +32,7 @@ try {
 	$transactions = $q->execute();
 	$_SESSION['transactions'] = $q->fetchAll(PDO::FETCH_ASSOC);
 
-	echo "<br><pre>"; print_r($_SESSION['transactions']); echo"</pre>";
+//	echo "<br><pre>"; print_r($_SESSION['transactions']); echo"</pre>";
 
 } catch(Exception $e) {
 	echo "<br> <pre>"; var_dump($e->errorInfo);

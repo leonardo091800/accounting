@@ -31,7 +31,7 @@ for($i=0; $i<$_SESSION['transactionAdd']['accountsExitInvolved']; $i++) {
   <div class='accountInvolved'>
     <input form='add{$tableTMP}Form' type='hidden' name='ta[exit{$i}][exit0orenter1]' value='0'>
     <div id='amountExit{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='ta[exit{$i}][amount]' class='addInput amount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' name='ta[exit{$i}][amount]' class='addInput exitAmount' step='0.01' required>
     </div>
     <div class='th2'> 
       <select form='add{$tableTMP}Form' class='addInput' name='ta[exit{$i}][accID]' required> 
@@ -68,7 +68,7 @@ for($i=0; $i<$_SESSION['transactionAdd']['accountsEnterInvolved']; $i++) {
   <div class='accountInvolved'>
     <input form='add{$tableTMP}Form' type='hidden' name='ta[enter{$i}][exit0orenter1]' value='1'>
     <div id='amountEnter{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='ta[enter{$i}][amount]' class='addInput amount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' name='ta[enter{$i}][amount]' class='addInput enterAmount' step='0.01' required>
     </div>
     <div class='th2'> 
       <select form='add{$tableTMP}Form' class='addInput' name='ta[enter{$i}][accID]' required> 
@@ -103,10 +103,36 @@ echo "
   </div> <!-- /tr -->
   <div class='tr'>
     <div class='th2 center' style='width:100%'>
-      <button form='add{$tableTMP}Form' type='submit' class='addButton'> ADD Transaction </button> 
+      <div id='add{$tableTMP}FormSubmit' class='menu'> ADD Transaction </div> 
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
 </form>
+
+<script>
+$(document).ready(function() { 
+  $(\"#add{$tableTMP}FormSubmit\").click(function() {
+    
+    // check if the sum is ok
+    var sumExit  = 0;
+    var sumEnter = 0;
+    $(\".exitAmount\").each(function() {
+      sumExit += parseFloat($(this).val());
+    });
+    $(\".enterAmount\").each(function() {
+      sumEnter += parseFloat($(this).val());
+    });
+
+ //   alert('sumExit='+sumExit+' sumEnter='+sumEnter);
+
+    // if sum of enter and exit are same: submit the form
+    if(sumExit==sumEnter) {
+      $(\"#add{$tableTMP}Form\").submit();
+    } else {
+      alert('sum of Exit and Enter do not match! sumExit='+sumExit+' sumEnter='+sumEnter);
+    }
+  });
+}); 
+</script>
 ";
 /*
  * - - - - - - - - - - END OF : add transaction box - - - - - - - - - - -

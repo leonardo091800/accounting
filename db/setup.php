@@ -243,13 +243,13 @@ $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_
 			$sql_alter_column_amount = "ALTER TABLE transactions MODIFY COLUMN `amount` DECIMAL(10,4)";
 			$sql_rm_column_accounts_in  = "ALTER TABLE transactions DROP COLUMN `accounts.in.id`";
 			$sql_rm_column_accounts_out = "ALTER TABLE transactions DROP COLUMN `accounts.out.id`";
-//			db_setup::doSQL($conn, $sql_rm_constraint_accounts_in,  "patch-v.1.1.0 - rm constraint to accounts in of transactions table");
-//			db_setup::doSQL($conn, $sql_rm_constraint_accounts_out, "patch-v.1.1.0 - rm constraint to accounts out of transactions table");
+			db_setup::doSQL($conn, $sql_rm_constraint_accounts_in,  "patch-v.1.1.0 - rm constraint to accounts in of transactions table");
+			db_setup::doSQL($conn, $sql_rm_constraint_accounts_out, "patch-v.1.1.0 - rm constraint to accounts out of transactions table");
 			db_setup::doSQL($conn, $sql_alter_column_accounts_in,  "patch-v.1.1.0 - alter accounts.in of transactions table");
 			db_setup::doSQL($conn, $sql_alter_column_accounts_out, "patch-v.1.1.0 - alter accounts.out of transactions table");
 			db_setup::doSQL($conn, $sql_alter_column_amount, "patch-v.1.1.0 - alter amount of transactions table");
-//			db_setup::doSQL($conn, $sql_rm_column_accounts_in,  "patch-v.1.1.0 - rm accounts.in.id of transactions table");
-//			db_setup::doSQL($conn, $sql_rm_column_accounts_out, "patch-v.1.1.0 - rm accounts.out.id of transactions table");
+			db_setup::doSQL($conn, $sql_rm_column_accounts_in,  "patch-v.1.1.0 - rm accounts.in.id of transactions table");
+			db_setup::doSQL($conn, $sql_rm_column_accounts_out, "patch-v.1.1.0 - rm accounts.out.id of transactions table");
 		
 			return 0;
 		} 
