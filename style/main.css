@@ -12,6 +12,9 @@ html {
 * {
 	box-sizing: border-box;
 }
+form {
+	margin: 0px;
+}
 
 .center {
 	text-align: center;
@@ -24,6 +27,9 @@ html {
 }
 .error {
 	color: red;
+}
+.secondaryTable {
+	background-color: var(--bgColor);
 }
 
 
@@ -57,70 +63,6 @@ html {
  */
 
 
-
-
-/*
- * - - - - - - - - - - - Old Style for General Ledger - - - - - - - - - - - 
- */
-/*
-.tableDiv {
-	text-overflow: ellipsis;
-	margin: 20px auto;
-	overflow-x: scroll;
-	width: 80%;
-}
-table {
-	margin: 20px auto;
-	border: 1px solid blue;
-}
-#transactionsTable {
-	width: 90%;
-	max-width: 90%;
-}
-table caption {
-	border: 1px solid blue;
-	font-weight: bold;
-}
-
-table tr:first-child {
-	background-color: rgba(255, 255, 255, 0.5) /* white */      /*
-}
-table tr:nth-child(even) {
-	background-color: rgba(183, 226, 250, 0.5) /* light blue*/  /*
-}
-table tr:nth-child(odd) {
-	background-color: rgba(173, 216, 250, 0.5) /* light blue*/  /*
-}
-table tr.selected {
-	background-color: rgba(180, 250, 180, 0.5) /* light green*/ /*
-}
-
-th {
-	border-bottom: 1px solid blue;
-}
-td {
-	min-width: 100px;
-	text-align: center;
-}
-
-td.deleteButton {
-	width: 20%;
-	max-width: 100px;
-	border-right: 1px solid blue;
-}
-button.deleteButton {
-	width: 50%;
-	min-width: 50px;
-	background-color: rgba(255, 114, 118, 0.5) /* light red */   /*
-}
-
-input.amount {
-	text-align: right;
-}
-*/
-/*
- * - - - - - - - - - - - / Old Style for General Ledger - - - - - - - - - - - 
- */
 
 
 
@@ -243,6 +185,12 @@ input.amount {
 /*
  * - - - - - - - - - - - Style for GeneralLedger - - - - - - - - - - - 
  */
+#generalLedger .caption {
+	top: - var(--th2Height);
+	margin-top: 0px;
+	position: sticky;
+	position: -webkit-sticky;
+}
 #generalLedger .th2:nth-of-type(1) {
 	background-color: var(--bgColorDarker);
 	margin-left: 0px;
@@ -289,6 +237,32 @@ input.amount {
 /*
  * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
  */
+
+
+
+
+
+/*
+ * - - - - - - - - - - - Style for Accounts Management page - - - - - - - - - - - 
+ */
+#accountsManagement.table {
+	margin-top: 0px;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+}
+#accountsManagement .table {
+	margin-top: 0px;
+	min-width: 200px;
+	margin-right: 10px;
+}
+#accountsManagement .tr{
+	min-width: 0px;
+}
+/*
+ * - - - - - - - - - - - END OF - Style for Accounts Management page - - - - - - - - - - - 
+ */
+
+
 
 
 
