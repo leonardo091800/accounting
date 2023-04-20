@@ -73,43 +73,46 @@ echo "
 // 3rd->(end-1) Line of Table
 // then echo all transactions of each account
 // (I'll also do the sum of each account, in order to not do the same for loop later)
+$currentTrID = 0;
 foreach($_SESSION['transactions'] as $tr) {
-
-	// Date &
-	// & Remove Button
-	echo "
-  <div class='tr'>
-    <div class='th2'>
-	";
-	echo date('d/m/Y H:i', strtotime($tr['timestamp']));
-	echo "
-<form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
-<input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
-<input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
-<button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
-</form>
-    </div> <!-- /th2 timestamp -->
-	";
-
-
-//	echo "<tr><td class='createNewAccount'></td>";
-	foreach($_SESSION['accounts'] as $acc) {
-		$accID = $acc['id'];
-		if ($tr['accounts.in.id'] == $acc['id']) {
-			echo "<div class='td entrate'> ".style::toMoney($tr['amount'])."</div> <div class='td uscite'></div>";
-			$_SESSION['sums'][$accID] += $tr['amount'];
-		} 
-		elseif ($tr['accounts.out.id'] == $acc['id']) {
-			echo "<div class='td entrate'></div> <div class='td uscite'> ".style::toMoney($tr['amount'])."</div>";
-			$_SESSION['sums'][$accID] -= $tr['amount'];
-		} 
-		else {
-			echo "<div class='td entrate'> </div> <div class='td uscite'> </div>";
+	if($currentTrID == $tr['id']) {
+	} else {
+		$currentTrID = $tr['id']);
+		echo "
+	  <div class='tr'>
+	    <div class='th2'>
+		";
+		echo date('d/m/Y H:i', strtotime($tr['timestamp']));
+		echo "
+	<form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
+	<input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
+	<input form='rmTransaction{$tr['id']}' type='hidden' name='id' value='{$tr['id']}'>
+	<button form='rmTransaction{$tr['id']}' type='submit' class='rmButton'> remove transaction</button> 
+	</form>
+	    </div> <!-- /th2 timestamp -->
+		";
+	
+	
+	//	echo "<tr><td class='createNewAccount'></td>";
+		foreach($_SESSION['accounts'] as $acc) {
+			$accID = $acc['id'];
+			if ($tr['accounts.in.id'] == $acc['id']) {
+				echo "<div class='td entrate'> ".style::toMoney($tr['amount'])."</div> <div class='td uscite'></div>";
+				$_SESSION['sums'][$accID] += $tr['amount'];
+			} 
+			elseif ($tr['accounts.out.id'] == $acc['id']) {
+				echo "<div class='td entrate'></div> <div class='td uscite'> ".style::toMoney($tr['amount'])."</div>";
+				$_SESSION['sums'][$accID] -= $tr['amount'];
+			} 
+			else {
+				echo "<div class='td entrate'> </div> <div class='td uscite'> </div>";
+			}
 		}
+		echo "
+	    <div class='th2 stickRight'> ".$tr['note']."</div>
+	  </div> <!-- /tr -->";
 	}
-	echo "
-    <div class='th2 stickRight'> ".$tr['note']."</div>
-  </div> <!-- /tr -->";
+
 }
 
 

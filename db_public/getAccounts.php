@@ -12,13 +12,4 @@ try {
 } catch(Exception $e) {
 	die('error in getAccounts: '.$e);
 }
-
-
-/*
-$_SESSION['accounts'] = array();
-
-foreach($accounts as $account){
-	$_SESSION['accounts'][$account['id']] = $account['name'];
-}
- */
 ?>

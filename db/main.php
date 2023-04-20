@@ -16,7 +16,7 @@ class db {
 
 		$servername="localhost";
 		$username='accountingAdmin';
-		$password='JlM7SsQ1Tu3MFODq';
+		$password='Nz+YNxFrSx2FaI1z';
 		$db="accounting_db";
 
 		try {
@@ -264,7 +264,7 @@ class db {
 	public static function checkIfExist($table, $parameters) {
 		global $root_DB_setup;
 
-		$global_tables = array('users', 'accounts', 'account_types', 'transactions',
+		$global_tables = array('users', 'accounts', 'account_types', 'transactions', 'transaction_accounts_involved',
 		'reports', 'report_captions', 'report_caption_trs', 'report_caption_tr_tds', 'report_caption_tr_td_values');
 
 
@@ -306,7 +306,7 @@ class db {
 
 			// patch 20230604: need to create mail and psw
 			// array(3) { [0]=> string(5) "42S22" [1]=> int(1054) [2]=> string(39) "Unknown column 'mail' in 'where clause'" }
-			if($e->errorInfo[1] == '1054') {
+			if($e->errorInfo[1] == '1054' && $e->errorInfo[2] == "Unknown column 'mail' in 'where clause'") {
 				echo "<br> need to add mail and psw in users table, starting the patch... <br>";
 				echo "<br> but first I need to change the add accounts to include the user ID";
 				db_setup::patch20230406($conn);

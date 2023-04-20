@@ -1,5 +1,6 @@
 <?php
 require_once $root_Errors_main;
+require_once $root_DB_main; 		// patch v.1.1.0 use the function db::add
 class db_setup {
 
 	public static function setup($s, $u, $p, $db) {
@@ -84,10 +85,11 @@ $sql_accounts_users_constraint = "ALTER TABLE `accounting_db`.`accounts` ADD CON
 $sql_accounts_accountTypes_constraint = "ALTER TABLE `accounting_db`.`accounts` ADD CONSTRAINT `accounts-account_types` FOREIGN KEY (`account_types.id`) REFERENCES `account_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 
 $sql_transactionTypes = "CREATE TABLE `accounting_db`.`transaction_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_transactionAccountsInvolved = "CREATE TABLE `accounting_db`.`transaction_accounts_involved` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transactions.id` INT(11) UNSIGNED NOT NULL , `accounts.id` INT(11) UNSIGNED NOT NULL ,`exit0orenter1` BOOLEAN NOT NULL , `amount` DECIMAL(10,4) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactions = "CREATE TABLE `accounting_db`.`transactions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transaction_types.id` INT(11) UNSIGNED , `accounts.in.id` INT(11) UNSIGNED NOT NULL , `accounts.out.id` INT(11) UNSIGNED NOT NULL , `timestamp` TIMESTAMP NOT NULL , `amount` DECIMAL(10,4) NOT NULL , `note` VARCHAR(50), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactions_transactionTypes_constraint = "ALTER TABLE `accounting_db`.`transactions` ADD CONSTRAINT `transactions-transaction_types` FOREIGN KEY (`transaction_types.id`) REFERENCES `transaction_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
-$sql_transactions_accounts_in_constraint = "ALTER TABLE `accounting_db`.`transactions` ADD CONSTRAINT `transactions-accounts.in` FOREIGN KEY (`accounts.in.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
-$sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transactions` ADD CONSTRAINT `transactions-accounts.out` FOREIGN KEY (`accounts.out.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_transactionAccountsInvolved_transactions_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-transactions` FOREIGN KEY (`transactions.id`) REFERENCES `transactions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 
 		$tablesSQL = array(
 			$sql_users, 
@@ -96,10 +98,11 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 			$sql_accounts_users_constraint, 
 			$sql_accounts_accountTypes_constraint, 
 			$sql_transactionTypes,
+			$sql_transactionAccountsInvolved,
 			$sql_transactions,
 			$sql_transactions_transactionTypes_constraint,
-			$sql_transactions_accounts_in_constraint,
-			$sql_transactions_accounts_out_constraint
+			$sql_transactionAccountsInvolved_transactions_constraint,
+			$sql_transactionAccountsInvolved_accounts_constraint,
 		);
 
 		foreach($tablesSQL as $tableSQL) {
@@ -191,6 +194,62 @@ $sql_transactions_accounts_out_constraint = "ALTER TABLE `accounting_db`.`transa
 		} 
 		catch(PDOException $e) {
 			echo "<br> error in patch 2023 04 06" . $e->getMessage();
+			exit;
+		}
+	}
+
+	/*
+	 * 2023-04-20: 1 transactions can affect multiple accounts
+	 */
+	public static function patchv110($conn) {
+		try {
+			// create table transaction_accounts_involved 
+$sql_transactionAccountsInvolved = "CREATE TABLE `accounting_db`.`transaction_accounts_involved` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transactions.id` INT(11) UNSIGNED NOT NULL , `accounts.id` INT(11) UNSIGNED NOT NULL ,`exit0orenter1` BOOLEAN NOT NULL , `amount` DECIMAL(10,4) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_transactionAccountsInvolved_transactions_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-transactions` FOREIGN KEY (`transactions.id`) REFERENCES `transactions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+			db_setup::doSQL($conn, $sql_transactionAccountsInvolved, "patch-v.1.1.0 - adding transaction_accounts_involved");
+			db_setup::doSQL($conn, $sql_transactionAccountsInvolved_transactions_constraint, "patch-v.1.1.0 - adding constraint to transactions");
+			db_setup::doSQL($conn, $sql_transactionAccountsInvolved_accounts_constraint, "patch-v.1.1.0 - adding constraint to accounts");
+	
+			// get all transactions
+			$query = $conn->prepare("SELECT * from transactions");
+			$query->execute();
+			$transactions = $query->fetchAll(PDO::FETCH_ASSOC);
+			echo "<br> transactions: <br>"; print_r($transactions);
+	
+			foreach($transactions as $t) {
+				// migrate accounts.in/out of table transactions to transaction_accounts_involved 
+				$parameters1 = array(
+					'transactions.id' => $t['id'],
+					'accounts.id' => $t['accounts.in.id'],
+					'exit0orenter1' => 1,
+					'amount' => $t['amount']
+				);
+				$parameters2 = array(
+					'transactions.id' => $t['id'],
+					'accounts.id' => $t['accounts.out.id'],
+					'exit0orenter1' => 0,
+					'amount' => $t['amount']
+				);
+				$result1 = db::add("transaction_accounts_involved", $parameters1);
+				$result2 = db::add("transaction_accounts_involved", $parameters2);
+			}
+	
+			// remove constraints and columns in transactions
+			$sql_rm_contraint_accounts_in  = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.in`";
+			$sql_rm_contraint_accounts_out = "ALTER TABLE transactions DROP CONSTRAINT `transactions-accounts.out`";
+			$sql_rm_column_accounts_in  = "ALTER TABLE transactions DROP COLUMN `accounts.in.id";
+			$sql_rm_column_accounts_out = "ALTER TABLE transactions DROP COLUMN `accounts.out.id";
+//			db_setup::doSQL($conn, $sql_rm_constraint_accounts_in,  "patch-v.1.1.0 - rm constraint to accounts in of transactions table");
+//			db_setup::doSQL($conn, $sql_rm_constraint_accounts_out, "patch-v.1.1.0 - rm constraint to accounts out of transactions table");
+//			db_setup::doSQL($conn, $sql_rm_column_accounts_in,  "patch-v.1.1.0 - rm accounts.in.id of transactions table");
+//			db_setup::doSQL($conn, $sql_rm_column_accounts_out, "patch-v.1.1.0 - rm accounts.out.id of transactions table");
+		
+			return 0;
+		} 
+		catch(PDOException $e) {
+			echo "<br> error in patch 2023 04 06" . $e->getMessage();
+			echo "<br> <pre>"; var_dump($e->errorInfo);
 			exit;
 		}
 	}
