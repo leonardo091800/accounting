@@ -100,8 +100,8 @@ foreach($_SESSION['transactions'] as $tr) {
   <div class='th2'>
     <div id='tr{$currentTrID}date'>
 ";
-		echo date('d/m/Y H:i:s', strtotime($tr['timestamp']));
-//		echo json_encode(date('d/m/Y H:i', strtotime($tr['timestamp'])));
+//		echo date('d/m/Y H:i:s', strtotime($tr['timestamp']));
+		echo $tr['timestamp'];
 			
 		echo "
     </div>
