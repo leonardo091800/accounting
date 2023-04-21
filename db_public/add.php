@@ -70,7 +70,7 @@ if(isset($_GET['table'])) {
 		 */
 		if(isset($_GET['transaction']) && isset($_GET['ta'])) {
 			echo "<br> transaction: <br>"; print_r($_GET['transaction']);
-			echo "<br> ta : <br>"; print_r($_GET['ta']);
+			echo "<br> ta : <br><pre>"; print_r($_GET['ta']);
 
 			// first create transaction
 			$timestamp = cleanInput($_GET['transaction']['timestamp']);
