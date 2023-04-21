@@ -16,7 +16,7 @@ class db {
 
 		$servername="localhost";
 		$username='accountingAdmin';
-		$password='Nz+YNxFrSx2FaI1z';
+		$password='q0+vyBLb4AmGKusU';
 		$db="accounting_db";
 
 		try {

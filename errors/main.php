@@ -15,6 +15,9 @@ class errors {
 		case 'fieldNotExist':
 			echo "<br> $error_value does not exist :)<br>";
 			break;
+		case 'generic':
+			echo "<span class='error'> $error_value <span>";
+			break;
 		default:
 			echo "<br> wrong parameter in functino db::echo_error <br>";
 		}
