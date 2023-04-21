@@ -104,7 +104,7 @@ echo "
   </div> <!-- /tr -->
   <div class='tr'>
     <div class='th2 center'>
-      <div id='add{$tableTMP}FormSubmit' class='menu'> ADD Transaction </div> 
+      <div id='add{$tableTMP}FormSubmit' class='menu' tabindex='0'> ADD Transaction </div> 
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
 </form>
@@ -114,8 +114,7 @@ echo "
 echo "
 <script>
 $(document).ready(function() { 
-  $(\"#add{$tableTMP}FormSubmit\").click(function() {
-    
+  $.fn.submitAddtransactionsForm = function() {
     // check if the sum is ok
     var sumExit  = 0;
     var sumEnter = 0;
@@ -138,6 +137,15 @@ $(document).ready(function() {
     } else {
       alert('sum of Exit and Enter do not match! sumExit='+sumExit+' sumEnter='+sumEnter);
     }
+  }
+
+  // submit form when div is pressed with mouse
+  $(\"#add{$tableTMP}FormSubmit\").click(function() {
+    $.fn.submitAddtransactionsForm()
+  });
+  // submit form when div is pressed with keyboard 
+  $(\"#add{$tableTMP}FormSubmit\").keypress(function() {
+    $.fn.submitAddtransactionsForm()
   });
 }); 
 </script>
