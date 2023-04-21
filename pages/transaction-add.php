@@ -50,9 +50,22 @@ echo "
 // also echo a button to add an account where money is exiting from:
 echo "
       <div class='accountInvolved'> 
-        <div id='addAccountExit' onclick=\"location.href='$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsExitInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsExitInvolved']+1)."'\" class='menu'>
+        <div id='addAccountExit' class='menu' tabindex='0'>
           Add Account
         </div> 
+        <script>
+        $(document).ready(function() { 
+          var newLocation = '$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsExitInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsExitInvolved']+1)."';
+          // go to link when div is pressed with keyboard 
+          $(\"#addAccountExit\").keypress(function() {
+            window.location.href = newLocation
+          });
+          // go to link when div is pressed with mouse
+          $(\"#addAccountExit\").click(function() {
+            window.location.href =  newLocation
+           });
+        }); 
+        </script>
       </div>
     </div> <!-- / accountsInvolved -->
 ";
@@ -87,9 +100,22 @@ echo "
 // also echo a button to add an account where money is exiting from:
 echo "
       <div class='accountInvolved'> 
-        <div id='addAccountEnter' onclick=\"location.href='$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsEnterInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsEnterInvolved']+1)."'\" class='menu'>
+        <div id='addAccountEnter' class='menu' tabindex='0'>
           Add Account
         </div> 
+        <script>
+        $(document).ready(function() { 
+          var newLocation = '$root_storeSessionVariable_HTML?SESSION_what=transactionAddaccountsEnterInvolved&SESSION_value=".($_SESSION['transactionAdd']['accountsEnterInvolved']+1)."';
+          // go to link when div is pressed with keyboard 
+          $(\"#addAccountEnter\").keypress(function() {
+            window.location.href = newLocation
+          });
+          // go to link when div is pressed with mouse
+          $(\"#addAccountEnter\").click(function() {
+            window.location.href =  newLocation
+           });
+        }); 
+        </script>
       </div>
     </div> <!-- / accountsInvolved -->
 ";
