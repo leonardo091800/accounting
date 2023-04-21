@@ -29,17 +29,20 @@ echo "
 // then echo all accounts
 foreach($_SESSION['accounts'] as $acc) {
 	echo "
-    <div class='th2 accName'>".$acc['name']
-	;
+    <div class='th2 accName'>
+      <div class='accName'> ".$acc['name']."</div>
+	";
 
 
 	// Remove Button
 	echo "
+    <div>
     <form id='rmAccount{$acc['id']}' action='$root_DB_rm_HTML' method='get'>
       <input form='rmAccount{$acc['id']}' type='hidden' name='table' value='accounts'>
       <input form='rmAccount{$acc['id']}' type='hidden' name='id' value='{$acc['id']}'>
       <button form='rmAccount{$acc['id']}' type='submit' class='rmButton'> remove Account</button> 
     </form>
+    </div>
     </div> <!-- /th2 {$acc['name']} -->
 	";
 

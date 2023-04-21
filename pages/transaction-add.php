@@ -98,16 +98,20 @@ echo "
     <div class='th2'> 
        <input form='add{$tableTMP}Form' type='datetime-local' name='transaction[timestamp]' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
     </div>
-    <div class='th2'> <input form='add{$tableTMP}Form' type='text' name='transaction[note]' class='addInput'>
+    <div class='th2'>
+      <textarea form='add{$tableTMP}Form' type='text' name='transaction[note]' class='addInput'></textarea>
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
   <div class='tr'>
-    <div class='th2 center' style='width:100%'>
+    <div class='th2 center'>
       <div id='add{$tableTMP}FormSubmit' class='menu'> ADD Transaction </div> 
     </div> <!-- /th2 -->
   </div> <!-- /tr -->
 </form>
+";
 
+// script for checking if the sum of all accounts exiting are the same as the account entering
+echo "
 <script>
 $(document).ready(function() { 
   $(\"#add{$tableTMP}FormSubmit\").click(function() {

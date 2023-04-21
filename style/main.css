@@ -16,6 +16,7 @@ form {
 	margin: 0px;
 }
 
+
 .center {
 	text-align: center;
 }
@@ -121,9 +122,16 @@ form {
 	-webkit-flex-direction: row;
 }
 .tr > div {
+	display: flex;
+	-webkit-display: flex;
+	flex-direction: column;
+
 	border: 1px solid blue;
 	padding: 5px;
-	-webkit-align-items: stretch;
+	
+	text-align: center;
+	justify-content: center;
+	flex-wrap: wrap;
 /*
 	flex-shrink: 1;
 	flex:1;
@@ -137,7 +145,6 @@ form {
 .th2 {
 	min-width: 200px;
 	max-height: var(--th2Height);
-	text-align: center;
 	flex-basis: 0;
 	flex-grow: 2;
 	flex-shrink: 2;
@@ -168,6 +175,8 @@ form {
 */
 }
 .td input, .th2 input, .th3 input, .td select, .th2 select, .th3 select {
+	/*
+	*/
 	width: 0px;
 	min-width: 100%;
 }
@@ -257,6 +266,14 @@ form {
 	flex-direction: row;
 	-webkit-flex-direction: row;
 	*/
+}
+#addtransactionsForm {
+	/*
+	min-width: min-content;
+	*/
+}
+#addtransactionsForm textarea {
+	min-height: var(--th2Height);
 }
 #addtransactionsForm .th2 {
 	max-height: 100%;
