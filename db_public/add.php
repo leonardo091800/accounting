@@ -87,12 +87,21 @@ if(isset($_GET['table'])) {
 
 			// then add tr_acc_involved for each involved account
 			foreach($_GET['ta'] as $ta){
-				$accID = cleanInput($ta['accID']);
-				$exit0orenter1 = cleanInput($ta['exit0orenter1']);
-				$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
-				$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
-				if(db::add('transaction_accounts_involved', $parameters) !== 0) {
-					die('error in creating transaction_accounts_involved from db_public');
+				/*
+				 *  ! ! ! possible problems in the future ! !  !
+				 *  if the user has sent a NULL account, let's just skip it:
+				 *  (but at least send an alert)
+				 */
+				if(isset($ta['accID']) && isset($ta['exit0orenter1']) && isset($ta['amount'])) {
+					$accID = cleanInput($ta['accID']);
+					$exit0orenter1 = cleanInput($ta['exit0orenter1']);
+					$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
+					$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
+					if(db::add('transaction_accounts_involved', $parameters) !== 0) {
+						die('error in creating transaction_accounts_involved from db_public');
+					}
+				} else {
+					alerts::echo_alert('there was a null account given, no problem, but make sure the transaction was added correctly');
 				}
 			}
 
