@@ -185,7 +185,11 @@ class db {
 		} catch (Exception $e) {
 //			echo "<br> <br>"; print_r($e);
 //			echo "<br> <br>"; var_dump($e->errorInfo);
-			die(" in db::rm server error, report this to the admin: $e");
+			if($e->errorInfo[2] == "Data too long for column 'name' at row 1") {
+				alerts::echo_alert('name is too long!');
+			}
+			return $e;
+//			die(" in db::alter server error, report this to the admin: $e");
 		}
 
 		return 0;

@@ -60,15 +60,18 @@ switch($action) {
 case 'update':
 	// THESE MUST BE CHANGED!! But let's keep it until Reports are not modified: (they use this function)
 	if(isset($parameters['columnName'])) {
-		if(db::update($table, $id, $parameters['columnName'], $parameters['newValue']) == 0) {
+		if(db::update($table, $id, $parameters['columnName'], $parameters['newValue']) === 0) {
 			alerts::echo_success();
 			redirect::to_page($redirectTo);
 		}
 	} else {
 		// for any parameters remaining...
 		foreach($parameters as $columnName => $newValue) {
-			if(db::update($table, $id, $columnName, $newValue) == 0) {
+			if(db::update($table, $id, $columnName, $newValue) === 0) {
 				alerts::echo_success();
+				redirect::to_page($redirectTo);
+			} else {
+				alerts::echo_alert('something wrong with db_public::update');
 				redirect::to_page($redirectTo);
 			}
 		}
