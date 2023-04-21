@@ -98,8 +98,32 @@ foreach($_SESSION['transactions'] as $tr) {
 		echo "
 <div class='tr'>
   <div class='th2'>
-		";
+    <div id='tr{$currentTrID}date'>
+";
 		echo date('d/m/Y H:i', strtotime($tr['timestamp']));
+//		echo json_encode(date('d/m/Y H:i', strtotime($tr['timestamp'])));
+			
+		echo "
+    </div>
+    <script>
+    // convert to datetimelocal
+    $(document).ready(function() {
+      var unformattedDate = $(\"#tr{$currentTrID}date\").html();
+      var formattedDate = new Date(unformattedDate);
+      var formattedDateLocal = formattedDate.toLocaleDateString();
+      var formattedTimeLocal = formattedDate.toLocaleTimeString();
+      $(\"#tr{$currentTrID}date\").html(formattedDateLocal + ' ' + formattedTimeLocal);
+
+//	console.log('unformattedDate = '+unformattedDate);
+//	console.log('formattedDate = '+formattedDate);
+//	console.log('formattedDateLocal = '+formattedDateLocal);
+//	console.log('formattedTimeLocal = '+formattedDateLocal);
+    });
+    </script>
+		";
+
+
+		// rm button for transaction
 		echo "
     <form id='rmTransaction{$tr['id']}' action='$root_DB_rm_HTML' method='get'>
     <input form='rmTransaction{$tr['id']}' type='hidden' name='table' value='transactions'>
