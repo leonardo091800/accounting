@@ -98,7 +98,12 @@ class db {
 			$rows = $q->execute();
 			return 0;
 		} catch (Exception $e) {
-			die('error in db::add error: '.$e);
+//			echo "<br> <pre>";  var_dump($e->errorInfo);
+			if($e->errorInfo[2] == "Data too long for column 'name' at row 1") {
+				alerts::echo_alert('name is too long!');
+			}
+			return $e;
+//			die('error in db::add error: '.$e);
 		}
 
 	}

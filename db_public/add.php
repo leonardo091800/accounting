@@ -18,12 +18,15 @@ if(isset($_GET['table'])) {
 			$name = cleanInput($_GET['name']);
 			$parameters = array('name'=>$name, 'users.id'=>$_SESSION['userID']);
 
-			if(db::add('accounts', $parameters) == 0) {
+			if(db::add('accounts', $parameters) === 0) {
 //				alerts::echo_success();
 
 				// resetting the session parameters:
 
 				// redirecting to pages
+				redirect::to_page($root_Pages_HTML);
+			} else {
+				alerts::echo_alert('something went wrong');
 				redirect::to_page($root_Pages_HTML);
 			}
 		} else {
@@ -35,6 +38,7 @@ if(isset($_GET['table'])) {
 
 	// - - Transactions - -
 	case 'transactions':
+		/*
 		if(isset($_GET['amount']) && isset($_GET['timestamp']) && isset($_GET['accounts_in_id']) && isset($_GET['accounts_out_id']) && isset($_GET['note'])) {
 			$amount = number_format(cleanInput($_GET['amount']), 2, ".", "");
 			$timestamp = cleanInput($_GET['timestamp']);
@@ -48,8 +52,12 @@ if(isset($_GET['table'])) {
 			if(db::add('transactions', $parameters) == 0) {
 //				alerts::echo_success();
 				redirect::to_page($root_Pages_HTML);
+			} else {
+				alerts::echo_alert('something went wrong');
+				redirect::to_page($root_Pages_HTML);
 			}
 		} 
+		 */
 		
 		/*
 		 * In v.1.1.0 1 transaction alters multiple accounts, parameters must be given as
@@ -60,7 +68,7 @@ if(isset($_GET['table'])) {
 		 *   ...
 		 * )
 		 */
-		else if(isset($_GET['transaction']) && isset($_GET['ta'])) {
+		if(isset($_GET['transaction']) && isset($_GET['ta'])) {
 			echo "<br> transaction: <br>"; print_r($_GET['transaction']);
 			echo "<br> ta : <br>"; print_r($_GET['ta']);
 
@@ -68,7 +76,7 @@ if(isset($_GET['table'])) {
 			$timestamp = cleanInput($_GET['transaction']['timestamp']);
 			$note = cleanInput($_GET['transaction']['note']);
 			$parameters = array('timestamp'=>$timestamp, 'note' => $note);
-			if(db::add('transactions', $parameters) != 0) {
+			if(db::add('transactions', $parameters) !== 0) {
 				die('error in creating transaction from db_public');
 			}
 
@@ -81,7 +89,7 @@ if(isset($_GET['table'])) {
 				$exit0orenter1 = cleanInput($ta['exit0orenter1']);
 				$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
 				$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
-				if(db::add('transaction_accounts_involved', $parameters) != 0) {
+				if(db::add('transaction_accounts_involved', $parameters) !== 0) {
 					die('error in creating transaction_accounts_involved from db_public');
 				}
 			}
@@ -118,12 +126,15 @@ if(isset($_GET['table'])) {
 					// I do not want to change that function so if just create a unique name in this shitty way
 				}
 			}
-			if(db::add($tableTMP, $parameters) == 0) {
+			if(db::add($tableTMP, $parameters) === 0) {
 //				alerts::echo_success();
 				if($tableTMP == 'reports') {
 					$reportID = db::getID($tableTMP, $parameters);
 				}
 				redirect::to_page($root_reportPersonalized_HTML."?reportID=$reportID");
+			} else {
+				alerts::echo_alert('something went wrong');
+				redirect::to_page($root_Pages_HTML);
 			}
 		} else {
 			errors::echo_error('fieldNotGiven', 'some fields in db_public/add report');
