@@ -81,6 +81,8 @@ if(isset($_GET['table'])) {
 			}
 
 			// get id of newly created transaction
+			// ! ! ! BUG ! ! ! DOes not work if in the parameters there is the note
+			unset($parameters['note']);
 			$tID = db::getID('transactions', $parameters);
 
 			// then add tr_acc_involved for each involved account

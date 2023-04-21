@@ -201,8 +201,14 @@ class db {
 	 */
 	public static function getID($table, $parameters) {
 		$rows = db::get($table, $parameters);
-		// returning ID as integer
-		return intval($rows[0]['id']);
+		if(isset($rows['error'])) {
+			echo "<br> error in db::getID <br>";
+			echo "<br> in db::getID rows = <br>"; print_r($rows);
+			echo "<br> in db::getID table = $table, parameters = <br>"; print_r($parameters);
+		} else {
+			// returning ID as integer
+			return intval($rows[0]['id']);
+		}
 	}
 
 
@@ -303,6 +309,7 @@ class db {
 			$sql = $sql." AND `$key`='$value'";
 		}
 		try {
+//			echo "<br> checkIfExist SQL = $sql <br>";
 			$q=$conn->prepare($sql);
 			$rows = $q->execute();
 			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
