@@ -100,7 +100,7 @@ foreach($_SESSION['transactions'] as $tr) {
   <div class='th2'>
     <div id='tr{$currentTrID}date'>
 ";
-		echo date('d/m/Y H:i', strtotime($tr['timestamp']));
+		echo date('d/m/Y H:i:s', strtotime($tr['timestamp']));
 //		echo json_encode(date('d/m/Y H:i', strtotime($tr['timestamp'])));
 			
 		echo "
@@ -110,14 +110,16 @@ foreach($_SESSION['transactions'] as $tr) {
     $(document).ready(function() {
       var unformattedDate = $(\"#tr{$currentTrID}date\").html();
       var formattedDate = new Date(unformattedDate);
-      var formattedDateLocal = formattedDate.toLocaleDateString();
+      var formattedDateLocal = formattedDate.toLocaleString();
+//      var formattedTimeLocal = formattedDate.toLocaleDateString();
       var formattedTimeLocal = formattedDate.toLocaleTimeString();
-      $(\"#tr{$currentTrID}date\").html(formattedDateLocal + ' ' + formattedTimeLocal);
+      $(\"#tr{$currentTrID}date\").html(formattedDateLocal);
+//      $(\"#tr{$currentTrID}date\").html(formattedDateLocal + ' ' + formattedTimeLocal);
 
-//	console.log('unformattedDate = '+unformattedDate);
-//	console.log('formattedDate = '+formattedDate);
-//	console.log('formattedDateLocal = '+formattedDateLocal);
-//	console.log('formattedTimeLocal = '+formattedDateLocal);
+	console.log('unformattedDate = '+unformattedDate);
+	console.log('formattedDate = '+formattedDate);
+	console.log('formattedDateLocal = '+formattedDateLocal);
+	console.log('formattedTimeLocal = '+formattedTimeLocal);
     });
     </script>
 		";

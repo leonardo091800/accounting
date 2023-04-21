@@ -122,8 +122,25 @@ echo "
 
 echo "
     <div class='th2'> 
-       <input form='add{$tableTMP}Form' type='datetime-local' name='transaction[timestamp]' value='".date('Y-m-d\TH:i:s')."' class='addInput' required>
+       <input id='add{$tableTMP}FormTimestampInput' form='add{$tableTMP}Form' type='datetime-local' name='transaction[timestamp]' value='' class='addInput' required>
     </div>
+<script>
+//fill input with current datetimelocal
+$(document).ready(function() {
+  $('input[type=datetime-local]').val(new Date().toJSON().slice(0,19));
+  console.log(new Date());
+/*
+  var now = new Date(".date('Y/m/d H:i:s', time()).");
+  var formattedDateLocal = now.toLocaleDateString();
+  var formattedTimeLocal = now.toLocaleTimeString();
+  $(\"#add{$tableTMP}FormTimestampInput\").html(formattedDateLocal + ' ' + formattedTimeLocal);
+*/
+//	console.log('unformattedDate = '+unformattedDate);
+//	console.log('formattedDate = '+formattedDate);
+//	console.log('formattedDateLocal = '+formattedDateLocal);
+//	console.log('formattedTimeLocal = '+formattedDateLocal);
+    });
+</script>
     <div class='th2'>
       <textarea form='add{$tableTMP}Form' type='text' name='transaction[note]' class='addInput'></textarea>
     </div> <!-- /th2 -->
