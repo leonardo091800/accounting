@@ -33,8 +33,15 @@ foreach($_SESSION['accounts'] as $acc) {
       <div class='accName'> ".$acc['name']."</div>
 	";
 
+	// Edit Button
+	echo "
+<a href='$root_accountsManagement_HTML'>
+  <button class=''> modify Account </button>
+</a>
+	";
 
-	// Remove Button
+	// Rm Button
+	/*
 	echo "
     <div>
     <form id='rmAccount{$acc['id']}' action='$root_DB_rm_HTML' method='get'>
@@ -43,6 +50,9 @@ foreach($_SESSION['accounts'] as $acc) {
       <button form='rmAccount{$acc['id']}' type='submit' class='rmButton'> remove Account</button> 
     </form>
     </div>
+	";
+	 */
+	echo "
     </div> <!-- /th2 {$acc['name']} -->
 	";
 
