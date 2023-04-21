@@ -120,10 +120,14 @@ $(document).ready(function() {
     var sumExit  = 0;
     var sumEnter = 0;
     $(\".exitAmount\").each(function() {
-      sumExit += parseFloat($(this).val());
+      // small validation to check if value of account does exist, if it does not, then give 0 as value
+      var currentExit = (!($(this).val())) ? 0 : parseFloat($(this).val());
+      sumExit += currentExit;
     });
     $(\".enterAmount\").each(function() {
-      sumEnter += parseFloat($(this).val());
+      // small validation to check if value of account does exist, if it does not, then give 0 as value
+      var currentEnter = (!($(this).val())) ? 0 : parseFloat($(this).val());
+      sumEnter += currentEnter;
     });
 
  //   alert('sumExit='+sumExit+' sumEnter='+sumEnter);
