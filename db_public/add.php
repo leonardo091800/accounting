@@ -87,21 +87,37 @@ if(isset($_GET['table'])) {
 
 			// then add tr_acc_involved for each involved account
 			foreach($_GET['ta'] as $ta){
+				echo "<br> ta : <br><pre>"; print_r($ta);
 				/*
 				 *  ! ! ! possible problems in the future ! !  !
 				 *  if the user has sent a NULL account, let's just skip it:
 				 *  (but at least send an alert)
 				 */
 				if(isset($ta['accID']) && isset($ta['exit0orenter1']) && isset($ta['amount'])) {
-					$accID = cleanInput($ta['accID']);
-					$exit0orenter1 = cleanInput($ta['exit0orenter1']);
-					$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
-					$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
-					if(db::add('transaction_accounts_involved', $parameters) !== 0) {
-						die('error in creating transaction_accounts_involved from db_public');
+					if(empty($ta['accID'])) {
+						echo "<br> null parameter accID = {$ta['accID']} <br>";
+						alerts::echo_alert('accID is null, no worries, just make sure the transaction was added correctly');
+					}
+					else if(($ta['exit0orenter1'])=='') {
+						echo "<br> null parameter exit0orenter1= {$ta['exit0orenter1']} <br>";
+						alerts::echo_alert('exit0orenter1 is null, no worries, just make sure the transaction was added correctly');
+					}
+					else if(empty($ta['amount'])) {
+						echo "<br> null parameter amount = {$ta['amount']} <br>";
+						alerts::echo_alert('amount is null, no worries, just make sure the transaction was added correctly');
+					}
+					else {
+						$accID = cleanInput($ta['accID']);
+						$exit0orenter1 = cleanInput($ta['exit0orenter1']);
+						$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
+						$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
+						if(db::add('transaction_accounts_involved', $parameters) !== 0) {
+							die('error in creating transaction_accounts_involved from db_public');
+						}
 					}
 				} else {
-					alerts::echo_alert('there was a null account given, no problem, but make sure the transaction was added correctly');
+					echo "<br> null account <br>";
+					alerts::echo_alert('there was a null account given, no worries, just make sure the transaction was added correctly');
 				}
 			}
 
