@@ -79,24 +79,33 @@ class db_setup {
 	public static function createTables($conn) {
 //		echo "initiliasing tables...";
 $sql_users = "CREATE TABLE `accounting_db`.`users` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `mail` VARCHAR (50) NOT NULL , `psw` CHAR (128) NOT NULL , `name` VARCHAR(30) NOT NULL , `surname` VARCHAR(30) NOT NULL , `admin` BOOLEAN NOT NULL DEFAULT '0', `date_creation` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-$sql_accountTypes = "CREATE TABLE `accounting_db`.`account_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-$sql_accounts = "CREATE TABLE `accounting_db`.`accounts` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `account_types.id` INT(11) UNSIGNED , `users.id` INT(11) UNSIGNED , `name` VARCHAR(30) NOT NULL , `date_open` DATE , `date_close` DATE , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+$sql_accountsGroups = "CREATE TABLE `accounting_db`.`accounts_groups` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `users.id` INT(11) UNSIGNED , `name` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_accountsGroups_users_constraint = "ALTER TABLE `accounting_db`.`accounts_groups` ADD CONSTRAINT `accounts_groups-users` FOREIGN KEY (`users.id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_accountXGroup = "CREATE TABLE `accounting_db`.`account_x_group` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `accounts.id` INT(11) UNSIGNED , `accounts_groups.id` INT(11) UNSIGNED ,  PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_accounts = "CREATE TABLE `accounting_db`.`accounts` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `account_types.id` INT(11) UNSIGNED , `users.id` INT(11) UNSIGNED , `name` VARCHAR(50) NOT NULL , `date_open` DATE , `date_close` DATE , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_accounts_users_constraint = "ALTER TABLE `accounting_db`.`accounts` ADD CONSTRAINT `accounts-users` FOREIGN KEY (`users.id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
-$sql_accounts_accountTypes_constraint = "ALTER TABLE `accounting_db`.`accounts` ADD CONSTRAINT `accounts-account_types` FOREIGN KEY (`account_types.id`) REFERENCES `account_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_accountXGroup_accounts_constraint = "ALTER TABLE `accounting_db`.`account_x_group` ADD CONSTRAINT `account_x_group-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
+$sql_accountXGroup_accountsGroups_constraint = "ALTER TABLE `accounting_db`.`account_x_group` ADD CONSTRAINT `account_x_group-accounts_groups` FOREIGN KEY (`accounts_groups.id`) REFERENCES `accounts_groups`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 
 $sql_transactionTypes = "CREATE TABLE `accounting_db`.`transaction_types` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactionAccountsInvolved = "CREATE TABLE `accounting_db`.`transaction_accounts_involved` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transactions.id` INT(11) UNSIGNED NOT NULL , `accounts.id` INT(11) UNSIGNED NOT NULL ,`exit0orenter1` BOOLEAN NOT NULL , `amount` DECIMAL(10,4) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-$sql_transactions = "CREATE TABLE `accounting_db`.`transactions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transaction_types.id` INT(11) UNSIGNED , `timestamp` TIMESTAMP NOT NULL , `note` VARCHAR(50), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$sql_transactions = "CREATE TABLE `accounting_db`.`transactions` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `transaction_types.id` INT(11) UNSIGNED , `timestamp` TIMESTAMP NOT NULL , `note` VARCHAR(100), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $sql_transactions_transactionTypes_constraint = "ALTER TABLE `accounting_db`.`transactions` ADD CONSTRAINT `transactions-transaction_types` FOREIGN KEY (`transaction_types.id`) REFERENCES `transaction_types`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 $sql_transactionAccountsInvolved_transactions_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-transactions` FOREIGN KEY (`transactions.id`) REFERENCES `transactions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 
 		$tablesSQL = array(
 			$sql_users, 
-			$sql_accountTypes, 
+
+			$sql_accountsGroups, 
+			$sql_accountsGroups_users_constraint,
+			$sql_accountXGroup, 
 			$sql_accounts, 
 			$sql_accounts_users_constraint, 
-			$sql_accounts_accountTypes_constraint, 
+			$sql_accountXGroup_accounts_constraint, 
+			$sql_accountXGroup_accountsGroups_constraint, 
+
 			$sql_transactionTypes,
 			$sql_transactionAccountsInvolved,
 			$sql_transactions,

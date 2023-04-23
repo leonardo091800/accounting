@@ -57,6 +57,10 @@ echo "
 </head>
 <body>
 <?php
+require_once $root_checkUpdate;
+
+
+
 // if there's no user, then user is not logged in
 if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 	if(isset($_GET['loginResponse'])) {
