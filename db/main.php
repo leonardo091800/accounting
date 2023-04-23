@@ -99,6 +99,9 @@ class db {
 			return 0;
 		} catch (Exception $e) {
 //			echo "<br> <pre>";  var_dump($e->errorInfo);
+			if($e->errorInfo[2] == "Data too long for column 'note' at row 1") {
+				alerts::echo_alert('note is too long!');
+			}
 			if($e->errorInfo[2] == "Data too long for column 'name' at row 1") {
 				alerts::echo_alert('name is too long!');
 			}

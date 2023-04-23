@@ -69,14 +69,16 @@ if(isset($_GET['table'])) {
 		 * )
 		 */
 		if(isset($_GET['transaction']) && isset($_GET['ta'])) {
-			echo "<br> transaction: <br>"; print_r($_GET['transaction']);
-			echo "<br> ta : <br><pre>"; print_r($_GET['ta']);
+//			echo "<br> transaction: <br>"; print_r($_GET['transaction']);
+//			echo "<br> ta : <br><pre>"; print_r($_GET['ta']);
 
 			// first create transaction
 			$timestamp = cleanInput($_GET['transaction']['timestamp']);
 			$note = cleanInput($_GET['transaction']['note']);
 			$parameters = array('timestamp'=>$timestamp, 'note' => $note);
-			if(db::add('transactions', $parameters) !== 0) {
+			$result = db::add('transactions', $parameters);
+			if($result !== 0) {
+//				echo "<br> result = <pre> "; print_r($result);
 				die('error in creating transaction from db_public');
 			}
 
@@ -87,7 +89,7 @@ if(isset($_GET['table'])) {
 
 			// then add tr_acc_involved for each involved account
 			foreach($_GET['ta'] as $ta){
-				echo "<br> ta : <br><pre>"; print_r($ta);
+//				echo "<br> ta : <br><pre>"; print_r($ta);
 				/*
 				 *  ! ! ! possible problems in the future ! !  !
 				 *  if the user has sent a NULL account, let's just skip it:
@@ -111,7 +113,9 @@ if(isset($_GET['table'])) {
 						$exit0orenter1 = cleanInput($ta['exit0orenter1']);
 						$amount = number_format(cleanInput($ta['amount']), 2, ".", "");
 						$parameters = array('transactions.id'=>$tID, 'accounts.id'=>$accID, 'exit0orenter1'=> $exit0orenter1, 'amount'=>$amount);
-						if(db::add('transaction_accounts_involved', $parameters) !== 0) {
+						$result = db::add('transaction_accounts_involved', $parameters);
+						if($result !== 0) {
+//							echo "<br> Result = <pre> "; print_r($result);
 							die('error in creating transaction_accounts_involved from db_public');
 						}
 					}

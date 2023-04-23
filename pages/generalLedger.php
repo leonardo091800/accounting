@@ -116,10 +116,12 @@ foreach($_SESSION['transactions'] as $tr) {
       $(\"#tr{$currentTrID}date\").html(formattedDateLocal);
 //      $(\"#tr{$currentTrID}date\").html(formattedDateLocal + ' ' + formattedTimeLocal);
 
+/*
 	console.log('unformattedDate = '+unformattedDate);
 	console.log('formattedDate = '+formattedDate);
 	console.log('formattedDateLocal = '+formattedDateLocal);
 	console.log('formattedTimeLocal = '+formattedTimeLocal);
+*/
     });
     </script>
 		";
