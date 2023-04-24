@@ -25,7 +25,7 @@ if(isset($_POST['mail']) && isset($_POST['psw'])) {
 		}
 	} else {
 //		print_r($result);
-		echo "<br> logged in successfully as {$result[0]['name']} {$result[0]['surname']} <br> redirecting in 2 seconds...";
+		alerts::echo_advice("<br> logged in successfully as {$result[0]['name']} {$result[0]['surname']} <br> redirecting in 2 seconds...");
 		$_SESSION['userID'] = $result[0]['id'];
 		$_SESSION['authenticated'] = true;
 

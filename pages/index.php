@@ -66,7 +66,7 @@ if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated']) || $_SESSIO
 	if(isset($_GET['loginResponse'])) {
 		echo "<span class='error'> ".$_GET['loginResponse']." </span>";
 	}
-	echo "<br> please login or signup <br>";
+	alerts::echo_advice("please login or signup");
 	echo "<div class='table'>";
 	require_once $root_login;
 	require_once $root_signup;
@@ -109,7 +109,12 @@ require_once $root_Pages_menu;
 
 // - - - generalLedger - - - 
 if($menuSelected == 'generalLedger') {
-	require_once $root_transactionAdd;
+	// if there are no accounts, hide the add-transaction page
+	if(count($_SESSION['accounts']) <= 1 ) {
+		alerts::echo_advice("You need to create at least 2 accounts first!");
+	} else {
+		require_once $root_transactionAdd;
+	}
 	require_once $root_generalLedger;
 }
 // - - - /menu - - - 

@@ -25,7 +25,7 @@ if(isset($_POST['mail']) && isset($_POST['psw']) && isset($_POST['name']) && iss
 		if($result['type'] == 'isset') {
 			$parameters = array('mail' => $mail, 'psw' => $p, 'name' => $name, 'surname' => $surname);
 			if(db::add('users', $parameters) == 0) {
-				echo "<br> user $name $surname with email $mail added successfully!";
+				alerts::echo_advice("<br> user $name $surname with email $mail added successfully!");
 				require_once $root_login;
 				$print_signup = false;
 			}

@@ -28,6 +28,9 @@ class alerts {
 	public static function echo_alert($what) {
 		echo "<script> alert('$what'); </script>";
 	}
+	public static function echo_advice($what) {
+		echo "<div class='advice'> $what </div>";
+	}
 	public static function echo_success() {
 		echo "<script> alert('success'); </script>";
 	}

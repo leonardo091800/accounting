@@ -4,6 +4,8 @@
 	--bgColorDarker: rgba(200, 230, 250, 1);	/* light blue but darker */
 	--tdColorLight: var(--bgColor);			/* light blue but darker */
 	--tdColorDark: rgba(210, 230, 250, 1);		/* light blue but darker */
+	--menuBgColor: rgba(173, 216, 250, 0.5);
+	--menuShadowColor: rgba(172, 216, 250, 0.7); 
 	--th2Height: 60px;
 }
 html {
@@ -26,6 +28,14 @@ form {
 	width: 100px;
 	padding: 2px;
 }
+div.advice {
+	background-color: var(--bgColor);
+	margin: auto;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px dashed blue;
+	text-align: center;
+}
 .error {
 	color: red;
 }
@@ -47,9 +57,9 @@ form {
 }
 .menu {
 	padding: 5px;
-	background-color: rgba(173, 216, 250, 0.5);
+	background-color: var(--menuBgColor);
 	border-radius: 5px;
-	box-shadow: 5px 5px 5px rgba(173, 216, 250, 0.7);
+	box-shadow: 5px 5px 5px var(--menuShadowColor);
 }
 .menu:hover {
 	/* not working --> */

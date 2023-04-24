@@ -19,7 +19,7 @@ echo "
     <div class='th2'>
     <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
       <input form='createAccount' type='hidden' name='table' value='accounts'>
-      <input form='createAccount' type='text' name='name' required>
+      <input form='createAccount' type='text' name='name' placeholder='e.g. revenue or cash or espenses' required>
       <br>
       <input form='createAccount' type='submit' value='create Account'>
     </form>
