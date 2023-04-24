@@ -3,6 +3,34 @@ echo "
 <div class='caption'> Accounts Management page </div>
 <div id='accountsManagement' class='table secondaryTable'>
 ";
+
+// Add Account
+echo "
+<div id='addAccount' class='table'>
+  <div class='tr'>
+    <div class='th2'>
+      Create new Account:
+    </div>
+  </div>
+  <div class='tr'>
+    <div class='td'>
+      Name:
+    </div>
+    <div class='td'>
+    <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
+      <input form='createAccount' type='hidden' name='table' value='accounts'>
+      <input form='createAccount' type='text' name='name' placeholder='e.g. revenue or cash or espenses' required>
+    </div>
+  </div>
+  <div class='tr'>
+    <div class='th2'>
+      <input form='createAccount' type='submit' value='create Account'>
+    </form>
+    </div>
+  </div>
+</div>
+";
+
 // list all accounts as slideshow with a RM button on top and MODIFY button on bottom
 foreach($_SESSION['accounts'] as $a) {
 	$accID = $a['id'];
@@ -11,6 +39,8 @@ foreach($_SESSION['accounts'] as $a) {
 <div id='account{$accID}' class='table'>
   <div class='tr'>
 ";
+
+
 	// Remove Button
 	echo "
     <div class='th2'>
