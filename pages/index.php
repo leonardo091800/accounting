@@ -5,9 +5,10 @@ require_once $root_Scripts_checkSessionVariables;
 require_once $root_Scripts_style;
 ?>
 
-<!DOCTYPE html PUBLIC>
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
+<title> Accounting for moms </title>
 <?php 
 require_once $root_Style_main;
 require_once $root_js_toggleDisplay;
@@ -86,6 +87,7 @@ if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated']) || $_SESSIO
 // - - - Session variables - - -
 // I know I should do it properly with a function etc. but dont have time and for now it works:
 require_once $root_getAccounts;
+require_once $root_getAccountsGroups;
 require_once $root_getTransactions;
 
 $_SESSION['sums'] = array();

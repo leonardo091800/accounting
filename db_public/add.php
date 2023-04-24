@@ -21,7 +21,23 @@ if(isset($_GET['table'])) {
 			if(db::add('accounts', $parameters) === 0) {
 //				alerts::echo_success();
 
-				// resetting the session parameters:
+				// redirecting to pages
+				redirect::to_page($root_Pages_HTML);
+			} else {
+				alerts::echo_alert('something went wrong');
+				redirect::to_page($root_Pages_HTML);
+			}
+		} else {
+			errors::echo_error('fieldNotGiven', 'Name');
+		}
+		break;
+	case 'accounts_groups':
+		if(isset($_GET['name'])) {
+			$name = cleanInput($_GET['name']);
+			$parameters = array('name'=>$name, 'users.id'=>$_SESSION['userID']);
+
+			if(db::add('accounts_groups', $parameters) === 0) {
+//				alerts::echo_success();
 
 				// redirecting to pages
 				redirect::to_page($root_Pages_HTML);
@@ -30,7 +46,26 @@ if(isset($_GET['table'])) {
 				redirect::to_page($root_Pages_HTML);
 			}
 		} else {
-			errors::echo_error('fieldNotGiven', 'Name or account type');
+			errors::echo_error('fieldNotGiven', 'Name');
+		}
+		break;
+	case 'account_x_group':
+		if(isset($_GET['accID']) && isset($_GET['agID'])) {
+			$accID = cleanInput($_GET['accID']);
+			$agID = cleanInput($_GET['agID']);
+			$parameters = array('accounts.id'=>$accID, 'accounts_groups.id'=>$agID);
+
+			if(db::add('account_x_group', $parameters) === 0) {
+//				alerts::echo_success();
+
+				// redirecting to pages
+				redirect::to_page($root_Pages_HTML);
+			} else {
+				alerts::echo_alert('something went wrong');
+				redirect::to_page($root_Pages_HTML);
+			}
+		} else {
+			errors::echo_error('fieldNotGiven', 'accID or agID');
 		}
 		break;
 

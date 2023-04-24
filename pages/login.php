@@ -2,7 +2,21 @@
 require_once '/var/www/html/accounting/z.scripts/root.php';
 require_once $root_Scripts_cleanInput;
 require_once $root_Errors_main;
+?>
 
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<title> Accounting for moms </title>
+<?php 
+require_once $root_Style_main;
+require_once $root_js_toggleDisplay;
+require_once $root_js_setStyle;
+?>
+</head>
+<body>
+
+<?php
 // just a small variable that get set to false when user logs in
 $print_login = true;
 

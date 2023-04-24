@@ -169,8 +169,8 @@ class db {
 		if(empty($column) || $column=='') {
 			die("<br> in function db::alter column needs to be given <br>");
 		}
-		if(empty($newValue) || $newValue=='') {
-			die("<br> in function db::alter newValue needs to be given <br>");
+		if(empty($newValue) || $newValue==='') {
+			die("<br> in function db::alter newValue needs to be given <br> newValue = $newValue");
 		}
 
 		$parameters = array('id'=>$id);
@@ -282,7 +282,7 @@ class db {
 	public static function checkIfExist($table, $parameters) {
 		global $root_DB_setup;
 
-		$global_tables = array('users', 'accounts', 'account_types', 'transactions', 'transaction_accounts_involved',
+		$global_tables = array('users', 'accounts', 'account_x_group', 'accounts_groups', 'transactions', 'transaction_accounts_involved',
 		'reports', 'report_captions', 'report_caption_trs', 'report_caption_tr_tds', 'report_caption_tr_td_values');
 
 

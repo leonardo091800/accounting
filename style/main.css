@@ -2,6 +2,8 @@
 :root {
 	--bgColor: rgba(220, 240, 250, 1);		/* lightblue */
 	--bgColorDarker: rgba(200, 230, 250, 1);	/* light blue but darker */
+	--bgColorUnselected: rgba(30, 30, 30, 0.3);	
+	--bgColorSelected: rgba(50, 200, 50, 0.7);	
 	--tdColorLight: var(--bgColor);			/* light blue but darker */
 	--tdColorDark: rgba(210, 230, 250, 1);		/* light blue but darker */
 	--menuBgColor: rgba(173, 216, 250, 0.5);
@@ -24,9 +26,21 @@ form {
 }
 .button {
 	border: 1px solid blue;
+	border-radius: 5px;
 	margin: 5px auto;
-	width: 100px;
 	padding: 2px;
+	background-color: var(--menuBgColor);
+	box-shadow: 5px 5px 5px var(--menuShadowColor);
+	cursor: pointer;
+	/*
+	width: 100px;
+	*/
+}
+.selected {
+	background-color: var(--bgColorSelected);
+}
+.unselected {
+	background-color: var(--bgColorUnselected);
 }
 div.advice {
 	background-color: var(--bgColor);
@@ -60,6 +74,7 @@ div.advice {
 	background-color: var(--menuBgColor);
 	border-radius: 5px;
 	box-shadow: 5px 5px 5px var(--menuShadowColor);
+	text-align: center;
 }
 .menu:hover {
 	/* not working --> */
@@ -109,6 +124,7 @@ div.advice {
 }
 */
 .caption {
+	margin-top: 30px;
 	font-weight: bold;
 	font-size: 1.2em;
 	text-align: center;
@@ -169,12 +185,6 @@ div.advice {
 /*
 */
 }
-.td:nth-child(4n+3), .td:nth-child(4n+2) {
-	background-color: var(--tdColorLight);
-}
-.td:nth-child(4n+4), .td:nth-child(4n+5) {
-	background-color: var(--tdColorDark);
-}
 .td {
 	min-width: 100px;
 	font-size: 0.9rem;
@@ -204,11 +214,21 @@ div.advice {
 /*
  * - - - - - - - - - - - Style for GeneralLedger - - - - - - - - - - - 
  */
-#generalLedger .caption {
-	top: - var(--th2Height);
-	margin-top: 0px;
+#generalLedger {
+	max-height: 500px;
+}
+#generalLedgerCaption {
+	top: var(--th2Height);
 	position: sticky;
 	position: -webkit-sticky;
+	/*
+	margin-top: 0px;
+	*/
+}
+#generalLedger .th2 {
+	/*
+	background-color: var(--bgColorDarker);
+	*/
 }
 #generalLedger .th2:nth-of-type(1) {
 	background-color: var(--bgColorDarker);
@@ -226,22 +246,23 @@ div.advice {
 	position: -webkit-sticky;
 	z-index: 6;
 }
-#generalLedger .tr:nth-of-type(2), #generalLedger .tr:nth-of-type(3) {
+#generalLedger .tr:nth-of-type(1), #generalLedger .tr:nth-of-type(2) {
+	/*
 	background-color: var(--bgColorDarker);
+	 */
 	margin-top: 0px;
 	position: sticky;
 	position: -webkit-sticky;
 }
-#generalLedger .tr:nth-of-type(2) {
+#generalLedger .tr:nth-of-type(1) {
 	top: 0;
 	z-index: 10;
 }
-#generalLedger .tr:nth-of-type(3) {
+#generalLedger .tr:nth-of-type(2) {
 	top: var(--th2Height);
 	z-index: 9;
 }
 #generalLedger .tr:last-child {
-	background-color: var(--bgColorDarker);
 	margin-bottom: 0px;
 	bottom: 0;
 	position: sticky;
@@ -252,6 +273,25 @@ div.advice {
 	overflow: auto;
 	align-self: flex-start;
  */
+}
+
+#generalLedger .th2:nth-child(2n+2){
+	background-color: var(--tdColorLight);
+}
+#generalLedger .th2:nth-child(2n+3) {
+	background-color: var(--tdColorDark);
+}
+#generalLedger .th3:nth-child(4n+3), .th3:nth-child(4n+2) {
+	background-color: var(--tdColorLight);
+}
+#generalLedger .th3:nth-child(4n+4), .th3:nth-child(4n+5) {
+	background-color: var(--tdColorDark);
+}
+#generalLedger .td:nth-child(4n+3), .td:nth-child(4n+2) {
+	background-color: var(--tdColorLight);
+}
+#generalLedger .td:nth-child(4n+4), .td:nth-child(4n+5) {
+	background-color: var(--tdColorDark);
 }
 /*
  * - - - - - - - - - - - END OF - Style for Main Tables made with DIVS - - - - - - - - - - - 
@@ -298,17 +338,17 @@ div.advice {
 /*
  * - - - - - - - - - - - Style for Accounts Management page - - - - - - - - - - - 
  */
-#accountsManagement.table {
+.managementTable {
 	margin-top: 0px;
 	flex-direction: row;
 	-webkit-flex-direction: row;
 }
-#accountsManagement .table {
+.managementTable .table {
 	margin-top: 0px;
 	min-width: 200px;
 	margin-right: 10px;
 }
-#accountsManagement .tr{
+.managementTable .tr{
 	min-width: 0px;
 }
 /*

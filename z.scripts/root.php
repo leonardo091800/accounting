@@ -20,6 +20,7 @@ $root_Pages_menu = $root_Pages."menu.php";
 $root_Pages_users = $root_Pages."users.php";
 $root_Pages_accounts = $root_Pages."accounts.php";
 $root_accountsManagement = $root_Pages."accountsManagement.php";
+$root_accountsGroupsManagement = $root_Pages."accountsGroupsManagement.php";
 $root_transactionAdd = $root_Pages."transaction-add.php";
 $root_generalLedger = $root_Pages."generalLedger.php";
 $root_reports = $root_Pages."reports.php";
@@ -34,6 +35,7 @@ $root_DB_defaults = $root_DB."defaults.php";
 
 $root_DB_Public = $root."db_public/";
 $root_getAccounts = $root_DB_Public."getAccounts.php";
+$root_getAccountsGroups = $root_DB_Public."getAccountsGroups.php";
 $root_getTransactions = $root_DB_Public."getTransactions.php";
 $root_getReportsPersonalized = $root_DB_Public."getReportsPersonalized.php";
 

@@ -1,5 +1,4 @@
 <?php
-echo "<div id='generalLedger'>";
 
 // - - - DEBUGGING - - -
 // echo "<br> accounts: "; print_r($_SESSION['accounts']);
@@ -7,14 +6,15 @@ echo "<div id='generalLedger'>";
 // - - - DEBUGGING - - -
 
 
-
+echo "
+";
 
 // ------------------------------------------------------
 // 1st Line of Table
 // possibility to create account first
 echo "
-<div class='table'>
-  <div class='caption'> General Ledger </div>
+<div id='generalLedgerCaption' class='caption'> General Ledger </div>
+<div id='generalLedger' class='table'>
   <div class='tr'>
     <div class='th2'>
     <form id='createAccount' action='$root_DB_add_HTML' method='GET'>
@@ -29,7 +29,7 @@ echo "
 // then echo all accounts
 foreach($_SESSION['accounts'] as $acc) {
 	echo "
-    <div class='th2 accName'>
+    <div class='th2'>
       <div class='accName'> ".$acc['name']."</div>
 	";
 
