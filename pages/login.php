@@ -35,7 +35,7 @@ if(isset($_POST['mail']) && isset($_POST['psw'])) {
  	// if result is empty no user with that psw and email found
 	if(isset($result['error'])) {
 		if($result['type'] == 'isset') {
-			header("Location: $root_Pages_HTML?loginResponse=USername Not Found or Wrong Password");
+			redirect::to_page("$root_Pages_HTML?loginResponse=USername Not Found or Wrong Password");
 		}
 	} else {
 //		print_r($result);
