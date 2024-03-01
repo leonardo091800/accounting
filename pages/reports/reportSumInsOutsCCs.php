@@ -8,6 +8,7 @@ require_once($root_DB_main);
 <head>
 <?php 
 require_once $root_Style_main;
+require_once $root_js_jquery;
 ?>
 </head>
 <body id='body'>

@@ -9,6 +9,7 @@ require_once $root_Scripts_cleanInput;
 <head>
 <?php 
 require_once $root_Style_reportDownload;
+require_once $root_js_jquery;
 ?>
 </head>
 <body id='body'>

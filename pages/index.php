@@ -13,8 +13,8 @@ require_once $root_Scripts_style;
 require_once $root_Style_main;
 require_once $root_js_toggleDisplay;
 require_once $root_js_setStyle;
+require_once $root_js_jquery;
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <?php
 echo "
 <script>

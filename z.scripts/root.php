@@ -51,6 +51,7 @@ $root_Style_reportDownload = $root_Style."reportDownload.css";
 $root_js = $root."z.scripts/js/";
 $root_js_toggleDisplay = $root_js."toggleDisplay.js";
 $root_js_setStyle = $root_js."setStyle.js";
+$root_js_jquery = $root_js."jquery.js";
 
 $root_updates = $root."updates/";
 $root_checkUpdate = $root_updates."checkUpdate.php";
