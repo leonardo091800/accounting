@@ -27,6 +27,16 @@ class db {
 			return $conn;
 		} 
 		catch(PDOException $e) {
+			// if connection failed because no correct user
+			if($e->errorInfo[1] == 1698) {
+				echo "you need to create the user for mysql: 
+				<br> sudo mysql -u root -p
+				<br> CREATE DATABASE '$db';
+				<br> GRANT ALL PRIVILEGES ON $db.* TO $username@localhost IDENTIFIED BY '$password';
+				<br> FLUSH PRIVILEGES;
+				<br> ";
+			}
+
 			// if connection failed because no database name:
 			if($e->errorInfo[1] == 1049) {
 				require_once $root_DB_setup;
@@ -38,8 +48,7 @@ class db {
 #			}
 
 			// if error is neither of those specified above:
-			echo "Connection failed, send this to the admin: " . $e->getMessage();
-			echo "<br> <br>"; var_dump($e->errorInfo);
+			echo "Connection failed, send this to the admin: <br> Message: ". $e->getMessage() . "<br> Code: " . $e->getCode() . "<br> Trace: " . var_dump($e->getTrace());
 
 		}
 	}

@@ -4,7 +4,7 @@ require_once $root_accountsManagement;
 /* - - - - - - Management page of Accounts - - - - */
 			
 /* - - - - - - Management page of Accounts Groups - - - - */
-require_once $root_accountsGroupsManagement;
+//require_once $root_accountsGroupsManagement;
 /* - - - - - - Management page of Accounts Groups - - - - */
 			
 echo "<div class='caption'> Profile Management page </div>";

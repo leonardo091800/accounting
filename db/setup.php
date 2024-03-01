@@ -23,7 +23,8 @@ class db_setup {
 		}
 
 		// if setup is correct:
-		header("Location: /accounting");
+		echo_success_ln("setup is a success!");
+		echo_reloadLocation();
 	}
 
 
@@ -69,6 +70,9 @@ class db_setup {
 			echo "<br> Cannot give privileges to user over db: " . $e->getMessage();
 			exit;
 		}
+
+		// if setup is correct:
+		echo_success_ln("DB created successfully");
 	}
 
 
@@ -95,9 +99,10 @@ $sql_transactions_transactionTypes_constraint = "ALTER TABLE `accounting_db`.`tr
 $sql_transactionAccountsInvolved_transactions_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-transactions` FOREIGN KEY (`transactions.id`) REFERENCES `transactions`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_db`.`transaction_accounts_involved` ADD CONSTRAINT `transactionAccountsInvolved-accounts` FOREIGN KEY (`accounts.id`) REFERENCES `accounts`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;";
 
+$sql_technicals = "CREATE TABLE `accounting_db`.`technicals` (`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT , `accounting_version` VARCHAR(10), PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 		$tablesSQL = array(
 			$sql_users, 
-
+	
 			$sql_accountsGroups, 
 			$sql_accountsGroups_users_constraint,
 			$sql_accountXGroup, 
@@ -105,24 +110,29 @@ $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_
 			$sql_accounts_users_constraint, 
 			$sql_accountXGroup_accounts_constraint, 
 			$sql_accountXGroup_accountsGroups_constraint, 
-
+	
 			$sql_transactionTypes,
 			$sql_transactionAccountsInvolved,
 			$sql_transactions,
 			$sql_transactions_transactionTypes_constraint,
 			$sql_transactionAccountsInvolved_transactions_constraint,
 			$sql_transactionAccountsInvolved_accounts_constraint,
-		);
 
+			$sql_technicals,
+		);
+	
 		foreach($tablesSQL as $tableSQL) {
 			if(db_setup::doSQL($conn, $tableSQL, "createTables") == 0) {
-//				echo "tables created successfully";
+	//			echo "tables created successfully";
 			}
 			else {
 				die('error in db_setup::createTables, sql = '.$tableSQL);
 			}
 		}
-	return 0;
+	
+		// if setup is correct:
+		echo_success_ln("tables setup is a success!");
+		return 0;
 	} 
 
 
@@ -154,7 +164,9 @@ $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_
 				die("error in db_setup::createReportTables, <br> $i <br> sql = $sql");
 			}
 		}
-	return 0;
+		// if setup is correct:
+		echo_success_ln("Report tables setup is a success!");
+		return 0;
 	} 
 
 
@@ -164,8 +176,20 @@ $sql_transactionAccountsInvolved_accounts_constraint = "ALTER TABLE `accounting_
 	 */
 	public static function populateTables($conn) {
 		// defining default accounts 
-		$accounts_arr = array();
+		$populateTablesSQL = array(
+'sql_set_version' => "INSERT INTO `accounting_db`.`technicals` (`accounting_version`) VALUES ('1.1.2');",
+		);
 
+		foreach($populateTablesSQL as $i=>$sql) {
+			if(db_setup::doSQL($conn, $sql, $i) == 0) {
+//				echo "sql $i sent successfully";
+			}
+			else {
+				die("error in db_setup::createReportTables, <br> $i <br> sql = $sql");
+			}
+		}
+		// if setup is correct:
+		echo_success_ln("Tables populated during setup successfully!");
 		return 0;
 	}
 

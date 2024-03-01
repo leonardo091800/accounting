@@ -75,4 +75,17 @@ $root_DB_rm_HTML = $root_DB_HTML."rm.php";
 
 $root_Scripts_HTML = $root_HTML."z.scripts/";
 $root_Scripts_html2pdf_HTML = $root_Scripts_HTML."html2pdf/dist/html2pdf.bundle.min.js";
+
+
+function echo_success($msg) {
+	echo "<span class='echo_success'>$msg</span>";
+}
+function echo_success_ln($msg) {
+	echo "<br>";
+	echo_success($msg);
+}
+
+function echo_reloadLocation() {
+	echo "<script> location.reload() </script>";
+}
 ?>

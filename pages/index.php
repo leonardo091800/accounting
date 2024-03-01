@@ -87,7 +87,7 @@ if(!isset($_SESSION['userID']) || !isset($_SESSION['authenticated']) || $_SESSIO
 // - - - Session variables - - -
 // I know I should do it properly with a function etc. but dont have time and for now it works:
 require_once $root_getAccounts;
-require_once $root_getAccountsGroups;
+//require_once $root_getAccountsGroups;
 require_once $root_getTransactions;
 
 $_SESSION['sums'] = array();

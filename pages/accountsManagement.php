@@ -94,6 +94,7 @@ $(document).ready(function() {
 	";
 
 
+/*
 	// groups
 	echo "
     <div class='tr'>
@@ -153,6 +154,8 @@ $(document).ready(function() {
        </div> <!-- /td -->
     </div> <!-- /tr -->
 	";
+
+*/
 
 
 	// Update Button
