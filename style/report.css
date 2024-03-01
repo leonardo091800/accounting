@@ -4,6 +4,9 @@ html {
 }
 
 
+/*
+ * - - - - - - - - - - - Style for Personalized Report - - - - - - - - - - - 
+ */
 input[name="name"].reportGeneric {
 	width: 500px;
 }
@@ -64,4 +67,7 @@ textarea.reportGeneric {
 	align-content: stretch;
 	gap: 0px;
 }
+/*
+ * - - - - - - - - - - - / Style for Personalized Report - - - - - - - - - - - 
+ */
 </style>

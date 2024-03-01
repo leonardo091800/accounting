@@ -38,7 +38,7 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 
 	// inizio creazione rendiconto
 	// Titolo
-	echo "<div id='report' class='table'>
+	echo "<div id='report' class=''>
 	        <div class='caption'> RENDICONTO </div>";
 
 	// periodo riferimento
@@ -46,8 +46,9 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 		<div class='caption'> PERIODO DI RIFERIMENTO DAL $beginDate AL $endDate </div>";
 
 	// Entrate
-	echo "<div class='table'> 
-<div class='caption'> Somma Entrate </div>  
+		echo "
+<div class=''> 
+	<div class='caption'> Somma Entrate </div>  
 	";
 	foreach($entrate as $accName) {
 		$accID = db::getID('accounts', array('name'=>$accName, 'users.id'=>$_SESSION['userID']));
@@ -62,19 +63,22 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 		$tot = $beginSum - $endSum;
 
 		echo "
-<div class='tr'>
-<div class='td'> $accName </div>
-<div class='td'> $tot </div>
-</div> <!-- /tr --> 
-</div> <!-- /table -->
+	<div class='tr'>
+		<div class='td'> $accName </div>
+		<div class='td'> $tot </div>
+	</div> <!-- /tr --> 
 ";
 	}
+		echo "
+</div> <!-- / table -->
+		";
 
 
 
 	// Uscite 
-	echo "<div class='table'> 
-<div class='caption'> somma Uscite </div>  
+		echo "
+<div class=''> 
+	<div class='caption'> somma Uscite </div>  
 	";
 	foreach($uscite as $accName) {
 		$accID = db::getID('accounts', array('name'=>$accName, 'users.id'=>$_SESSION['userID']));
@@ -89,19 +93,22 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 		$tot = $endSum - $beginSum;
 
 		echo "
-<div class='tr'>
-<div class='td'> $accName </div>
-<div class='td'> $tot </div>
-</div> <!-- /tr --> 
-</div> <!-- /table -->
+	<div class='tr'>
+		<div class='td'> $accName </div>
+		<div class='td'> $tot </div>
+	</div> <!-- /tr --> 
 	";
 	}
+		echo "
+</div> <!-- /table -->
+		";
+
 
 
 
 	// Conti 
 		echo "
-<div class='table'> 
+<div class=''> 
   <div class='caption'> Conti / Banche </div>  
 	";
 	foreach($conti as $accName) {
