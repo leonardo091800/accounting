@@ -155,7 +155,7 @@ html2pdf().from(element).save('filename.pdf');
 ";
 
 } else {
-	echo "some parameters missing";
+	echo "some parameters missing, you need to check at least 1 of each 'Entrate' 'Uscite' 'CC'";
 }
 ?>
 <body>

@@ -13,6 +13,8 @@ $sql = "SELECT a.id as id, a.name as name, axg.`accounts_groups.id` as accGroupI
 	ON ag.id = axg.`accounts_groups.id`
 
 	WHERE a.`users.id` = {$_SESSION['userID']}
+
+	ORDER BY name;
 	";
 
 try {
