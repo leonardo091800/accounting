@@ -58,7 +58,7 @@ if(isset($_GET['beginDate']) && isset($_GET['endDate']) && isset($_GET['entrate'
 		// get final sum of account
 		$endSum = db::getSum($accID, $endDate);
 
-		$tot = $endSum - $beginSum;
+		$tot = $beginSum - $endSum;
 
 		echo "
 <div class='tr'>

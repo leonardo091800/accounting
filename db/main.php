@@ -372,8 +372,8 @@ class db {
 		// if checks are ok...
 		$conn = db::connect();
 
-		$sqlEntrate = "SELECT amount FROM transaction_accounts_involved WHERE `accounts.id`='$accID' AND `exit0orenter1`='1' AND `transactions.id` IN (SELECT id FROM transactions WHERE DATE(timestamp) >= '$date')";
-		$sqlUscite = "SELECT amount FROM transaction_accounts_involved WHERE `accounts.id`='$accID' AND `exit0orenter1`='0' AND `transactions.id` IN (SELECT id FROM transactions WHERE DATE(timestamp) >= '$date')";
+		$sqlEntrate = "SELECT amount FROM transaction_accounts_involved WHERE `accounts.id`='$accID' AND `exit0orenter1`='1' AND `transactions.id` IN (SELECT id FROM transactions WHERE DATE(timestamp) <= '$date')";
+		$sqlUscite = "SELECT amount FROM transaction_accounts_involved WHERE `accounts.id`='$accID' AND `exit0orenter1`='0' AND `transactions.id` IN (SELECT id FROM transactions WHERE DATE(timestamp) <= '$date')";
 
 		try {
 			$q=$conn->prepare($sqlEntrate);
