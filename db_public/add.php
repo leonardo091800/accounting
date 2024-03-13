@@ -161,7 +161,7 @@ if(isset($_GET['table'])) {
 			}
 
 			// if everything is ok:
-			alerts::echo_success();
+			//alerts::echo_success();
 			$_SESSION['transactionAdd']['accountsExitInvolved'] = 1;
 			$_SESSION['transactionAdd']['accountsEnterInvolved'] = 1;
 			redirect::to_page($root_Pages_HTML);
