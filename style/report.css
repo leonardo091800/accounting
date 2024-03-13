@@ -10,6 +10,9 @@ html {
 input[name="name"].reportGeneric {
 	width: 500px;
 }
+input {
+	width: 100%;
+}
 textarea.reportGeneric {
 	width: 500px;
 	height: 100px;
@@ -57,6 +60,9 @@ textarea.reportGeneric {
 	flex-direction: column;
 	align-items: stretch;
 	align-content: stretch;
+}
+.report_caption_tr_tdsContainer {
+	width: 100%;
 }
 .report_caption_tr_td_values {
 	background-color: lightgreen;

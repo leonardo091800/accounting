@@ -70,7 +70,7 @@ echo "<!--
 <input form='alter{$table}{$id}' type='hidden' name='parameters[table]' value='$table'>
 <input form='alter{$table}{$id}' type='hidden' name='parameters[id]' value='$id'>
 <input form='alter{$table}{$id}' type='hidden' name='parameters[columnName]' value='name'>
-<input form='alter{$table}{$id}' type='text' name='parameters[newValue]' value='' class='' placeholder='$currentName'>
+<input form='alter{$table}{$id}' type='text' name='parameters[newValue]' value='$currentName' class='' placeholder='$currentName'>
 <input form='alter{$table}{$id}' style='visibility:hidden;' type='submit' value='alter $table$id'>
 </form>
 </div>
