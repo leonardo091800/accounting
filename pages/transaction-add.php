@@ -31,7 +31,7 @@ for($i=0; $i<$_SESSION['transactionAdd']['accountsExitInvolved']; $i++) {
   <div class='accountInvolved'>
     <input form='add{$tableTMP}Form' type='hidden' name='ta[exit{$i}][exit0orenter1]' value='0'>
     <div id='amountExit{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='ta[exit{$i}][amount]' class='addInput exitAmount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' id='taexit{$i}amount' name='ta[exit{$i}][amount]' class='addInput exitAmount' step='0.01' required>
     </div>
     <div class='th2'> 
       <select form='add{$tableTMP}Form' class='addInput' name='ta[exit{$i}][accID]' required> 
@@ -81,7 +81,7 @@ for($i=0; $i<$_SESSION['transactionAdd']['accountsEnterInvolved']; $i++) {
   <div class='accountInvolved'>
     <input form='add{$tableTMP}Form' type='hidden' name='ta[enter{$i}][exit0orenter1]' value='1'>
     <div id='amountEnter{$i}' class='th3'> 
-      <input form='add{$tableTMP}Form' type='number' name='ta[enter{$i}][amount]' class='addInput enterAmount' step='0.01' required>
+      <input form='add{$tableTMP}Form' type='number' id='taenter{$i}amount' name='ta[enter{$i}][amount]' class='addInput enterAmount' step='0.01' required>
     </div>
     <div class='th2'> 
       <select form='add{$tableTMP}Form' class='addInput' name='ta[enter{$i}][accID]' required> 
@@ -119,6 +119,19 @@ echo "
       </div>
     </div> <!-- / accountsInvolved -->
 ";
+
+
+?>
+<script>
+// automatically insert the value of the input from the account with exit0orenter1=0 -> exit0oenter1=1 (works only for the first account)
+$(document).ready(function() { 
+  $("#taexit0amount").focusout(function() {
+    $("#taenter0amount").val($("#taexit0amount").val());
+  });
+}); 
+</script>
+<?php
+
 
 echo "
     <div class='th2'> 
