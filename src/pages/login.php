@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/html/accounting/z.scripts/root.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/z.scripts/root.php';
 require_once $root_Scripts_cleanInput;
 require_once $root_Errors_main;
 ?>
