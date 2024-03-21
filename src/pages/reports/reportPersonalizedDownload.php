@@ -173,6 +173,7 @@ if(!isset($report_captionsRaw['error'])) {
 	}
 }
 	// button to export as PDF
+/* NOT WORKING
 	echo "
 <br><br><br>
 </div> <!-- /report -->
@@ -188,6 +189,7 @@ html2pdf().from(element).save('filename.pdf');
 });
 </script>
 ";
+ */
 ?>
 <body>
 </html>
