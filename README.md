@@ -1,8 +1,6 @@
 # accounting For Moms
 ## Production website: *https://accountingformoms.com
-An easy program in PHP and MYSQL that can help my mum with her accounting stuff.
-
-In future maybe I'll add the possibility to have multiple users, but I need to figure out how to hide/obfuscate sensitive data
+An easy program in PHP and MYSQL that can help my mum with her accounting stuff. It now supports multiple users!
 
 You can check a testing webpage of this code here:
 * https://accountingformoms.com 
@@ -14,52 +12,38 @@ It can work even locally in any pc
 ### How to install in Windows:
 (not too sure but should be:)
 - install the XAMPP app 
-- get the zip file of this project and extract it in C:\wherever\you\want
-- change the root path in the z.scripts/root.php file and replace $root=c:\wherever\you\want\
-- change the root path in the z.scripts/root.php file and replace $root_HTML=c:\wherever\you\want\ 
+- get the zip file of this project and extract it in C:\wherever\you\installed\XAMPP
 
-### How to install In linux:
+### How to install In linux (e.g. Debian/Ubuntu):
 Install minimum dependencies (curl, sudo, git)
 ```
-# apt install sudo curl
+# apt install git nginx php php-fpm -y
 ```
 
-create user accounting:
+Start nginx (or apache2)
 ```
-# adduser accounting
-# usermod -aG sudo accounting
-```
-```
-login with new user
-# su accounting
+$ sudo vim /etc/nginx/conf.d/default
+        root /var/www/html/;
+        index index.html index.htm index.nginx-debian.html index.php;
+        server_name _;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php-fpm.sock;
+        }
+$ sudo systemctl enable --now nginx
 ```
 
-download git:
+and download the php code to the right folder:
 ```
-$ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && sudo apt update && sudo apt install gh -y
-```
-
-and download the software:
-```
-$ cd /opt/
-$ sudo git clone https://github.com/leonardo091800/accounting.git
-$ cd accounting
-$ sudo chmod +x INSTALL.sh
-$ sudo ./INSTALL.sh
+$ git clone https://github.com/leonardo091800/accounting.git
+$ sudo ln -s accounting /var/www/html/
 ```
 
 and it's done
 
-
-
-## to update:
-```
-$ cd /opt/accounting/accounting
-$ git reset --hard
-$ git pull
-$ sudo chmod +x UPDATE.sh
-$ sudo ./UPDATE.sh
-```
 
 
 ## to completely uninstall:
