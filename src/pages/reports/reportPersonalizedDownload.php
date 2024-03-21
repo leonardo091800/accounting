@@ -175,6 +175,7 @@ if(!isset($report_captionsRaw['error'])) {
 	// button to export as PDF
 	echo "
 <br><br><br>
+</div> <!-- /report -->
 <button id='button' class='center'>Export in PDF!</button>
 
 <script src='$root_Scripts_html2pdf_HTML'></script>
@@ -182,7 +183,7 @@ if(!isset($report_captionsRaw['error'])) {
 const btn = document.getElementById('button');
 
 btn.addEventListener('click', function(){
-var element = document.getElementById('body');
+var element = document.getElementById('report');
 html2pdf().from(element).save('filename.pdf');
 });
 </script>

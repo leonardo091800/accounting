@@ -2,7 +2,7 @@
 session_start();
 
 
-$root='/var/www/html/accounting/';
+$root=$_SERVER[DOCUMENT_ROOT]."/";
 
 $root_Scripts = $root."z.scripts/";
 $root_Scripts_showErrors = $root_Scripts."show_errors.php";
@@ -57,7 +57,7 @@ $root_updates = $root."updates/";
 $root_checkUpdate = $root_updates."checkUpdate.php";
 
 
-$root_HTML='/accounting/';
+$root_HTML='/';
 
 $root_Pages_HTML = $root_HTML."pages/";
 $root_storeSessionVariable_HTML = $root_Pages_storeSessionVariables_HTML = $root_Pages_HTML."storeSessionVariables.php";

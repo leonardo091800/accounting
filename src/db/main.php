@@ -14,9 +14,23 @@ class db {
 	public static function connect() {
 		global $root_DB_setup;
 
-		$servername="localhost";
-		$username='accountingAdmin';
-		$password='q0+vyBLb4AmGKusU';
+		$servername=getenv("DB_HOST");
+		$username=getenv("DB_USR");
+		$password=getenv("DB_PSW");
+
+		if ( $servername === false ) {
+#			alerts::echo_alert("variable DB_HOST not set! Using default 'localhost'");
+			$servername="localhost";
+		}
+		if ( $username === false ) {
+#			alerts::echo_alert("variable DB_USR not set! Using default 'accountingAdmin'");
+			$username='accountingAdmin';
+		}
+		if ( $password === false ) {
+#			alerts::echo_alert("variable DB_PSW not set! Using default ");
+			$password='q0+vyBLb4AmGKusU';
+		}
+
 		$db="accounting_db";
 
 		try {
@@ -37,8 +51,17 @@ class db {
 				<br> ";
 			}
 
+			elseif($e->errorInfo[1] == 1045) {
+				echo "Password is wrong, try to update the password: 
+				<br> sudo mysql -u root -p
+				<br> CREATE DATABASE '$db';
+				<br> GRANT ALL PRIVILEGES ON $db.* TO $username@localhost IDENTIFIED BY '$password';
+				<br> FLUSH PRIVILEGES;
+				<br> ";
+			}
+
 			// if connection failed because no database name:
-			if($e->errorInfo[1] == 1049) {
+			elseif($e->errorInfo[1] == 1049) {
 				require_once $root_DB_setup;
 				db_setup::setup($servername, $username, $password, $db);
 			}
@@ -48,8 +71,9 @@ class db {
 #			}
 
 			// if error is neither of those specified above:
-			echo "Connection failed, send this to the admin: <br> Message: ". $e->getMessage() . "<br> Code: " . $e->getCode() . "<br> Trace: " . var_dump($e->getTrace());
-
+			else {
+				echo "Connection failed, send this to the admin: <br> Message: ". $e->getMessage() . "<br> Code: " . $e->getCode() . "<br> Trace: " . var_dump($e->getTrace());
+			}
 		}
 	}
 
