@@ -2,7 +2,7 @@
 session_start();
 
 
-$root=$_SERVER[DOCUMENT_ROOT]."/";
+$root=$_SERVER['DOCUMENT_ROOT']."/";
 
 $root_Scripts = $root."z.scripts/";
 $root_Scripts_showErrors = $root_Scripts."show_errors.php";
