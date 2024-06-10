@@ -46,7 +46,7 @@ and it's done
 
 
 
-## to completely uninstall:
+## How to completely uninstall:
 Be careful it will erase all your data:
 ```
 $ sudo rm -rf /var/www/html/*
